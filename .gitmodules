@@ -1,0 +1,4 @@
+[submodule "EmbodiedCarbonModeling"]
+	path = EmbodiedCarbonModeling
+	url = git@github.com:S4AI-CornellTech/EmbodiedCarbonModeling.git
+	branch = microgreen
