@@ -1,0 +1,15 @@
+# Environments
+.venv/
+
+# Data and results
+figures/*
+intermediate_results/*
+
+# Distribution / packaging
+build/
+**/build_*/
+
+# platformIO
+.pio
+
+.DS_Store
