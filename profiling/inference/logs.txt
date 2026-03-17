@@ -1,0 +1,2645 @@
+=========== RP2040 ==================
+=== Starting KWS Small Model Test ===
+Program start time: 1000943 microseconds
+Model loaded successfully: KWS Small
+Input size: 1960 bytes
+Expected categories: 4
+Input tensor type: 9
+Input tensor scale: 0.101716
+Input tensor zero point: -128
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 6828 bytes
+Tensor arena memory available: 28584 bytes
+Initialization complete
+Setup() end time: 3005027
+Setup takes: 2004084 microseconds
+
+Inference 1/10 starts at: 3005188
+memcpy took: 10 microseconds
+Inference took: 28117 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 855 microseconds
+
+Inference 2/10 starts at: 3034971
+memcpy took: 10 microseconds
+Inference took: 27758 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 816 microseconds
+
+Inference 3/10 starts at: 3064326
+memcpy took: 10 microseconds
+Inference took: 27620 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 824 microseconds
+
+Inference 4/10 starts at: 3093528
+memcpy took: 11 microseconds
+Inference took: 27621 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 852 microseconds
+
+Inference 5/10 starts at: 3122768
+memcpy took: 10 microseconds
+Inference took: 27633 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 836 microseconds
+
+Inference 6/10 starts at: 3152001
+memcpy took: 11 microseconds
+Inference took: 27674 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 847 microseconds
+
+Inference 7/10 starts at: 3181292
+memcpy took: 10 microseconds
+Inference took: 27608 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 844 microseconds
+
+Inference 8/10 starts at: 3210502
+memcpy took: 10 microseconds
+Inference took: 27622 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 848 microseconds
+
+Inference 9/10 starts at: 3239728
+memcpy took: 9 microseconds
+Inference took: 27587 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 865 microseconds
+
+Inference 10/10 starts at: 3268925
+memcpy took: 10 microseconds
+Inference took: 27635 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 845 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: KWS Small
+Average memcpy time: 10.10 microseconds
+Average inference time: 27687.50 microseconds
+Average post-processing time: 843.20 microseconds
+Average total loop time: 28540 microseconds
+
+=== Starting KWS Large Model Test ===
+Program start time: 1000968 microseconds
+Model loaded successfully: KWS Large
+Input size: 490 bytes
+Expected categories: 12
+Input tensor type: 9
+Input tensor scale: 0.584703
+Input tensor zero point: 83
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 22820 bytes
+Tensor arena memory available: 32768 bytes
+Initialization complete
+Setup() end time: 3013058
+Setup takes: 2012090 microseconds
+
+Inference 1/10 starts at: 3013234
+memcpy took: 5 microseconds
+Inference took: 239026 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 1623 microseconds
+
+Inference 2/10 starts at: 3254659
+memcpy took: 4 microseconds
+Inference took: 238871 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 1646 microseconds
+
+Inference 3/10 starts at: 3495940
+memcpy took: 5 microseconds
+Inference took: 238978 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 1669 microseconds
+
+Inference 4/10 starts at: 3737358
+memcpy took: 5 microseconds
+Inference took: 239014 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 1635 microseconds
+
+Inference 5/10 starts at: 3978787
+memcpy took: 5 microseconds
+Inference took: 238976 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 1641 microseconds
+
+Inference 6/10 starts at: 4220136
+memcpy took: 4 microseconds
+Inference took: 238844 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 1587 microseconds
+
+Inference 7/10 starts at: 4461429
+memcpy took: 5 microseconds
+Inference took: 238992 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 1607 microseconds
+
+Inference 8/10 starts at: 4702846
+memcpy took: 5 microseconds
+Inference took: 239043 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 1653 microseconds
+
+Inference 9/10 starts at: 4944343
+memcpy took: 4 microseconds
+Inference took: 238851 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 1600 microseconds
+
+Inference 10/10 starts at: 5185565
+memcpy took: 4 microseconds
+Inference took: 238942 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 1616 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: KWS Large
+Average memcpy time: 4.60 microseconds
+Average inference time: 238953.70 microseconds
+Average post-processing time: 1627.70 microseconds
+Average total loop time: 240586 microseconds
+
+=== Starting Person Detection Model Test ===
+Program start time: 1000978 microseconds
+Model loaded successfully: Person Detection
+Input size: 9216 bytes
+Expected categories: 2
+Input tensor type: 9
+Input tensor scale: 0.007843
+Input tensor zero point: -1
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 82308 bytes
+Tensor arena memory available: 126976 bytes
+Initialization complete
+Setup() end time: 3039196
+Setup takes: 2038218 microseconds
+
+Inference 1/10 starts at: 3039448
+memcpy took: 54 microseconds
+Inference took: 703949 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 674 microseconds
+
+Inference 2/10 starts at: 3744850
+memcpy took: 39 microseconds
+Inference took: 703867 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 686 microseconds
+
+Inference 3/10 starts at: 4450297
+memcpy took: 53 microseconds
+Inference took: 704010 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 694 microseconds
+
+Inference 4/10 starts at: 5155882
+memcpy took: 50 microseconds
+Inference took: 704208 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 647 microseconds
+
+Inference 5/10 starts at: 5861650
+memcpy took: 56 microseconds
+Inference took: 704041 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 636 microseconds
+
+Inference 6/10 starts at: 6567227
+memcpy took: 55 microseconds
+Inference took: 704080 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 622 microseconds
+
+Inference 7/10 starts at: 7272869
+memcpy took: 77 microseconds
+Inference took: 703991 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 670 microseconds
+
+Inference 8/10 starts at: 7978382
+memcpy took: 39 microseconds
+Inference took: 704022 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 679 microseconds
+
+Inference 9/10 starts at: 8683924
+memcpy took: 124 microseconds
+Inference took: 704080 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 632 microseconds
+
+Inference 10/10 starts at: 9389540
+memcpy took: 54 microseconds
+Inference took: 704041 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 657 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: Person Detection
+Average memcpy time: 60.10 microseconds
+Average inference time: 704028.88 microseconds
+Average post-processing time: 659.70 microseconds
+Average total loop time: 704748 microseconds
+
+=== Starting Visual Wake Word Model Test ===
+Program start time: 1000969 microseconds
+Model loaded successfully: Visual Wake Word
+Input size: 27648 bytes
+Expected categories: 2
+Input tensor type: 9
+Input tensor scale: 0.003922
+Input tensor zero point: -128
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 100708 bytes
+Tensor arena memory available: 204800 bytes
+Initialization complete
+Setup() end time: 3039476
+Setup takes: 2038507 microseconds
+
+Inference 1/10 starts at: 3039732
+memcpy took: 127 microseconds
+Inference took: 744032 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 613 microseconds
+
+Inference 2/10 starts at: 3785278
+memcpy took: 182 microseconds
+Inference took: 744090 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 702 microseconds
+
+Inference 3/10 starts at: 4530993
+memcpy took: 113 microseconds
+Inference took: 743913 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 690 microseconds
+
+Inference 4/10 starts at: 5276498
+memcpy took: 125 microseconds
+Inference took: 744110 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 684 microseconds
+
+Inference 5/10 starts at: 6022247
+memcpy took: 124 microseconds
+Inference took: 744512 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 634 microseconds
+
+Inference 6/10 starts at: 6768380
+memcpy took: 126 microseconds
+Inference took: 743998 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 625 microseconds
+
+Inference 7/10 starts at: 7513982
+memcpy took: 113 microseconds
+Inference took: 743826 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 630 microseconds
+
+Inference 8/10 starts at: 8259464
+memcpy took: 126 microseconds
+Inference took: 744136 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 678 microseconds
+
+Inference 9/10 starts at: 9005231
+memcpy took: 127 microseconds
+Inference took: 744145 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 723 microseconds
+
+Inference 10/10 starts at: 9751076
+memcpy took: 164 microseconds
+Inference took: 743754 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 635 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: Visual Wake Word
+Average memcpy time: 132.70 microseconds
+Average inference time: 744051.62 microseconds
+Average post-processing time: 661.40 microseconds
+Average total loop time: 744845 microseconds
+
+=========== RP2350 ==================
+=== Starting KWS Small Model Test ===
+Program start time: 1000503 microseconds
+Model loaded successfully: KWS Small
+Input size: 1960 bytes
+Expected categories: 4
+Input tensor type: 9
+Input tensor scale: 0.101716
+Input tensor zero point: -128
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 6828 bytes
+Tensor arena memory available: 28584 bytes
+Initialization complete
+Setup() end time: 3003149
+Setup takes: 2002646 microseconds
+
+Inference 1/10 starts at: 3003250
+memcpy took: 13 microseconds
+Inference took: 12790 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 508 microseconds
+
+Inference 2/10 starts at: 3016996
+memcpy took: 15 microseconds
+Inference took: 12357 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 496 microseconds
+
+Inference 3/10 starts at: 3030298
+memcpy took: 15 microseconds
+Inference took: 12221 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 489 microseconds
+
+Inference 4/10 starts at: 3043449
+memcpy took: 16 microseconds
+Inference took: 12223 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 516 microseconds
+
+Inference 5/10 starts at: 3056636
+memcpy took: 27 microseconds
+Inference took: 12210 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 500 microseconds
+
+Inference 6/10 starts at: 3069793
+memcpy took: 16 microseconds
+Inference took: 12213 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 487 microseconds
+
+Inference 7/10 starts at: 3082945
+memcpy took: 16 microseconds
+Inference took: 12219 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 494 microseconds
+
+Inference 8/10 starts at: 3096107
+memcpy took: 16 microseconds
+Inference took: 12195 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 517 microseconds
+
+Inference 9/10 starts at: 3109273
+memcpy took: 16 microseconds
+Inference took: 12211 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 504 microseconds
+
+Inference 10/10 starts at: 3122442
+memcpy took: 16 microseconds
+Inference took: 12201 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 503 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: KWS Small
+Average memcpy time: 16.60 microseconds
+Average inference time: 12284.00 microseconds
+Average post-processing time: 501.40 microseconds
+Average total loop time: 12802 microseconds
+
+=== Starting KWS Large Model Test ===
+Program start time: 1000514 microseconds
+Model loaded successfully: KWS Large
+Input size: 490 bytes
+Expected categories: 12
+Input tensor type: 9
+Input tensor scale: 0.584703
+Input tensor zero point: 83
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 22820 bytes
+Tensor arena memory available: 32768 bytes
+Initialization complete
+Setup() end time: 3007728
+Setup takes: 2007214 microseconds
+
+Inference 1/10 starts at: 3007855
+memcpy took: 9 microseconds
+Inference took: 58509 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 867 microseconds
+
+Inference 2/10 starts at: 3067708
+memcpy took: 12 microseconds
+Inference took: 58386 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 859 microseconds
+
+Inference 3/10 starts at: 3127460
+memcpy took: 11 microseconds
+Inference took: 58402 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 820 microseconds
+
+Inference 4/10 starts at: 3187165
+memcpy took: 12 microseconds
+Inference took: 58468 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 901 microseconds
+
+Inference 5/10 starts at: 3247068
+memcpy took: 11 microseconds
+Inference took: 58480 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 873 microseconds
+
+Inference 6/10 starts at: 3306872
+memcpy took: 12 microseconds
+Inference took: 58437 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 849 microseconds
+
+Inference 7/10 starts at: 3366655
+memcpy took: 11 microseconds
+Inference took: 58371 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 839 microseconds
+
+Inference 8/10 starts at: 3426359
+memcpy took: 11 microseconds
+Inference took: 58391 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 876 microseconds
+
+Inference 9/10 starts at: 3486105
+memcpy took: 12 microseconds
+Inference took: 58495 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 887 microseconds
+
+Inference 10/10 starts at: 3546028
+memcpy took: 11 microseconds
+Inference took: 58489 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 847 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: KWS Large
+Average memcpy time: 11.20 microseconds
+Average inference time: 58442.80 microseconds
+Average post-processing time: 861.80 microseconds
+Average total loop time: 59315 microseconds
+
+=== Starting Person Detection Model Test ===
+Program start time: 1000525 microseconds
+Model loaded successfully: Person Detection
+Input size: 9216 bytes
+Expected categories: 2
+Input tensor type: 9
+Input tensor scale: 0.007843
+Input tensor zero point: -1
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 82308 bytes
+Tensor arena memory available: 126976 bytes
+Initialization complete
+Setup() end time: 3019287
+Setup takes: 2018762 microseconds
+
+Inference 1/10 starts at: 3019397
+memcpy took: 48 microseconds
+Inference took: 189310 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 431 microseconds
+
+Inference 2/10 starts at: 3209647
+memcpy took: 50 microseconds
+Inference took: 189236 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 429 microseconds
+
+Inference 3/10 starts at: 3399819
+memcpy took: 52 microseconds
+Inference took: 189313 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 431 microseconds
+
+Inference 4/10 starts at: 3590084
+memcpy took: 53 microseconds
+Inference took: 189310 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 429 microseconds
+
+Inference 5/10 starts at: 3780337
+memcpy took: 52 microseconds
+Inference took: 189396 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 440 microseconds
+
+Inference 6/10 starts at: 3970681
+memcpy took: 52 microseconds
+Inference took: 189380 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 461 microseconds
+
+Inference 7/10 starts at: 4161038
+memcpy took: 52 microseconds
+Inference took: 189332 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 448 microseconds
+
+Inference 8/10 starts at: 4351332
+memcpy took: 49 microseconds
+Inference took: 189306 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 440 microseconds
+
+Inference 9/10 starts at: 4541577
+memcpy took: 51 microseconds
+Inference took: 189316 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 434 microseconds
+
+Inference 10/10 starts at: 4731828
+memcpy took: 51 microseconds
+Inference took: 189383 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 432 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: Person Detection
+Average memcpy time: 51.00 microseconds
+Average inference time: 189328.20 microseconds
+Average post-processing time: 437.50 microseconds
+Average total loop time: 189816 microseconds
+
+=== Starting Visual Wake Word Model Test ===
+Program start time: 1000522 microseconds
+Model loaded successfully: Visual Wake Word
+Input size: 27648 bytes
+Expected categories: 2
+Input tensor type: 9
+Input tensor scale: 0.003922
+Input tensor zero point: -128
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 100708 bytes
+Tensor arena memory available: 204800 bytes
+Initialization complete
+Setup() end time: 3019465
+Setup takes: 2018943 microseconds
+
+Inference 1/10 starts at: 3019579
+memcpy took: 104 microseconds
+Inference took: 198100 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 463 microseconds
+
+Inference 2/10 starts at: 3218746
+memcpy took: 112 microseconds
+Inference took: 198180 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 493 microseconds
+
+Inference 3/10 starts at: 3418022
+memcpy took: 105 microseconds
+Inference took: 198212 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 491 microseconds
+
+Inference 4/10 starts at: 3617322
+memcpy took: 109 microseconds
+Inference took: 198241 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 502 microseconds
+
+Inference 5/10 starts at: 3816662
+memcpy took: 110 microseconds
+Inference took: 198225 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 502 microseconds
+
+Inference 6/10 starts at: 4015980
+memcpy took: 112 microseconds
+Inference took: 198203 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 482 microseconds
+
+Inference 7/10 starts at: 4215260
+memcpy took: 109 microseconds
+Inference took: 198162 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 486 microseconds
+
+Inference 8/10 starts at: 4414527
+memcpy took: 110 microseconds
+Inference took: 198195 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 470 microseconds
+
+Inference 9/10 starts at: 4613783
+memcpy took: 111 microseconds
+Inference took: 198215 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 493 microseconds
+
+Inference 10/10 starts at: 4813084
+memcpy took: 115 microseconds
+Inference took: 198258 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 484 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: Visual Wake Word
+Average memcpy time: 109.70 microseconds
+Average inference time: 198199.09 microseconds
+Average post-processing time: 486.60 microseconds
+Average total loop time: 198795 microseconds
+
+=========== ESP32-S3 ==================
+=== Starting KWS Small Model Test ===
+Program start time: 42443 microseconds
+Model loaded successfully: KWS Small
+Input size: 1960 bytes
+Expected categories: 4
+Input tensor type: 9
+Input tensor scale: 0.101716
+Input tensor zero point: -128
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 12036 bytes
+Tensor arena memory available: 28584 bytes
+Initialization complete
+Setup end time: 2060951
+Setup takes: 2018508 microseconds
+
+Inference 1/10 starts at: 2066178
+memcpy took: 6 microseconds
+Inference took: 4518 microseconds
+Results: [0.000, 0.145, 0.031, 0.824]
+Detected: no (0.824)
+Post-processing took: 3621 microseconds
+
+Inference 2/10 starts at: 2177032
+memcpy took: 6 microseconds
+Inference took: 3894 microseconds
+Results: [0.000, 0.145, 0.031, 0.824]
+Detected: no (0.824)
+Post-processing took: 526 microseconds
+
+Inference 3/10 starts at: 2277032
+memcpy took: 6 microseconds
+Inference took: 3913 microseconds
+Results: [0.000, 0.145, 0.031, 0.824]
+Detected: no (0.824)
+Post-processing took: 540 microseconds
+
+Inference 4/10 starts at: 2377032
+memcpy took: 6 microseconds
+Inference took: 3899 microseconds
+Results: [0.000, 0.145, 0.031, 0.824]
+Detected: no (0.824)
+Post-processing took: 528 microseconds
+
+Inference 5/10 starts at: 2477032
+memcpy took: 7 microseconds
+Inference took: 3913 microseconds
+Results: [0.000, 0.145, 0.031, 0.824]
+Detected: no (0.824)
+Post-processing took: 541 microseconds
+
+Inference 6/10 starts at: 2577032
+memcpy took: 6 microseconds
+Inference took: 3899 microseconds
+Results: [0.000, 0.145, 0.031, 0.824]
+Detected: no (0.824)
+Post-processing took: 528 microseconds
+
+Inference 7/10 starts at: 2677032
+memcpy took: 6 microseconds
+Inference took: 3913 microseconds
+Results: [0.000, 0.145, 0.031, 0.824]
+Detected: no (0.824)
+Post-processing took: 544 microseconds
+
+Inference 8/10 starts at: 2777032
+memcpy took: 6 microseconds
+Inference took: 3901 microseconds
+Results: [0.000, 0.145, 0.031, 0.824]
+Detected: no (0.824)
+Post-processing took: 531 microseconds
+
+Inference 9/10 starts at: 2877032
+memcpy took: 6 microseconds
+Inference took: 3913 microseconds
+Results: [0.000, 0.145, 0.031, 0.824]
+Detected: no (0.824)
+Post-processing took: 543 microseconds
+
+Inference 10/10 starts at: 2977032
+memcpy took: 6 microseconds
+Inference took: 3902 microseconds
+Results: [0.000, 0.145, 0.031, 0.824]
+Detected: no (0.824)
+Post-processing took: 531 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: KWS Small
+Average memcpy time: 6.10 microseconds
+Average inference time: 3966.50 microseconds
+Average post-processing time: 843.30 microseconds
+Average total loop time: 4815 microseconds
+
+=== Starting KWS Large Model Test ===
+Program start time: 67355 microseconds
+Model loaded successfully: KWS Large
+Input size: 490 bytes
+Expected categories: 12
+Input tensor type: 9
+Input tensor scale: 0.584703
+Input tensor zero point: 83
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 57244 bytes
+Tensor arena memory available: 102400 bytes
+Initialization complete
+Setup end time: 2091252
+Setup takes: 2023897 microseconds
+
+Inference 1/10 starts at: 2096478
+memcpy took: 3 microseconds
+Inference took: 37753 microseconds
+Results: [0.355, 0.000, 0.000, 0.000, 0.000, 0.633, 0.000, 0.000, 0.000, 0.000, 0.000, 0.012]
+Detected: on (0.633)
+Post-processing took: 2081 microseconds
+
+Inference 2/10 starts at: 2244672
+memcpy took: 2 microseconds
+Inference took: 37118 microseconds
+Results: [0.355, 0.000, 0.000, 0.000, 0.000, 0.633, 0.000, 0.000, 0.000, 0.000, 0.000, 0.012]
+Detected: on (0.633)
+Post-processing took: 2084 microseconds
+
+Inference 3/10 starts at: 2384670
+memcpy took: 4 microseconds
+Inference took: 37101 microseconds
+Results: [0.355, 0.000, 0.000, 0.000, 0.000, 0.633, 0.000, 0.000, 0.000, 0.000, 0.000, 0.012]
+Detected: on (0.633)
+Post-processing took: 2081 microseconds
+
+Inference 4/10 starts at: 2524670
+memcpy took: 3 microseconds
+Inference took: 37093 microseconds
+Results: [0.355, 0.000, 0.000, 0.000, 0.000, 0.633, 0.000, 0.000, 0.000, 0.000, 0.000, 0.012]
+Detected: on (0.633)
+Post-processing took: 2083 microseconds
+
+Inference 5/10 starts at: 2664670
+memcpy took: 4 microseconds
+Inference took: 37101 microseconds
+Results: [0.355, 0.000, 0.000, 0.000, 0.000, 0.633, 0.000, 0.000, 0.000, 0.000, 0.000, 0.012]
+Detected: on (0.633)
+Post-processing took: 2081 microseconds
+
+Inference 6/10 starts at: 2804670
+memcpy took: 3 microseconds
+Inference took: 37093 microseconds
+Results: [0.355, 0.000, 0.000, 0.000, 0.000, 0.633, 0.000, 0.000, 0.000, 0.000, 0.000, 0.012]
+Detected: on (0.633)
+Post-processing took: 2083 microseconds
+
+Inference 7/10 starts at: 2944670
+memcpy took: 4 microseconds
+Inference took: 37101 microseconds
+Results: [0.355, 0.000, 0.000, 0.000, 0.000, 0.633, 0.000, 0.000, 0.000, 0.000, 0.000, 0.012]
+Detected: on (0.633)
+Post-processing took: 2081 microseconds
+
+Inference 8/10 starts at: 3084670
+memcpy took: 3 microseconds
+Inference took: 37093 microseconds
+Results: [0.355, 0.000, 0.000, 0.000, 0.000, 0.633, 0.000, 0.000, 0.000, 0.000, 0.000, 0.012]
+Detected: on (0.633)
+Post-processing took: 2083 microseconds
+
+Inference 9/10 starts at: 3224670
+memcpy took: 4 microseconds
+Inference took: 37101 microseconds
+Results: [0.355, 0.000, 0.000, 0.000, 0.000, 0.633, 0.000, 0.000, 0.000, 0.000, 0.000, 0.012]
+Detected: on (0.633)
+Post-processing took: 2081 microseconds
+
+Inference 10/10 starts at: 3364670
+memcpy took: 3 microseconds
+Inference took: 37093 microseconds
+Results: [0.355, 0.000, 0.000, 0.000, 0.000, 0.633, 0.000, 0.000, 0.000, 0.000, 0.000, 0.012]
+Detected: on (0.633)
+Post-processing took: 2083 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: KWS Large
+Average memcpy time: 3.30 microseconds
+Average inference time: 37164.70 microseconds
+Average post-processing time: 2082.10 microseconds
+Average total loop time: 39250 microseconds
+
+=== Starting Person Detection Model Test ===
+Program start time: 42531 microseconds
+Model loaded successfully: Person Detection
+Input size: 9216 bytes
+Expected categories: 2
+Input tensor type: 9
+Input tensor scale: 0.007843
+Input tensor zero point: -1
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 122572 bytes
+Tensor arena memory available: 126976 bytes
+Initialization complete
+Setup end time: 2080628
+Setup takes: 2038097 microseconds
+
+Inference 1/10 starts at: 2085853
+memcpy took: 22 microseconds
+Inference took: 76473 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 530 microseconds
+
+Inference 2/10 starts at: 2267028
+memcpy took: 23 microseconds
+Inference took: 76534 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 532 microseconds
+
+Inference 3/10 starts at: 2437028
+memcpy took: 23 microseconds
+Inference took: 76538 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 533 microseconds
+
+Inference 4/10 starts at: 2607028
+memcpy took: 22 microseconds
+Inference took: 76533 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 531 microseconds
+
+Inference 5/10 starts at: 2777028
+memcpy took: 23 microseconds
+Inference took: 76538 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 534 microseconds
+
+Inference 6/10 starts at: 2947028
+memcpy took: 22 microseconds
+Inference took: 76533 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 531 microseconds
+
+Inference 7/10 starts at: 3117028
+memcpy took: 23 microseconds
+Inference took: 76538 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 534 microseconds
+
+Inference 8/10 starts at: 3287028
+memcpy took: 22 microseconds
+Inference took: 76533 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 531 microseconds
+
+Inference 9/10 starts at: 3457028
+memcpy took: 23 microseconds
+Inference took: 76538 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 534 microseconds
+
+Inference 10/10 starts at: 3627028
+memcpy took: 23 microseconds
+Inference took: 76534 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 530 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: Person Detection
+Average memcpy time: 22.60 microseconds
+Average inference time: 76529.20 microseconds
+Average post-processing time: 532.00 microseconds
+Average total loop time: 77083 microseconds
+
+=== Starting Visual Wake Word Model Test ===
+Program start time: 42529 microseconds
+Model loaded successfully: Visual Wake Word
+Input size: 27648 bytes
+Expected categories: 2
+Input tensor type: 9
+Input tensor scale: 0.003922
+Input tensor zero point: -128
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 122508 bytes
+Tensor arena memory available: 204800 bytes
+Initialization complete
+Setup end time: 2081972
+Setup takes: 2039443 microseconds
+
+Inference 1/10 starts at: 2087198
+memcpy took: 58 microseconds
+Inference took: 86889 microseconds
+Results: [0.961, 0.039]
+Detected: notperson (0.961)
+Post-processing took: 540 microseconds
+
+Inference 2/10 starts at: 2277031
+memcpy took: 56 microseconds
+Inference took: 86961 microseconds
+Results: [0.961, 0.039]
+Detected: notperson (0.961)
+Post-processing took: 536 microseconds
+
+Inference 3/10 starts at: 2457031
+memcpy took: 58 microseconds
+Inference took: 86975 microseconds
+Results: [0.961, 0.039]
+Detected: notperson (0.961)
+Post-processing took: 539 microseconds
+
+Inference 4/10 starts at: 2637031
+memcpy took: 56 microseconds
+Inference took: 86961 microseconds
+Results: [0.961, 0.039]
+Detected: notperson (0.961)
+Post-processing took: 536 microseconds
+
+Inference 5/10 starts at: 2817031
+memcpy took: 58 microseconds
+Inference took: 86976 microseconds
+Results: [0.961, 0.039]
+Detected: notperson (0.961)
+Post-processing took: 540 microseconds
+
+Inference 6/10 starts at: 2997031
+memcpy took: 56 microseconds
+Inference took: 86962 microseconds
+Results: [0.961, 0.039]
+Detected: notperson (0.961)
+Post-processing took: 536 microseconds
+
+Inference 7/10 starts at: 3177031
+memcpy took: 58 microseconds
+Inference took: 86976 microseconds
+Results: [0.961, 0.039]
+Detected: notperson (0.961)
+Post-processing took: 539 microseconds
+
+Inference 8/10 starts at: 3357031
+memcpy took: 56 microseconds
+Inference took: 86961 microseconds
+Results: [0.961, 0.039]
+Detected: notperson (0.961)
+Post-processing took: 536 microseconds
+
+Inference 9/10 starts at: 3537031
+memcpy took: 58 microseconds
+Inference took: 86975 microseconds
+Results: [0.961, 0.039]
+Detected: notperson (0.961)
+Post-processing took: 539 microseconds
+
+Inference 10/10 starts at: 3717031
+memcpy took: 56 microseconds
+Inference took: 86962 microseconds
+Results: [0.961, 0.039]
+Detected: notperson (0.961)
+Post-processing took: 537 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: Visual Wake Word
+Average memcpy time: 57.00 microseconds
+Average inference time: 86959.80 microseconds
+Average post-processing time: 537.80 microseconds
+Average total loop time: 87554 microseconds
+
+=========== ESP32 ==================
+
+=== Starting KWS Small Model Test ===
+Program start time: 29772 microseconds
+Model loaded successfully: KWS Small
+Input size: 1960 bytes
+Expected categories: 4
+Input tensor type: 9
+Input tensor scale: 0.101716
+Input tensor zero point: -128
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 6820 bytes
+Tensor arena memory available: 28584 bytes
+Initialization complete
+Setup end time: 2053063
+Setup takes: 2023291 microseconds
+
+Inference 1/10 starts at: 2058276
+memcpy took: 7 microseconds
+Inference took: 17367 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 520 microseconds
+
+Inference 2/10 starts at: 2179264
+memcpy took: 7 microseconds
+Inference took: 16967 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 471 microseconds
+
+Inference 3/10 starts at: 2289264
+memcpy took: 7 microseconds
+Inference took: 16964 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 469 microseconds
+
+Inference 4/10 starts at: 2399264
+memcpy took: 7 microseconds
+Inference took: 16962 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 471 microseconds
+
+Inference 5/10 starts at: 2509264
+memcpy took: 7 microseconds
+Inference took: 16964 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 469 microseconds
+
+Inference 6/10 starts at: 2619264
+memcpy took: 7 microseconds
+Inference took: 16962 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 471 microseconds
+
+Inference 7/10 starts at: 2729264
+memcpy took: 7 microseconds
+Inference took: 16964 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 469 microseconds
+
+Inference 8/10 starts at: 2839264
+memcpy took: 7 microseconds
+Inference took: 16962 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 471 microseconds
+
+Inference 9/10 starts at: 2949264
+memcpy took: 7 microseconds
+Inference took: 16964 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 469 microseconds
+
+Inference 10/10 starts at: 3059264
+memcpy took: 7 microseconds
+Inference took: 16962 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 471 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: KWS Small
+Average memcpy time: 7.00 microseconds
+Average inference time: 17003.80 microseconds
+Average post-processing time: 475.10 microseconds
+Average total loop time: 17485 microseconds
+
+=== Starting KWS Large Model Test ===
+Program start time: 29753 microseconds
+Model loaded successfully: KWS Large
+Input size: 490 bytes
+Expected categories: 12
+Input tensor type: 9
+Input tensor scale: 0.584703
+Input tensor zero point: 83
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 22780 bytes
+Tensor arena memory available: 102400 bytes
+Initialization complete
+Setup end time: 2057456
+Setup takes: 2027703 microseconds
+
+Inference 1/10 starts at: 2062668
+memcpy took: 5 microseconds
+Inference took: 232487 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2370 microseconds
+
+Inference 2/10 starts at: 2399261
+memcpy took: 3 microseconds
+Inference took: 232215 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2371 microseconds
+
+Inference 3/10 starts at: 2729261
+memcpy took: 3 microseconds
+Inference took: 232221 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2370 microseconds
+
+Inference 4/10 starts at: 3059261
+memcpy took: 3 microseconds
+Inference took: 232214 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2370 microseconds
+
+Inference 5/10 starts at: 3389261
+memcpy took: 3 microseconds
+Inference took: 232221 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2370 microseconds
+
+Inference 6/10 starts at: 3719261
+memcpy took: 3 microseconds
+Inference took: 232214 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2370 microseconds
+
+Inference 7/10 starts at: 4049261
+memcpy took: 3 microseconds
+Inference took: 232221 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2370 microseconds
+
+Inference 8/10 starts at: 4379261
+memcpy took: 3 microseconds
+Inference took: 232214 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2371 microseconds
+
+Inference 9/10 starts at: 4709261
+memcpy took: 3 microseconds
+Inference took: 232221 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2370 microseconds
+
+Inference 10/10 starts at: 5039261
+memcpy took: 3 microseconds
+Inference took: 232214 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2371 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: KWS Large
+Average memcpy time: 3.20 microseconds
+Average inference time: 232244.20 microseconds
+Average post-processing time: 2370.30 microseconds
+Average total loop time: 234617 microseconds
+
+=== Starting Person Detection Model Test ===
+
+Program start time: 29764 microseconds
+Model loaded successfully: Person Detection
+Input size: 9216 bytes
+Expected categories: 2
+Input tensor type: 9
+Input tensor scale: 0.007843
+Input tensor zero point: -1
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 82300 bytes
+Tensor arena memory available: 126976 bytes
+Initialization complete
+Setup end time: 2077102
+Setup takes: 2047338 microseconds
+
+Inference 1/10 starts at: 2082315
+memcpy took: 21 microseconds
+Inference took: 559900 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 474 microseconds
+
+Inference 2/10 starts at: 2739267
+memcpy took: 21 microseconds
+Inference took: 559927 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 474 microseconds
+
+Inference 3/10 starts at: 3399267
+memcpy took: 21 microseconds
+Inference took: 559922 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 474 microseconds
+
+Inference 4/10 starts at: 4059267
+memcpy took: 21 microseconds
+Inference took: 559927 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 474 microseconds
+
+Inference 5/10 starts at: 4719267
+memcpy took: 20 microseconds
+Inference took: 559927 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 474 microseconds
+
+Inference 6/10 starts at: 5379267
+memcpy took: 20 microseconds
+Inference took: 559927 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 474 microseconds
+
+Inference 7/10 starts at: 6039267
+memcpy took: 20 microseconds
+Inference took: 559927 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 474 microseconds
+
+Inference 8/10 starts at: 6699267
+memcpy took: 20 microseconds
+Inference took: 559927 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 474 microseconds
+
+Inference 9/10 starts at: 7359267
+memcpy took: 20 microseconds
+Inference took: 559922 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 474 microseconds
+
+Inference 10/10 starts at: 8019267
+memcpy took: 20 microseconds
+Inference took: 559925 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 474 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: Person Detection
+Average memcpy time: 20.40 microseconds
+Average inference time: 559923.12 microseconds
+Average post-processing time: 474.00 microseconds
+Average total loop time: 560417 microseconds
+
+=== Starting Visual Wake Word Model Test ===
+Program start time: 29773 microseconds
+Model loaded successfully: Visual Wake Word
+Input size: 27648 bytes
+Expected categories: 2
+Input tensor type: 9
+Input tensor scale: 0.003922
+Input tensor zero point: -128
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 100668 bytes
+Tensor arena memory available: 102400 bytes
+Initialization complete
+Setup end time: 2080147
+Setup takes: 2050374 microseconds
+
+Inference 1/10 starts at: 2085359
+memcpy took: 57 microseconds
+Inference took: 621960 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 489 microseconds
+
+Inference 2/10 starts at: 2809266
+memcpy took: 56 microseconds
+Inference took: 621997 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 489 microseconds
+
+Inference 3/10 starts at: 3529266
+memcpy took: 56 microseconds
+Inference took: 621997 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 489 microseconds
+
+Inference 4/10 starts at: 4249266
+memcpy took: 56 microseconds
+Inference took: 621998 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 489 microseconds
+
+Inference 5/10 starts at: 4969266
+memcpy took: 56 microseconds
+Inference took: 621998 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 489 microseconds
+
+Inference 6/10 starts at: 5689266
+memcpy took: 56 microseconds
+Inference took: 621998 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 489 microseconds
+
+Inference 7/10 starts at: 6409266
+memcpy took: 56 microseconds
+Inference took: 621998 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 489 microseconds
+
+Inference 8/10 starts at: 7129266
+memcpy took: 56 microseconds
+Inference took: 621998 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 489 microseconds
+
+Inference 9/10 starts at: 7849266
+memcpy took: 56 microseconds
+Inference took: 621998 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 489 microseconds
+
+Inference 10/10 starts at: 8569266
+memcpy took: 55 microseconds
+Inference took: 621999 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 489 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: Visual Wake Word
+Average memcpy time: 56.00 microseconds
+Average inference time: 621994.12 microseconds
+Average post-processing time: 489.00 microseconds
+Average total loop time: 622539 microseconds
+
+
+=========== nRF52840 ==================
+=== Starting KWS Small Model Test ===
+
+Program start time: 1796233 microseconds
+Model loaded successfully: KWS Small
+Input size: 1960 bytes
+Expected categories: 4
+Input tensor type: 9
+Input tensor scale: 0.101716
+Input tensor zero point: -128
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 6796 bytes
+Tensor arena memory available: 28584 bytes
+Initialization complete
+Setup() end time: 3825900
+Setup takes: 2029667 microseconds
+
+Inference 1/10 starts at: 3826593
+memcpy took: 193 microseconds
+Inference took: 281310 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 3664 microseconds
+
+Inference 2/10 starts at: 4214112
+memcpy took: 193 microseconds
+Inference took: 281168 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 3813 microseconds
+
+Inference 3/10 starts at: 4601524
+memcpy took: 193 microseconds
+Inference took: 281354 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 3682 microseconds
+
+Inference 4/10 starts at: 4988886
+memcpy took: 193 microseconds
+Inference took: 281201 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 3690 microseconds
+
+Inference 5/10 starts at: 5376307
+memcpy took: 193 microseconds
+Inference took: 281390 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 3696 microseconds
+
+Inference 6/10 starts at: 5763657
+memcpy took: 193 microseconds
+Inference took: 281224 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 3677 microseconds
+
+Inference 7/10 starts at: 6150893
+memcpy took: 193 microseconds
+Inference took: 281235 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 3657 microseconds
+
+Inference 8/10 starts at: 6538107
+memcpy took: 193 microseconds
+Inference took: 281301 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 3635 microseconds
+
+Inference 9/10 starts at: 6925762
+memcpy took: 193 microseconds
+Inference took: 281402 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 3666 microseconds
+
+Inference 10/10 starts at: 7313153
+memcpy took: 193 microseconds
+Inference took: 281400 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 3584 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: KWS Small
+Average memcpy time: 193.00 microseconds
+Average inference time: 281298.50 microseconds
+Average post-processing time: 3676.40 microseconds
+Average total loop time: 285167 microseconds
+
+=== Starting KWS Large Model Test ===
+
+Program start time: 5512898 microseconds
+Model loaded successfully: KWS Large
+Input size: 490 bytes
+Expected categories: 12
+Input tensor type: 9
+Input tensor scale: 0.584703
+Input tensor zero point: 83
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 22772 bytes
+Tensor arena memory available: 32768 bytes
+Initialization complete
+Setup() end time: 7562631
+Setup takes: 2049733 microseconds
+
+Inference 1/10 starts at: 7563295
+memcpy took: 99 microseconds
+Inference took: 3613217 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 8790 microseconds
+
+Inference 2/10 starts at: 11287832
+memcpy took: 56 microseconds
+Inference took: 3613490 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 8593 microseconds
+
+Inference 3/10 starts at: 15012731
+memcpy took: 55 microseconds
+Inference took: 3614275 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 8605 microseconds
+
+Inference 4/10 starts at: 18738134
+memcpy took: 56 microseconds
+Inference took: 3614263 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 8657 microseconds
+
+Inference 5/10 starts at: 22464104
+memcpy took: 55 microseconds
+Inference took: 3615205 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 8570 microseconds
+
+Inference 6/10 starts at: 26190514
+memcpy took: 55 microseconds
+Inference took: 3614370 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 8518 microseconds
+
+Inference 7/10 starts at: 29916126
+memcpy took: 55 microseconds
+Inference took: 3612432 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 8401 microseconds
+
+Inference 8/10 starts at: 33639590
+memcpy took: 55 microseconds
+Inference took: 3614557 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 8403 microseconds
+
+Inference 9/10 starts at: 37365577
+memcpy took: 55 microseconds
+Inference took: 3616108 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 8802 microseconds
+
+Inference 10/10 starts at: 41092592
+memcpy took: 55 microseconds
+Inference took: 3613723 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 8724 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: KWS Large
+Average memcpy time: 59.60 microseconds
+Average inference time: 3614164.00 microseconds
+Average post-processing time: 8606.30 microseconds
+Average total loop time: 3622829 microseconds
+
+=== Starting Person Detection Model Test ===
+
+Program start time: 1607202 microseconds
+Model loaded successfully: Person Detection
+Input size: 9216 bytes
+Expected categories: 2
+Input tensor type: 9
+Input tensor scale: 0.007843
+Input tensor zero point: -1
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 82292 bytes
+Tensor arena memory available: 126976 bytes
+Initialization complete
+Setup() end time: 3710548
+Setup takes: 2103346 microseconds
+
+Inference 1/10 starts at: 3711212
+memcpy took: 917 microseconds
+Inference took: 9872375 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 2374 microseconds
+
+Inference 2/10 starts at: 13689397
+memcpy took: 917 microseconds
+Inference took: 9869505 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 2399 microseconds
+
+Inference 3/10 starts at: 23664976
+memcpy took: 916 microseconds
+Inference took: 9868323 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 2387 microseconds
+
+Inference 4/10 starts at: 33639022
+memcpy took: 916 microseconds
+Inference took: 9876022 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 2337 microseconds
+
+Inference 5/10 starts at: 43621179
+memcpy took: 916 microseconds
+Inference took: 9873701 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 2424 microseconds
+
+Inference 6/10 starts at: 53600384
+memcpy took: 916 microseconds
+Inference took: 9870408 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 2395 microseconds
+
+Inference 7/10 starts at: 63576487
+memcpy took: 943 microseconds
+Inference took: 9866236 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 2343 microseconds
+
+Inference 8/10 starts at: 73549037
+memcpy took: 917 microseconds
+Inference took: 9874407 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 2410 microseconds
+
+Inference 9/10 starts at: 83529724
+memcpy took: 917 microseconds
+Inference took: 9874749 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 2471 microseconds
+
+Inference 10/10 starts at: 93509820
+memcpy took: 917 microseconds
+Inference took: 9871714 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 2350 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: Person Detection
+Average memcpy time: 919.20 microseconds
+Average inference time: 9871744.00 microseconds
+Average post-processing time: 2389.00 microseconds
+Average total loop time: 9875052 microseconds
+
+=== Starting Visual Wake Word Model Test ===
+
+Program start time: 1785054 microseconds
+Model loaded successfully: Visual Wake Word
+Input size: 27648 bytes
+Expected categories: 2
+Input tensor type: 9
+Input tensor scale: 0.003922
+Input tensor zero point: -128
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 100660 bytes
+Tensor arena memory available: 126976 bytes
+Initialization complete
+Setup() end time: 3902496
+Setup takes: 2117442 microseconds
+
+Inference 1/10 starts at: 3903285
+memcpy took: 2689 microseconds
+Inference took: 10057313 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 2376 microseconds
+
+Inference 2/10 starts at: 14068115
+memcpy took: 2716 microseconds
+Inference took: 10055224 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 2406 microseconds
+
+Inference 3/10 starts at: 24231004
+memcpy took: 2716 microseconds
+Inference took: 10057675 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 2441 microseconds
+
+Inference 4/10 starts at: 34396782
+memcpy took: 2732 microseconds
+Inference took: 10052879 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 2394 microseconds
+
+Inference 5/10 starts at: 44557623
+memcpy took: 2732 microseconds
+Inference took: 10057569 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 2373 microseconds
+
+Inference 6/10 starts at: 54722922
+memcpy took: 2732 microseconds
+Inference took: 10052659 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 2411 microseconds
+
+Inference 7/10 starts at: 64883814
+memcpy took: 2716 microseconds
+Inference took: 10054728 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 2461 microseconds
+
+Inference 8/10 starts at: 75045854
+memcpy took: 2732 microseconds
+Inference took: 10054924 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 2534 microseconds
+
+Inference 9/10 starts at: 85208385
+memcpy took: 2732 microseconds
+Inference took: 10056698 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 2407 microseconds
+
+Inference 10/10 starts at: 95372675
+memcpy took: 2732 microseconds
+Inference took: 10055954 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 2458 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: Visual Wake Word
+Average memcpy time: 2722.90 microseconds
+Average inference time: 10055562.00 microseconds
+Average post-processing time: 2426.10 microseconds
+Average total loop time: 10060711 microseconds
+
+=========== STM32F411VET6 ===========
+
+=== Starting KWS Small Model Test ===
+Program start time: 3000 microseconds
+Model loaded successfully: KWS Small
+Input size: 1960 bytes
+Expected categories: 4
+Input tensor type: 9
+Input tensor scale: 0.101716
+Input tensor zero point: -128
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 6796 bytes
+Tensor arena memory available: 28584 bytes
+Initialization complete
+Setup() end time: 2040000
+Setup takes: 2038741 microseconds
+
+Inference 1/10 starts at: 2045000
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5590 microseconds
+
+Inference 2/10 starts at: 2618000
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5589 microseconds
+
+Inference 3/10 starts at: 3191000
+memcpy took: 117 microseconds
+Inference took: 543510 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5590 microseconds
+
+Inference 4/10 starts at: 3764000
+memcpy took: 117 microseconds
+Inference took: 543510 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5590 microseconds
+
+Inference 5/10 starts at: 4337000
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5590 microseconds
+
+Inference 6/10 starts at: 4910000
+memcpy took: 117 microseconds
+Inference took: 543510 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5590 microseconds
+
+Inference 7/10 starts at: 5483000
+memcpy took: 117 microseconds
+Inference took: 543510 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5590 microseconds
+
+Inference 8/10 starts at: 6056000
+memcpy took: 117 microseconds
+Inference took: 543510 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5590 microseconds
+
+Inference 9/10 starts at: 6629000
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5590 microseconds
+
+Inference 10/10 starts at: 7202000
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5590 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: KWS Small
+Average memcpy time: 117.00 microseconds
+Average inference time: 543510.50 microseconds
+Average post-processing time: 5589.90 microseconds
+Average total loop time: 549217 microseconds
+
+=== Starting KWS Large Model Test ===
+Program start time: 3000 microseconds
+Model loaded successfully: KWS Large
+Input size: 490 bytes
+Expected categories: 12
+Input tensor type: 9
+Input tensor scale: 0.584703
+Input tensor zero point: 83
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 22772 bytes
+Tensor arena memory available: 32768 bytes
+Initialization complete
+Setup() end time: 2051000
+Setup takes: 2050033 microseconds
+
+Inference 1/10 starts at: 2056000
+memcpy took: 29 microseconds
+Inference took: 4558469 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 10902 microseconds
+
+Inference 2/10 starts at: 6650000
+memcpy took: 29 microseconds
+Inference took: 4558469 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 10902 microseconds
+
+Inference 3/10 starts at: 11243000
+memcpy took: 29 microseconds
+Inference took: 4558469 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 10902 microseconds
+
+Inference 4/10 starts at: 15836000
+memcpy took: 29 microseconds
+Inference took: 4558469 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 10902 microseconds
+
+Inference 5/10 starts at: 20429000
+memcpy took: 29 microseconds
+Inference took: 4558470 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 10902 microseconds
+
+Inference 6/10 starts at: 25022000
+memcpy took: 29 microseconds
+Inference took: 4558468 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 10902 microseconds
+
+Inference 7/10 starts at: 29615000
+memcpy took: 29 microseconds
+Inference took: 4558470 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 10902 microseconds
+
+Inference 8/10 starts at: 34208000
+memcpy took: 29 microseconds
+Inference took: 4558469 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 10902 microseconds
+
+Inference 9/10 starts at: 38801000
+memcpy took: 29 microseconds
+Inference took: 4558470 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 10902 microseconds
+
+Inference 10/10 starts at: 43394000
+memcpy took: 29 microseconds
+Inference took: 4558469 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 10902 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: KWS Large
+Average memcpy time: 29.00 microseconds
+Average inference time: 4558469.00 microseconds
+Average post-processing time: 10902.00 microseconds
+Average total loop time: 4569400 microseconds
+
+=== Starting Person Detection Model Test ===
+Program start time: 4000 microseconds
+Model loaded successfully: Person Detection
+Input size: 9216 bytes
+Expected categories: 2
+Input tensor type: 9
+Input tensor scale: 0.007843
+Input tensor zero point: -1
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 82292 bytes
+Tensor arena memory available: 126976 bytes
+Initialization complete
+Setup() end time: 2085000
+Setup takes: 2083738 microseconds
+
+Inference 1/10 starts at: 2091000
+memcpy took: 553 microseconds
+Inference took: 12362000 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4886 microseconds
+
+Inference 2/10 starts at: 14482000
+memcpy took: 553 microseconds
+Inference took: 12362000 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4886 microseconds
+
+Inference 3/10 starts at: 26873000
+memcpy took: 553 microseconds
+Inference took: 12362000 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4886 microseconds
+
+Inference 4/10 starts at: 39264000
+memcpy took: 553 microseconds
+Inference took: 12362000 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4886 microseconds
+
+Inference 5/10 starts at: 51655000
+memcpy took: 553 microseconds
+Inference took: 12362000 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4886 microseconds
+
+Inference 6/10 starts at: 64046000
+memcpy took: 553 microseconds
+Inference took: 12362000 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4886 microseconds
+
+Inference 7/10 starts at: 76437000
+memcpy took: 553 microseconds
+Inference took: 12362000 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4886 microseconds
+
+Inference 8/10 starts at: 88828000
+memcpy took: 553 microseconds
+Inference took: 12362000 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4886 microseconds
+
+Inference 9/10 starts at: 101219000
+memcpy took: 553 microseconds
+Inference took: 12363000 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4886 microseconds
+
+Inference 10/10 starts at: 113610000
+memcpy took: 553 microseconds
+Inference took: 12363000 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4886 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: Person Detection
+Average memcpy time: 553.00 microseconds
+Average inference time: 12362200.00 microseconds
+Average post-processing time: 4886.00 microseconds
+Average total loop time: 12367639 microseconds
+
+=== Starting Visual Wake Word Model Test ===
+Program start time: 4000 microseconds
+Model loaded successfully: Visual Wake Word
+Input size: 27648 bytes
+Expected categories: 2
+Input tensor type: 9
+Input tensor scale: 0.003922
+Input tensor zero point: -128
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 100660 bytes
+Tensor arena memory available: 102400 bytes
+Initialization complete
+Setup() end time: 2094000
+Setup takes: 2092183 microseconds
+
+Inference 1/10 starts at: 2099000
+memcpy took: 1659 microseconds
+Inference took: 12929000 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 4886 microseconds
+
+Inference 2/10 starts at: 15059000
+memcpy took: 1659 microseconds
+Inference took: 12930000 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 4886 microseconds
+
+Inference 3/10 starts at: 28019000
+memcpy took: 1659 microseconds
+Inference took: 12930000 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 4886 microseconds
+
+Inference 4/10 starts at: 40979000
+memcpy took: 1659 microseconds
+Inference took: 12930000 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 4886 microseconds
+
+Inference 5/10 starts at: 53939000
+memcpy took: 1659 microseconds
+Inference took: 12930000 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 4886 microseconds
+
+Inference 6/10 starts at: 66899000
+memcpy took: 1659 microseconds
+Inference took: 12930000 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 4886 microseconds
+
+Inference 7/10 starts at: 79859000
+memcpy took: 1659 microseconds
+Inference took: 12930000 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 4886 microseconds
+
+Inference 8/10 starts at: 92819000
+memcpy took: 1659 microseconds
+Inference took: 12930000 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 4886 microseconds
+
+Inference 9/10 starts at: 105779000
+memcpy took: 1659 microseconds
+Inference took: 12930000 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 4886 microseconds
+
+Inference 10/10 starts at: 118739000
+memcpy took: 1659 microseconds
+Inference took: 12930000 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 4886 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: Visual Wake Word
+Average memcpy time: 1659.00 microseconds
+Average inference time: 12929900.00 microseconds
+Average post-processing time: 4886.00 microseconds
+Average total loop time: 12936445 microseconds
+
+=========== ESP32-C6 ==================
+=== Starting KWS Small Model Test ===
+Program start time: 50155 microseconds
+Model loaded successfully: KWS Small
+Input size: 1960 bytes
+Expected categories: 4
+Input tensor type: 9
+Input tensor scale: 0.101716
+Input tensor zero point: -128
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 6820 bytes
+Tensor arena memory available: 28584 bytes
+Initialization complete
+Setup end time: 2064093
+Setup takes: 2013938 microseconds
+
+Inference 1/10 starts at: 2069315
+memcpy took: 6 microseconds
+Inference took: 13926 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 348 microseconds
+
+Inference 2/10 starts at: 2180277
+memcpy took: 6 microseconds
+Inference took: 13550 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 343 microseconds
+
+Inference 3/10 starts at: 2290277
+memcpy took: 6 microseconds
+Inference took: 13529 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 342 microseconds
+
+Inference 4/10 starts at: 2400277
+memcpy took: 6 microseconds
+Inference took: 13529 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 342 microseconds
+
+Inference 5/10 starts at: 2510277
+memcpy took: 6 microseconds
+Inference took: 13529 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 342 microseconds
+
+Inference 6/10 starts at: 2620277
+memcpy took: 6 microseconds
+Inference took: 13529 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 342 microseconds
+
+Inference 7/10 starts at: 2730277
+memcpy took: 6 microseconds
+Inference took: 13529 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 342 microseconds
+
+Inference 8/10 starts at: 2840277
+memcpy took: 6 microseconds
+Inference took: 13529 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 342 microseconds
+
+Inference 9/10 starts at: 2950277
+memcpy took: 6 microseconds
+Inference took: 13529 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 342 microseconds
+
+Inference 10/10 starts at: 3060277
+memcpy took: 7 microseconds
+Inference took: 13529 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 343 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: KWS Small
+Average memcpy time: 6.10 microseconds
+Average inference time: 13570.80 microseconds
+Average post-processing time: 342.80 microseconds
+Average total loop time: 13919 microseconds
+=== Starting KWS Large Model Test ===
+Program start time: 50156 microseconds
+Model loaded successfully: KWS Large
+Input size: 490 bytes
+Expected categories: 12
+Input tensor type: 9
+Input tensor scale: 0.584703
+Input tensor zero point: 83
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 22780 bytes
+Tensor arena memory available: 102400 bytes
+Initialization complete
+Setup end time: 2066045
+Setup takes: 2015889 microseconds
+
+Inference 1/10 starts at: 2071265
+memcpy took: 3 microseconds
+Inference took: 163983 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2336 microseconds
+
+Inference 2/10 starts at: 2340278
+memcpy took: 3 microseconds
+Inference took: 163710 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2336 microseconds
+
+Inference 3/10 starts at: 2610278
+memcpy took: 3 microseconds
+Inference took: 163707 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2335 microseconds
+
+Inference 4/10 starts at: 2880278
+memcpy took: 3 microseconds
+Inference took: 163706 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2335 microseconds
+
+Inference 5/10 starts at: 3150278
+memcpy took: 3 microseconds
+Inference took: 163713 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2336 microseconds
+
+Inference 6/10 starts at: 3420278
+memcpy took: 3 microseconds
+Inference took: 163703 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2335 microseconds
+
+Inference 7/10 starts at: 3690278
+memcpy took: 3 microseconds
+Inference took: 163711 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2336 microseconds
+
+Inference 8/10 starts at: 3960278
+memcpy took: 3 microseconds
+Inference took: 163705 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2335 microseconds
+
+Inference 9/10 starts at: 4230278
+memcpy took: 3 microseconds
+Inference took: 163710 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2336 microseconds
+
+Inference 10/10 starts at: 4500278
+memcpy took: 3 microseconds
+Inference took: 163706 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2336 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: KWS Large
+Average memcpy time: 3.00 microseconds
+Average inference time: 163735.41 microseconds
+Average post-processing time: 2335.60 microseconds
+Average total loop time: 166074 microseconds
+
+=== Starting Person Detection Model Test ===
+Program start time: 50763 microseconds
+Model loaded successfully: Person Detection
+Input size: 9216 bytes
+Expected categories: 2
+Input tensor type: 9
+Input tensor scale: 0.007843
+Input tensor zero point: -1
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 82300 bytes
+Tensor arena memory available: 126976 bytes
+Initialization complete
+Setup end time: 2090447
+Setup takes: 2039684 microseconds
+
+Inference 1/10 starts at: 2095669
+memcpy took: 23 microseconds
+Inference took: 382744 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 290 microseconds
+
+Inference 2/10 starts at: 2580278
+memcpy took: 24 microseconds
+Inference took: 382744 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 290 microseconds
+
+Inference 3/10 starts at: 3060278
+memcpy took: 24 microseconds
+Inference took: 382745 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 290 microseconds
+
+Inference 4/10 starts at: 3540278
+memcpy took: 24 microseconds
+Inference took: 382743 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 289 microseconds
+
+Inference 5/10 starts at: 4020278
+memcpy took: 24 microseconds
+Inference took: 382743 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 290 microseconds
+
+Inference 6/10 starts at: 4500278
+memcpy took: 24 microseconds
+Inference took: 382744 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 290 microseconds
+
+Inference 7/10 starts at: 4980278
+memcpy took: 24 microseconds
+Inference took: 382746 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 290 microseconds
+
+Inference 8/10 starts at: 5460278
+memcpy took: 24 microseconds
+Inference took: 382742 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 290 microseconds
+
+Inference 9/10 starts at: 5940278
+memcpy took: 24 microseconds
+Inference took: 382742 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 290 microseconds
+
+Inference 10/10 starts at: 6420278
+memcpy took: 23 microseconds
+Inference took: 382745 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 290 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: Person Detection
+Average memcpy time: 23.80 microseconds
+Average inference time: 382743.81 microseconds
+Average post-processing time: 289.90 microseconds
+Average total loop time: 383057 microseconds
+
+=== Starting Visual Wake Word Model Test ===
+Program start time: 50762 microseconds
+Model loaded successfully: Visual Wake Word
+Input size: 27648 bytes
+Expected categories: 2
+Input tensor type: 9
+Input tensor scale: 0.003922
+Input tensor zero point: -128
+Output tensor type: 9
+Output tensor scale: 0.003906
+Output tensor zero point: -128
+Tensor arena memory used: 100668 bytes
+Tensor arena memory available: 126976 bytes
+Initialization complete
+Setup end time: 2091225
+Setup takes: 2040463 microseconds
+
+Inference 1/10 starts at: 2096446
+memcpy took: 67 microseconds
+Inference took: 425579 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 288 microseconds
+
+Inference 2/10 starts at: 2620277
+memcpy took: 67 microseconds
+Inference took: 425632 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 289 microseconds
+
+Inference 3/10 starts at: 3140277
+memcpy took: 67 microseconds
+Inference took: 425632 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 288 microseconds
+
+Inference 4/10 starts at: 3660277
+memcpy took: 67 microseconds
+Inference took: 425632 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 289 microseconds
+
+Inference 5/10 starts at: 4180277
+memcpy took: 67 microseconds
+Inference took: 425632 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 288 microseconds
+
+Inference 6/10 starts at: 4700277
+memcpy took: 67 microseconds
+Inference took: 425632 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 289 microseconds
+
+Inference 7/10 starts at: 5220277
+memcpy took: 67 microseconds
+Inference took: 425632 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 288 microseconds
+
+Inference 8/10 starts at: 5740277
+memcpy took: 67 microseconds
+Inference took: 425632 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 289 microseconds
+
+Inference 9/10 starts at: 6260277
+memcpy took: 67 microseconds
+Inference took: 425632 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 288 microseconds
+
+Inference 10/10 starts at: 6780277
+memcpy took: 66 microseconds
+Inference took: 425625 microseconds
+Results: [0.953, 0.047]
+Detected: notperson (0.953)
+Post-processing took: 288 microseconds
+
+--- Average latencies after 10 inferences ---
+Model: Visual Wake Word
+Average memcpy time: 66.90 microseconds
+Average inference time: 425626.00 microseconds
+Average post-processing time: 288.40 microseconds
+Average total loop time: 425981 microseconds

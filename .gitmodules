@@ -2,3 +2,15 @@
 	path = EmbodiedCarbonModeling
 	url = git@github.com:S4AI-CornellTech/EmbodiedCarbonModeling.git
 	branch = microgreen
+[submodule "profiling/inference/pico-sdk"]
+	path = profiling/inference/pico-sdk
+	url = https://github.com/imandel/pico-tflmicro.git
+[submodule "profiling/inference/stm32/micro_speech_small/tflite-micro"]
+	path = profiling/inference/stm32/micro_speech_small/tflite-micro
+	url = https://github.com/tensorflow/tflite-micro.git
+[submodule "profiling/inference/stm32/tflite-micro"]
+	path = profiling/inference/stm32/tflite-micro
+	url = https://github.com/tensorflow/tflite-micro.git
+[submodule "profiling/inference/nrf52/tflite-micro"]
+	path = profiling/inference/nrf52/tflite-micro
+	url = https://github.com/tensorflow/tflite-micro.git
