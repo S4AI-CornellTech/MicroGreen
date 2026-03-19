@@ -1,4 +1,5 @@
 import streamlit as st
+import argparse
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -59,17 +60,37 @@ trimmed_df = trimmed_df.rename(columns={
 device_models = trimmed_df[["Devices", "Model"]].drop_duplicates()
 
 ##########################################################################################
+# Argparse for command-line options
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--workload", choices=["kws-s", "kws-l", "ppd-s", "ppd-l"], default=None)
+    parser.add_argument("--solar-plot-gen", action="store_true", default=None)
+    parser.add_argument("--battery-plot-gen", action="store_true", default=None)
+    parser.add_argument("--lifetime-plot-gen", action="store_true", default=None)
+    parser.add_argument("--inference-per-second", type=float, default=None)
+    parser.add_argument("--lifetime-years", type=float, default=None)
+
+    # Streamlit passes its own args, so ignore unknown ones
+    args, _ = parser.parse_known_args()
+    return args
+
+args = parse_args()
+
+solar_plot_gen = args.solar_plot_gen if args.solar_plot_gen else False
+battery_plot_gen = args.battery_plot_gen if args.battery_plot_gen else False
+lifetime_plot_gen = args.lifetime_plot_gen if args.lifetime_plot_gen else False
+
+##########################################################################################
 # Knob settings
 
-# st.title("Sustainable Inference with Solar Harvesting")
 with st.sidebar:
     solar_energy_harvesting = st.checkbox("Use Solar Energy Harvesting", value=True)
     battery_powered = st.checkbox("Use Battery Power", value=True)
     hybrid_power_mode = st.checkbox("Use Both (Hybrid Power Mode)", value=True)
 
-    workload = st.selectbox("Select Workload", options=["kws-s", "kws-l", "ppd-s", "ppd-l"], index=1)
-    inference_per_second = st.slider("Inferences Per Second", min_value=0.1, max_value=30.0, value=0.01, step=0.1)
-    lifetime_years = st.slider("Deployment Lifetime (Years)", min_value=0.2, max_value=5.0, value=2.0, step=0.1)
+    workload = args.workload if args.workload is not None else st.selectbox("Select Workload", options=["kws-s", "kws-l", "ppd-s", "ppd-l"], index=1)
+    inference_per_second = args.inference_per_second if args.inference_per_second is not None else st.slider("Inferences Per Second", min_value=0.1, max_value=30.0, value=0.01, step=0.1)
+    lifetime_years = args.lifetime_years if args.lifetime_years is not None else st.slider("Deployment Lifetime (Years)", min_value=0.2, max_value=5.0, value=2.0, step=0.1)
     if solar_energy_harvesting or hybrid_power_mode:
         irradiance = st.slider("Irradiance (uW/cm²)", min_value=10, max_value=100000, value=1000, step=10)
     else:
@@ -99,17 +120,18 @@ if solar_energy_harvesting:
         "kws-l",
         irradiance=50,
         inference_per_second=1,
-        lifetime_years=lifetime_years,
+        lifetime_years=1,
     )
     outdoor_workload_df_solar = run_solar_harvesting_analysis(
         workload_df,
         "kws-l",
         irradiance=60000,
         inference_per_second=1,
-        lifetime_years=lifetime_years,
+        lifetime_years=1,
     )
 
-    solar_plot(indoor_workload_df_solar, outdoor_workload_df_solar)
+    if solar_plot_gen:
+        solar_plot(indoor_workload_df_solar, outdoor_workload_df_solar)
 
     # below are function calls that generate Mobisys lifetime plot
     lifetime_workload_df_solar = run_solar_harvesting_analysis(
@@ -148,7 +170,8 @@ if battery_powered:
         lifetime_years=5,
     )
 
-    battery_plot(low_ips_workload_df_battery, high_ips_workload_df_battery)
+    if battery_plot_gen:
+        battery_plot(low_ips_workload_df_battery, high_ips_workload_df_battery)
 
     # below are function calls that generate Mobisys lifetime plot
     lifetime_workload_df_battery = run_battery_powered_analysis(
@@ -179,7 +202,8 @@ if hybrid_power_mode:
         5,
     )
 
-    lifetime_plot(lifetime_workload_df_solar, lifetime_workload_df_battery, lifetime_workload_df_hybrid)
+    if lifetime_plot_gen:
+        lifetime_plot(lifetime_workload_df_solar, lifetime_workload_df_battery, lifetime_workload_df_hybrid)
     
 
 

@@ -8,8 +8,6 @@ from helper import *
 low_ips = 0.1
 high_ips = 10
 
-# TODO: ips = 0.1 and IPS = 10 text
-
 
 plt.rcParams.update({
     "font.family": "serif",
@@ -65,7 +63,6 @@ def battery_plot(low_ips_workload_df_battery, high_ips_workload_df_battery):
             # f"{duty_cycle:.1f}%",              # duty cycle
             # f"{total_height:.1f}kg",  # total embodied carbon
             f"{batteries_per_day:.3f}" # batteries per day
-            # f"{batteries_per_day:.2f} AA battery/day" # batteries per day
         ]
         label = "\n".join(label_lines)
 
@@ -153,7 +150,6 @@ def battery_plot(low_ips_workload_df_battery, high_ips_workload_df_battery):
             # f"{duty_cycle:.1f}%",              # duty cycle
             # f"{total_height:.1f}kg",  # total embodied carbon
             f"{batteries_per_day:.3f}" # batteries per day
-            # f"{batteries_per_day:.2f} AA battery/day" # batteries per day
         ]
         label = "\n".join(label_lines)
 
@@ -312,4 +308,4 @@ def battery_plot(low_ips_workload_df_battery, high_ips_workload_df_battery):
     ax_high_ips_cost.tick_params(axis='both', pad=-1)
     
     fig_battery.subplots_adjust(left=0.08, right=0.99, top=0.9, bottom=0.2, wspace=0.25)
-    fig_battery.savefig("figures/Mobisys_battery_plot.pdf", dpi=300)
+    fig_battery.savefig("figures/Figure8_Mobisys_battery_plot.pdf", dpi=300)

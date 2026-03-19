@@ -52,8 +52,8 @@ whole_board_carbon = {
     "esp32C6": 0.1973969667044471 + microphone_carbon + image_sensor_carbon,
     "esp32S3": 0.2625468867044471 + microphone_carbon + image_sensor_carbon,
     "nf52840": 0.17534202335999998 + microphone_carbon + image_sensor_carbon,
-    "rp2040": 0.3873442915203545 + microphone_carbon + image_sensor_carbon,
-    "rp2350": 0.3236869288521515 + microphone_carbon + image_sensor_carbon,
+    "rp2040": 0.3236869288521515 + microphone_carbon + image_sensor_carbon,
+    "rp2350": 0.3873442915203545 +  microphone_carbon + image_sensor_carbon,
     "stm32f411fe": 0.4527894151677715 + microphone_carbon + image_sensor_carbon, 
     "nxprt1176+TPU": 1.140981586893209 + image_sensor_carbon,
     "nxprt1176": 1.140981586893209 - RT1126 + RT1050 + image_sensor_carbon 

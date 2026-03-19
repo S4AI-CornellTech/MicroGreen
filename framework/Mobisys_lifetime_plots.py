@@ -11,7 +11,6 @@ plt.rcParams.update({
 
 def lifetime_plot(lifetime_workload_df_solar, lifetime_workload_df_battery, lifetime_workload_df_hybrid):
     max_lifetime_years = 3
-    # max_lifetime_years = 0.15
     lifetime_years = np.arange(0, max_lifetime_years, 0.005)  # integer years for clarity
 
     fig_life, axes = plt.subplots(1, 3, figsize=(3.5, 2), sharex=True, sharey=True)
@@ -84,4 +83,4 @@ def lifetime_plot(lifetime_workload_df_solar, lifetime_workload_df_battery, life
     )
 
     fig_life.subplots_adjust(left=0.15, right=0.99, top=0.75, bottom=0.15, wspace=0.1)
-    fig_life.savefig("figures/Mobisys_lifetime_plot.pdf", dpi=300)
+    fig_life.savefig("figures/Figure10_Mobisys_lifetime_plot.pdf", dpi=300)

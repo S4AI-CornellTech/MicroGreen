@@ -286,4 +286,4 @@ def solar_plot(indoor_workload_df_solar, outdoor_workload_df_solar):
     )
 
     fig_irr.subplots_adjust(left=0.11, right=0.99, top=0.82, bottom=0.17, wspace=0.25)
-    fig_irr.savefig("figures/Mobisys_irradiance_plot.pdf", dpi=300)
+    fig_irr.savefig("figures/Figure7_Mobisys_irradiance_plot.pdf", dpi=300)
