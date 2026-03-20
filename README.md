@@ -53,6 +53,10 @@ Figure 8 - Battery Analysis Plot
 ```bash
 python3 framework/main.py --workload kws-s --battery-plot
 ```
+Figure 9 - Network Analysis Plot
+```bash
+python3 scripts/network_plot.py
+```
 Figure 10 - Hybrid Analysis Plot
 ```bash
 python3 framework/main.py --workload kws-l --lifetime-plot
