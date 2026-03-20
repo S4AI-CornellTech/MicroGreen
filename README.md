@@ -7,14 +7,30 @@ MicroGreen, a design space exploration framework for sustainable edge devices. M
 ---
 ### Setup
 
-1. Recursively clone the repo
-<!-- TODO: talk about setting up: clone repo, setup.sh -->
+ 
+1. **Clone the repository** with all submodules:
+ 
 ```bash
 git clone --recurse-submodules git@github.com:S4AI-CornellTech/MicroGreen.git
+cd MicroGreen
+```
+ 
+2. **Install Python dependencies** using the setup script:
+ 
+```bash
+bash setup.sh
 ```
 
-<!-- TODO: repo structure: take about the modeling and profiling part of the artefact evaluation -->
+---
 
+## Repository Structure
+
+- `framework/`: Core MicroGreen framework and Streamlit UI
+- `profiling/`: Hardware profiling code and setup instructions
+- `database/`: Precomputed embodied carbon and profiling results
+- `EmbodiedCarbonModeling/`: Embodied carbon modeling submodule
+
+---
 ### Reproducing Key Result Figures in MicroGren
 
 Figure 3 - Board Carbon Breakdown 
@@ -41,19 +57,35 @@ Figure 10 - Hybrid Analysis Plot
 ```bash
 python3 framework/main.py --workload kws-l --lifetime-plot
 ```
-
-### Carbon Modeling Verification
-
-<!-- TODO: talk about the pipeline of automatically connect carbon modeling to database and to constants.py -->
-```
+---
+ 
+## Carbon Modeling Verification
+ 
+The embodied carbon estimates in `database/board_carbon.csv` are derived from the `EmbodiedCarbonModeling/` submodule. To regenerate the database from the modeling outputs, run:
+ 
+```bash
 python3 scripts/board_carbon_csv_generator.py \
-  EmbodiedCarbonModeling/ouputs/coralDevMicro_output \
-  EmbodiedCarbonModeling/ouputs/ESP32_output \
-  EmbodiedCarbonModeling/ouputs/ESP32-C6_output \
-  EmbodiedCarbonModeling/ouputs/ESP32-S3_output \
-  EmbodiedCarbonModeling/ouputs/nRF52840_output \
-  EmbodiedCarbonModeling/ouputs/RP2040_output \
-  EmbodiedCarbonModeling/ouputs/RP2350_output \
-  EmbodiedCarbonModeling/ouputs/STM32F411_output \
-  -o database/board_carbon.csv 
+  EmbodiedCarbonModeling/outputs/coralDevMicro_output \
+  EmbodiedCarbonModeling/outputs/ESP32_output \
+  EmbodiedCarbonModeling/outputs/ESP32-C6_output \
+  EmbodiedCarbonModeling/outputs/ESP32-S3_output \
+  EmbodiedCarbonModeling/outputs/nRF52840_output \
+  EmbodiedCarbonModeling/outputs/RP2040_output \
+  EmbodiedCarbonModeling/outputs/RP2350_output \
+  EmbodiedCarbonModeling/outputs/STM32F411_output \
+  -o database/board_carbon.csv
 ```
+ 
+For detailed instructions on running the full embodied carbon modeling pipeline and hardware profiling, refer to the `README.md` files in the `EmbodiedCarbonModeling/` and `profiling/` directories respectively.
+
+---
+
+## Profiling Verification
+
+The profiling results in `database/` contain per-MCU inference latency and power measurements collected using the hardware setup described in the paper. To verify or regenerate profiling results for a specific MCU, refer to the `GUIDELINE.md` or `README.md` in the `profiling/` directory for step-by-step instructions on environment setup, compilation, flashing, and power measurement.
+
+---
+
+### License
+
+This project is licensed under the MIT License. See the LICENSE file for full details.
