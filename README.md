@@ -57,6 +57,11 @@ Figure 10 - Hybrid Analysis Plot
 ```bash
 python3 framework/main.py --workload kws-l --lifetime-plot
 ```
+Figure 13
+```bash
+python3 framework/heterogeneousDeployment.py
+python3 scripts/case_study_plot.py
+```
 ---
  
 ## Carbon Modeling Verification
