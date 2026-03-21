@@ -33,7 +33,6 @@ per_capacitor_cost = 1  # $ per capacitor
 microphone_carbon = 0.018
 image_sensor_carbon = 0.0423
 solar_panel_emission_per_cm2 = 0.0168  # kg CO2e per cm² of solar panel
-coral_flash_and_dram_carbon = 0.019722  # kg CO2e for flash and dram on coral board
 # source: https://www.mouser.com/ProductDetail/Analog-Devices/ADG819BRTZ-REEL7?qs=BpaRKvA4VqHIb%252BZWdVZ1eQ%3D%3D&srsltid=AfmBOorXY9cbpMW-vqXb-9ixTDjEO3OlKgK-unFVEqg1BV0ckpsB2NYU
 capacitor_switches_CO2e = 0.004356  # kgCO₂e per capacitor switch
 AA_carbon = 0.107  # kgCO₂e per AA battery
@@ -124,6 +123,7 @@ us_grid_carbon = 380  # g CO2e per kWh
 transmission_current_A = 0.14  # A
 transmission_throughput_bytes_per_s = 4400  # bytes/s
 receiving_current_A = 0.0175  # A
+RYLR998_carbon = 0.05041527115327729 # kg
 
 ##########################################################################################
 #color scheme for different devices

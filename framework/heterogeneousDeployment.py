@@ -164,7 +164,7 @@ def simulate_daily_operation(SOLAR_PANEL_AREA_CM2):
     # calculate the total embodied carbon footprint of the system
     print("----- Embodied Carbon Footprint Calculation -----")
 
-    board_CO2 = whole_board_carbon["nxprt1176+TPU"] + coral_flash_and_dram_carbon
+    board_CO2 = whole_board_carbon["nxprt1176+TPU"] + RYLR998_carbon
 
     print("board CO2 (kg):", board_CO2)
 
