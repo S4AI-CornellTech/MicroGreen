@@ -69,9 +69,8 @@ python3 scripts/case_study_plot.py
 ---
  
 ## Carbon Modeling Verification
- 
-The embodied carbon estimates in `database/board_carbon.csv` are derived from the `EmbodiedCarbonModeling/` submodule. To regenerate the database from the modeling outputs, run:
- 
+
+The embodied carbon estimates in `database/board_carbon.csv` are derived from the `EmbodiedCarbonModeling/` submodule. To regenerate the database from the modeling outputs, first follow the submodule's [README.md]((EmbodiedCarbonModeling/README.md)) to generate carbon estimates from BoMs, then run the following script to port the results to `database/`:
 ```bash
 python3 scripts/board_carbon_csv_generator.py \
   EmbodiedCarbonModeling/outputs/coralDevMicro_output \
@@ -84,14 +83,19 @@ python3 scripts/board_carbon_csv_generator.py \
   EmbodiedCarbonModeling/outputs/STM32F411_output \
   -o database/board_carbon.csv
 ```
- 
-For detailed instructions on running the full embodied carbon modeling pipeline and hardware profiling, refer to the `README.md` files in the `EmbodiedCarbonModeling/` and `profiling/` directories respectively.
 
 ---
 
 ## Profiling Verification
 
-The profiling results in `database/` contain per-MCU inference latency and power measurements collected using the hardware setup described in the paper. To verify or regenerate profiling results for a specific MCU, refer to the `GUIDELINE.md` or `README.md` in the `profiling/` directory for step-by-step instructions on environment setup, compilation, flashing, and power measurement.
+The `database/` directory contains per-MCU inference latency and power measurements collected using the hardware setup described in the paper. To verify or regenerate these results, refer to the guides below.
+
+| Guide | Location | Description |
+|---|---|---|
+| [INFERENCE_PROFILING_GUIDE.md](profiling/inference/INFERENCE_PROFILING_GUIDE.md) | `profiling/inference/` | Environment setup, compilation, flashing, and latency measurement for all inference workloads running on each MCU |
+| [WIRELESS_PROFILING_GUIDE.md](profiling/wireless/WIRELESS_PROFILING_GUIDE.md) | `profiling/wireless/` | Replicating BLE wireless measurements reported in the paper |
+| [POWER_PROFILING_GUIDE.md](profiling/POWER_PROFILING_GUIDE.md) | `profiling/` | Hardware, software, and operation details for power profiling |
+
 
 ---
 
