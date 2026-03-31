@@ -46,16 +46,18 @@ The PPK2 is controlled through Nordic's **nRF Connect for Desktop** app.
 ---
 
 ## 3. Wire the PPK2 to the different MCUs
-In Source Meter mode, the PPK2 supplies power to the Pico and measures current at the same time. The MCU must **not** be powered via its own USB cable during this measurement.
+In Source Meter mode, the PPK2 supplies power to the MCU and measures current at the same time. The MCU must **not** be powered via its own USB cable during this measurement.
 
 ### Connections
 
-| PPK2 Pin | Pico 2 Pin | Description |
-|---|---|---|
-| **VOUT** | **3V3**  | PPK2 supplies voltage to the Pico |
-| **GND** | **GND** | Common ground |
+| PPK2 Pin | Pico Pin | Pico 2 Pin | ESP32 | ESP32-C6 | ESP32-S3 | 
+|---|---|---| ---| ---| ---|
+| **VOUT** | **3V3**  | **3V3** | **3V3** | **3V3** | **3V3** | 
+| **GND** | **GND** | **GND** | **GND** | **GND** | **GND** |
 
 > **Important:** Do NOT connect the MCU's USB cable while measuring in Source Meter mode, as this will bypass the PPK2 and skew measurements.
+
+for nRD52840-DK, use PPK II power profiler as an ampere meter and follow the wiring documented here: https://docs.nordicsemi.com/bundle/ug_nrf52840_dk/page/UG/dk/hw_measure_ampmeter.html
 
 ---
 

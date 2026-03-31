@@ -8,7 +8,7 @@ This repository provides tools for profiling inference workloads across multiple
 |---|---|---|
 | `idf-sdk/` | ESP32, ESP32-C3, ESP32-S3 | [ESP-IDF Setup Guide](idf-sdk/ESP-IDF_SETUP_GUIDE.md) |
 | `pico-sdk/` | Raspberry Pi Pico (W) / Pico 2 (W) | [Pico Setup Guide](pico-sdk/PICO_SETUP_GUIDE.md) |
-| `nrf52/` | Nordic nRF52840 | — |
+| `nrf52/` | Nordic nRF52840 | [nRF52 Setup Guide](nrf52/nrf52_SETUP_GUIDE.md) |
 | `stm32/` | STM32F411 | — |
 | `coralmicro/` | Coral Dev Board Micro | [Coralmicro Setup Guide](CORALMICRO_SETUP_GUIDE.md) |
 
