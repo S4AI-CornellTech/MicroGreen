@@ -190,6 +190,7 @@ if hybrid_power_mode:
         inference_per_second,
         solar_panel_area_cap,
         lifetime_years,
+        True
     )
 
     # below are function calls that generate Mobisys lifetime plot
@@ -200,6 +201,7 @@ if hybrid_power_mode:
         6,
         275,
         5,
+        False
     )
 
     if lifetime_plot_gen:
@@ -214,7 +216,7 @@ if hybrid_power_mode:
 # if solar_energy_harvesting or battery_powered:
 st.subheader("Total Carbon Emissions vs Monetary Cost")
 
-fig_cost, ax_cost = plt.subplots(figsize=(5, 3))
+fig_cost, ax_cost = plt.subplots(figsize=(8, 5.5))
 
 # Create unique device list and assign colors using matplotlib colormap
 if 'solar_energy_harvesting' in locals() and solar_energy_harvesting and 'battery_powered' in locals() and battery_powered:
@@ -263,8 +265,7 @@ if 'hybrid_power_mode' in locals() and hybrid_power_mode and not workload_df_hyb
 
 ax_cost.set_xlabel("Total Carbon Emissions (kg CO₂e)")
 ax_cost.set_ylabel("Monetary Cost ($)")
-ax_cost.set_title(f"Total Carbon Emissions vs Monetary Cost for {workload}")
-ax_cost.legend(bbox_to_anchor=(1.05, 1), loc="upper left")
+ax_cost.legend(bbox_to_anchor=(0.5, 1.3), loc="upper center", ncol=4)
 ax_cost.grid(True)
 
 st.pyplot(fig_cost)
@@ -282,7 +283,7 @@ if solar_energy_harvesting or battery_powered:
     # max_lifetime_years = 0.15
     lifetime_years = np.arange(0, max_lifetime_years, 0.005)  # integer years for clarity
 
-    fig_life, ax_life = plt.subplots(figsize=(5, 3))
+    fig_life, ax_life = plt.subplots(figsize=(8, 5.5))
 
     # Solar-powered: total carbon is constant (embodied carbon only)
     if 'solar_energy_harvesting' in locals() and solar_energy_harvesting and not workload_df_solar.empty:
@@ -308,8 +309,7 @@ if solar_energy_harvesting or battery_powered:
     ax_life.set_xticklabels([f"{int(tick*12*7)}" for tick in ax_life.get_xticks()])  # convert years to months
     ax_life.set_xlabel("Deployment Lifetime (weeks)")
     ax_life.set_ylabel("Cumulative Carbon Emissions (kg CO$_2$e)")
-    ax_life.set_title(f"Total Carbon Emissions vs.    Lifetime for {workload}")
-    ax_life.legend(bbox_to_anchor=(1.05, 1), loc="upper left")
+    ax_life.legend(bbox_to_anchor=(0.5, 1.3), loc="upper center", ncol=4)
     ax_life.grid(True)
     ax_life.set_yscale("log")
     st.pyplot(fig_life)

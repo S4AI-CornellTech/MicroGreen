@@ -55,8 +55,7 @@ def battery_analysis_plots(workload_df_battery, workload, inference_per_second, 
     # ===============================
     st.subheader(f"Embodied Carbon for {workload} (Battery Powered Mode)")
 
-    fig, ax = plt.subplots(figsize=(3, 3))
-    # fig, ax = plt.subplots(figsize=(4.5, 3))
+    fig, ax = plt.subplots(figsize=(4.5, 3))
 
     components = [
         "board embodied carbon (kg CO2e)",
@@ -65,9 +64,9 @@ def battery_analysis_plots(workload_df_battery, workload, inference_per_second, 
 
     colors = map_components_to_colors(components)
 
-    workload_df_battery = workload_df_battery[
-        workload_df_battery["Devices"].isin(["esp32S3", "rp2350", "nxprt1176+TPU"])
-    ]
+    # workload_df_battery = workload_df_battery[
+    #     workload_df_battery["Devices"].isin(["esp32S3", "rp2350", "nxprt1176+TPU"])
+    # ]
 
     workload_df_battery.set_index("Devices")[components].plot(
         kind='bar', stacked=True, ax=ax, color=colors, width=0.8
@@ -102,7 +101,6 @@ def battery_analysis_plots(workload_df_battery, workload, inference_per_second, 
     ymin, ymax = ax.get_ylim()
     ax.set_ylim(ymin, max(total_heights_list) * 1.25)
     ax.set_ylabel("Embodied Carbon (kg CO2e)")
-    ax.set_title(f"Embodied Carbon for {workload} with Battery Power")
     ax.set_xticklabels(workload_df_battery["Devices"], rotation=20, fontsize=10, weight='bold')
     ax.set_yticklabels([f"{tick}" for tick in ax.get_yticks()], rotation=90, va='center')
     # ax.legend(["Board", "Battery"], bbox_to_anchor=(1.05, 1), loc='upper left')
@@ -110,7 +108,7 @@ def battery_analysis_plots(workload_df_battery, workload, inference_per_second, 
     plt.tight_layout()
     
     st.markdown(
-        "**Note:** The percentages on top of each bar indicate the _duty cycle_ — the proportion of time a device is actively performing inference."
+        "**Note:** Number of AA batteries needed per day is marked on top of the bar along with the total embodied carbon of the system."
     )
     
     st.pyplot(fig)
@@ -122,8 +120,7 @@ def battery_analysis_plots(workload_df_battery, workload, inference_per_second, 
     # ===============================
     st.subheader(f"Monetary Cost for {workload} (Battery Powered Mode)")
 
-    fig, ax = plt.subplots(figsize=(3, 3))
-    # fig, ax = plt.subplots(figsize=(4.5, 3))
+    fig, ax = plt.subplots(figsize=(4.5, 3))
 
     components = [
         "board cost ($)",
@@ -132,10 +129,6 @@ def battery_analysis_plots(workload_df_battery, workload, inference_per_second, 
 
     colors = map_components_to_colors(components)
 
-    # only show esp32S3 rp2350 nxp devices
-    workload_df_battery = workload_df_battery[
-        workload_df_battery["Devices"].isin(["esp32S3", "rp2350", "nxprt1176+TPU"])
-    ]
 
     workload_df_battery.set_index("Devices")[components].plot(
         kind='bar', stacked=True, ax=ax, color=colors, width=0.8
@@ -170,7 +163,6 @@ def battery_analysis_plots(workload_df_battery, workload, inference_per_second, 
     # Final plot polish
     ax.set_ylim(ymin, max(total_heights_list) * 1.25)
     ax.set_ylabel("Monetary Cost ($)")
-    ax.set_title(f"Monetary Cost for {workload} with Battery Power")
     ax.set_xticklabels(workload_df_battery["Devices"], rotation=20, fontsize=10, weight='bold')
     ax.set_yticklabels([f"{int(tick)}" for tick in ax.get_yticks()], rotation=90, va='center')
     ax.legend(["Board", "Battery"], bbox_to_anchor=(1.1, 1), loc='upper left')
@@ -179,29 +171,3 @@ def battery_analysis_plots(workload_df_battery, workload, inference_per_second, 
     st.pyplot(fig)
     if GENERATE_PLOTS:
         fig.savefig("figures/battery_powered_cost.pdf", dpi=300)
-
-    # ===============================
-    # embodied carbon over inference per sec plot
-    # ===============================
-    inference_per_sec_levels = np.arange(0.1, 15, 0.1)  # from 0.5 to 200 inferences per second
-    fig_inf_bat, ax_inf_bat = plt.subplots(figsize=(6, 4))
-    # Plot the embodied carbon for each device at different inference rates
-    for device in workload_df_battery["Devices"].unique():
-        device_df = workload_df_battery[workload_df_battery["Devices"] == device]
-        embodied_carbon = []
-        for inf_per_sec in inference_per_sec_levels:
-            # Calculate embodied carbon for the battery at this inference rate
-            batteries_per_inference = device_df["inference energy (mJ)"].values[0] / 1000 / AA_energy
-            carbon = batteries_per_inference * AA_carbon
-            embodied_carbon.append(carbon * 365 * inf_per_sec * 60 * 60 * 24 * lifetime_years + device_df["board embodied carbon (kg CO2e)"].values[0])
-        
-        ax_inf_bat.plot(inference_per_sec_levels, embodied_carbon, label=device, color=device_colors[device])
-    ax_inf_bat.set_xlabel("Inferences Per Second")
-    ax_inf_bat.set_ylabel("Embodied Carbon (kg CO2e)")
-    ax_inf_bat.set_title(f"Embodied Carbon vs. Inferences Per Second for {workload} (Battery Powered Mode)")
-    ax_inf_bat.legend(ncol = 2)
-    ax_inf_bat.grid(True)
-    st.pyplot(fig_inf_bat)
-    if GENERATE_PLOTS:
-        fig_inf_bat.savefig("figures/battery_powered_embodied_carbon_vs_inference_per_second.pdf", dpi=300)
-

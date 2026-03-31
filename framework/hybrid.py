@@ -11,6 +11,7 @@ def run_hybrid_powered_analysis(
     inference_per_second,
     solar_panel_area_cap,
     lifetime_years,
+    streamlit_plot = True
 ):
     # ==========================================
     # Dataframe Calculations
@@ -132,8 +133,9 @@ def run_hybrid_powered_analysis(
 
     # plot the stacked multi-bar chart for hybrid power mode
     # solar panel, capacitor, board, voltage regulator, and battery
-    st.subheader(f"Embodied Carbon for {workload} (Hybrid Power Mode)")
-    fig, ax = plt.subplots(figsize=(2.5, 3))
+    if streamlit_plot:
+        st.subheader(f"Embodied Carbon for {workload} (Hybrid Power Mode)")
+    fig, ax = plt.subplots(figsize=(5, 3))
     components = [
         "kg CO2e (capacitor only)",
         "solar panel capped embodied carbon (kg CO2e)",
@@ -169,16 +171,18 @@ def run_hybrid_powered_analysis(
     ax.set_ylim(0, max(workload_df_hybrid[components].sum(axis=1)) * 1.25)
     ax.set_xticklabels(workload_df_hybrid["Devices"], rotation=20)
     ax.set_ylabel("Embodied Carbon (kg CO2e)")
-    ax.legend(["Capacitors", "Solar Panel", "Board", "Voltage Regulator", "Battery", "Switches"], bbox_to_anchor=(1.05, 1), loc='upper left')
-    st.pyplot(fig)
+    ax.legend(["Capacitors", "Solar Panel", "Board", "Voltage Regulator", "Battery", "Switches"], bbox_to_anchor=(0.5, 1.25), loc='upper center', ncol=4)
+    if streamlit_plot:
+        st.pyplot(fig)
     if GENERATE_PLOTS:
         fig.savefig("figures/hybrid_powered_embodied_carbon.pdf", dpi=300)
 
     # ===============================
     # Cost Stacked Bar Chart Plot  (hybrid powered)
     # ===============================
-    st.subheader(f"Monetary Cost for {workload} (Hybrid Power Mode)")
-    fig, ax = plt.subplots(figsize=(4, 3))
+    if streamlit_plot:
+        st.subheader(f"Monetary Cost for {workload} (Hybrid Power Mode)")
+    fig, ax = plt.subplots(figsize=(5, 4))
 
     components = [
         "capacitor cost ($)",
@@ -221,12 +225,12 @@ def run_hybrid_powered_analysis(
     ymin, ymax = ax.get_ylim()
     ax.set_ylim(ymin, max(total_heights_list) * 1.25)
     ax.set_ylabel("Monetary Cost ($)")
-    ax.set_title(f"Monetary Cost for {workload} with Hybrid Power")
     ax.set_xticklabels(workload_df_hybrid["Devices"], rotation=20, fontsize=10, weight='bold')
     ax.set_yticklabels([f"{int(tick)}" for tick in ax.get_yticks()], rotation=90, va='center')
-    ax.legend(["Capacitors", "Solar Panel", "Board", "Voltage Regulator", "Battery"], bbox_to_anchor=(1.05, 1), loc='upper left')
+    ax.legend(["Capacitors", "Solar Panel", "Board", "Voltage Regulator", "Battery"], bbox_to_anchor=(0.5, 1.3), loc='upper center', ncol=4)
     plt.tight_layout()
-    st.pyplot(fig)
+    if streamlit_plot:
+        st.pyplot(fig)
     if GENERATE_PLOTS:
         fig.savefig("figures/hybrid_powered_cost.pdf", dpi=300)
 
