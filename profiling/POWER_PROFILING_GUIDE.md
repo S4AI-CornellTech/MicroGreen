@@ -57,7 +57,11 @@ In Source Meter mode, the PPK2 supplies power to the MCU and measures current at
 
 > **Important:** Do NOT connect the MCU's USB cable while measuring in Source Meter mode, as this will bypass the PPK2 and skew measurements.
 
-for nRD52840-DK, use PPK II power profiler as an ampere meter and follow the wiring documented here: https://docs.nordicsemi.com/bundle/ug_nrf52840_dk/page/UG/dk/hw_measure_ampmeter.html
+for nRD52840-DK, use PPK II power profiler as an ampere meter and follow the wiring documented here: https://docs.nordicsemi.com/bundle/ug_nrf52840_dk/page/UG/dk/hw_measure_ampmeter.html.
+
+for STM32F411E-DISCO, use PPK II power profiler as an ampere meter and connect to the JP2 pins on board.
+
+Coral dev micro is only powered through type-C connector. Therefore a type-C to jumper wire is needed to for power profiling using PPK II.
 
 ---
 
