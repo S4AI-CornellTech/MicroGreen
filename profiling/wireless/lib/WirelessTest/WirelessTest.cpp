@@ -6,6 +6,16 @@ bool WirelessTest::bleClientConnected = false;
 WirelessTest *WirelessTest::bleInstance = nullptr;
 btstack_packet_callback_registration_t WirelessTest::hci_event_callback_registration;
 
+void WirelessTest::onCanSendNow()
+{
+    if (bleSendPending && isBLEClientConnected() && picoTxHandle != 0)
+    {
+        att_server_notify(bleConnectionHandle, picoTxHandle, 
+                         (uint8_t*)pendingData, pendingLength);
+        bleSendPending = false;
+    }
+}
+
 // BLE packet handler for connection
 static void ble_packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size)
 {
@@ -31,6 +41,12 @@ static void ble_packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *p
         WirelessTest::bleConnectionHandle = HCI_CON_HANDLE_INVALID;
         WirelessTest::bleClientConnected = false;
         Serial.println("BLE client disconnected");
+        break;
+
+    case ATT_EVENT_CAN_SEND_NOW:         
+        if (WirelessTest::bleInstance) {
+            WirelessTest::bleInstance->onCanSendNow();
+        }
         break;
 
     default:
@@ -233,11 +249,6 @@ void WirelessTest::runPhase3_DataTransmission(WirelessMode mode)
         maxPacketSize = WirelessTestConstants::BLE_MAX_PACKET_SIZE;
         transmissionInterval = WirelessTestConstants::BLE_TRANSMISSION_INTERVAL_MS;
     }
-    // else
-    // {
-    //     maxPacketSize = WirelessTestConstants::WIFI_MAX_PACKET_SIZE;
-    //     transmissionInterval = WirelessTestConstants::WIFI_TRANSMISSION_INTERVAL_MS;
-    // }
 
     Serial.print("Packet size: ");
     Serial.print(maxPacketSize);
@@ -313,7 +324,15 @@ void WirelessTest::runPhase3_DataTransmission(WirelessMode mode)
             lastStatusPrint = millis();
         }
 
-        delay(1);
+        // delay(1);
+        #if PLATFORM_PICO
+        for (int i = 0; i < 5; i++) {
+            BTstack.loop();
+            delay(1);
+        }
+        #else
+                delay(1);
+        #endif
     }
 
     delete[] packetBuffer;
@@ -363,235 +382,7 @@ void WirelessTest::runPhase3_DataTransmission(WirelessMode mode)
 bool WirelessTest::initializeWireless()
 {
     return initializeBLE();
-    // if (currentMode == WirelessMode::BLE)
-    // {
-    //     return initializeBLE();
-    // }
-    // else
-    // {
-    //     return initializeWiFi();
-    // }
 }
-
-// bool WirelessTest::initializeWiFi()
-// {
-// #if !PLATFORM_NANO33BLE // Only compile WiFi code for non-Nano platforms
-//     Serial.println("Initializing WiFi for connected idle state...");
-//     Serial.print("Target network: ");
-//     Serial.println(WIFI_SSID);
-
-//     // Board-specific WiFi setup
-// #if PLATFORM_ESP32
-//     WiFi.mode(WIFI_STA);
-//     Serial.println("ESP32 WiFi mode set to STA");
-// #elif PLATFORM_PICO
-//     // Pico W specific initialization if needed
-//     Serial.println("Pico W WiFi initializing");
-// #endif
-
-//     // Disconnect any existing connections first
-//     if (WiFi.status() == WL_CONNECTED)
-//     {
-//         Serial.println("Disconnecting existing WiFi connection...");
-//         WiFi.disconnect();
-//         delay(500); // Give time for clean disconnect
-//     }
-
-//     // Scan for networks to verify target is available
-//     Serial.println("Scanning for available networks...");
-//     unsigned long scanStartTime = millis();
-//     int networkCount = WiFi.scanNetworks();
-//     unsigned long scanTime = millis() - scanStartTime;
-//     bool targetNetworkFound = false;
-
-//     if (networkCount > 0)
-//     {
-//         Serial.print("Found ");
-//         Serial.print(networkCount);
-//         Serial.print(" networks in ");
-//         Serial.print(scanTime);
-//         Serial.println("ms:");
-
-//         for (int i = 0; i < networkCount; i++)
-//         {
-//             String ssid = WiFi.SSID(i);
-//             int rssi = WiFi.RSSI(i);
-//             bool isOpen = (WiFi.encryptionType(i) == 0);
-
-//             Serial.print("  ");
-//             Serial.print(i + 1);
-//             Serial.print(": ");
-//             Serial.print(ssid);
-//             Serial.print(" (");
-//             Serial.print(rssi);
-//             Serial.print(" dBm, ");
-//             Serial.print(isOpen ? "Open" : "Encrypted");
-//             Serial.print(")");
-
-//             if (ssid == WIFI_SSID)
-//             {
-//                 targetNetworkFound = true;
-//                 Serial.print(" <- TARGET FOUND");
-//             }
-//             Serial.println();
-//         }
-//     }
-//     else
-//     {
-//         Serial.println("No networks found during scan!");
-//         return false;
-//     }
-
-//     if (!targetNetworkFound)
-//     {
-//         Serial.print("ERROR: Target network '");
-//         Serial.print(WIFI_SSID);
-//         Serial.println("' not found in scan results!");
-//         return false;
-//     }
-
-//     // Begin connection to target network
-//     Serial.println("Connecting to target network...");
-//     unsigned long connectStartTime = millis();
-//     WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-
-//     // Wait for connection with extended timeout for reliable connection
-//     unsigned long startTime = millis();
-//     const unsigned long WIFI_TIMEOUT = 15000; // 15 seconds for reliable connection
-//     unsigned long lastStatusPrint = 0;
-
-//     Serial.print("Connecting");
-//     while (WiFi.status() != WL_CONNECTED && (millis() - startTime < WIFI_TIMEOUT))
-//     {
-//         delay(250);
-//         Serial.print(".");
-
-//         // Print detailed status every 3 seconds
-//         if (millis() - lastStatusPrint >= 3000)
-//         {
-//             Serial.print(" [");
-//             switch (WiFi.status())
-//             {
-//             case WL_IDLE_STATUS:
-//                 Serial.print("IDLE");
-//                 break;
-//             case WL_NO_SSID_AVAIL:
-//                 Serial.print("SSID_NOT_AVAILABLE");
-//                 break;
-//             case WL_SCAN_COMPLETED:
-//                 Serial.print("SCAN_COMPLETE");
-//                 break;
-//             case WL_CONNECTED:
-//                 Serial.print("CONNECTED");
-//                 break;
-//             case WL_CONNECT_FAILED:
-//                 Serial.print("CONNECT_FAILED");
-//                 break;
-//             case WL_CONNECTION_LOST:
-//                 Serial.print("CONNECTION_LOST");
-//                 break;
-//             case WL_DISCONNECTED:
-//                 Serial.print("DISCONNECTED");
-//                 break;
-//             default:
-//                 Serial.print("UNKNOWN_");
-//                 Serial.print(WiFi.status());
-//                 break;
-//             }
-//             Serial.print("]");
-//             lastStatusPrint = millis();
-//         }
-//     }
-//     Serial.println();
-
-//     // Verify successful connection
-//     if (WiFi.status() == WL_CONNECTED)
-//     {
-//         // Connection successful - print network details
-//         Serial.println("WiFi connection successful!");
-//         Serial.print("  SSID: ");
-//         Serial.println(WiFi.SSID());
-//         Serial.print("  IP Address: ");
-//         Serial.println(WiFi.localIP());
-//         Serial.print("  Signal Strength: ");
-//         Serial.print(WiFi.RSSI());
-//         Serial.println(" dBm");
-
-// #if PLATFORM_ESP32
-//         Serial.print("  MAC Address: ");
-//         Serial.println(WiFi.macAddress());
-//         Serial.print("  Gateway: ");
-//         Serial.println(WiFi.gatewayIP());
-// #endif
-
-//         // Allow connection to stabilize
-//         delay(1000);
-
-//         // Calculate and print timing summary
-//         unsigned long connectTime = millis() - connectStartTime;
-//         unsigned long totalTime = scanTime + connectTime;
-
-//         Serial.println();
-//         Serial.println("=== WiFi TIMING SUMMARY ===");
-//         Serial.print("Network scan time: ");
-//         Serial.print(scanTime);
-//         Serial.println("ms");
-//         Serial.print("Connection time: ");
-//         Serial.print(connectTime);
-//         Serial.println("ms");
-//         Serial.print("Total time (scan + connect): ");
-//         Serial.print(totalTime);
-//         Serial.println("ms");
-//         Serial.println();
-
-//         // Final connection verification
-//         if (WiFi.status() == WL_CONNECTED)
-//         {
-//             Serial.println("WiFi connected and stable");
-//             return true;
-//         }
-//         else
-//         {
-//             Serial.println("WiFi connection became unstable after initial success");
-//             return false;
-//         }
-//     }
-//     else
-//     {
-//         // Connection failed - provide detailed error information
-//         Serial.println("WiFi connection FAILED!");
-//         Serial.print("Final status: ");
-
-//         switch (WiFi.status())
-//         {
-//         case WL_NO_SSID_AVAIL:
-//             Serial.println("Network not found (check SSID)");
-//             break;
-//         case WL_CONNECT_FAILED:
-//             Serial.println("Authentication failed (check password)");
-//             break;
-//         case WL_CONNECTION_LOST:
-//             Serial.println("Connection lost during setup");
-//             break;
-//         case WL_DISCONNECTED:
-//             Serial.println("Disconnected (network issue or wrong credentials)");
-//             break;
-//         default:
-//             Serial.print("Unknown error (status code: ");
-//             Serial.print(WiFi.status());
-//             Serial.println(")");
-//             break;
-//         }
-
-//         Serial.println("Cannot measure idle power without stable WiFi connection");
-//         return false;
-//     }
-// #else
-//     // Nano 33 BLE doesn't support WiFi
-//     Serial.println("ERROR: WiFi not supported on this platform");
-//     return false;
-// #endif
-// }
 
 bool WirelessTest::initializeBLE()
 {
@@ -914,29 +705,7 @@ void WirelessTest::maintainWireless()
     {
         BTstack.loop();
     }
-    // else
-    // {
-    //     // WiFi maintenance for Pico W
-    //     if (tcpConnected && !client.connected())
-    //     {
-    //         tcpConnected = false;
-    //     }
-    // }
-#elif PLATFORM_ESP32
-    if (currentMode == WirelessMode::BLE)
-    {
-        // ESP32 BLE maintenance if needed
-    }
-    // else
-    // {
-    //     // ESP32 WiFi maintenance
-    //     if (tcpConnected && !client.connected())
-    //     {
-    //         tcpConnected = false;
-    //     }
-    // }
 #endif
-    // Nano 33 BLE doesn't need maintenance
 }
 
 void WirelessTest::shutdownWireless()
@@ -945,33 +714,7 @@ void WirelessTest::shutdownWireless()
     {
         shutdownBLE();
     }
-    // else
-    // {
-    //     shutdownWiFi();
-    // }
 }
-
-// void WirelessTest::shutdownWiFi()
-// {
-// #if PLATFORM_ESP32 || PLATFORM_PICO
-//     // Send disconnect message
-//     if (tcpConnected && client.connected())
-//     {
-//         client.write((const uint8_t *)"DISCONNECT\n", 11);
-//         client.flush();
-//         delay(100); // Give time for message to send
-//         client.stop();
-//     }
-
-//     // Then shut down WiFi
-//     WiFi.disconnect(true);
-// #if PLATFORM_PICO
-//     WiFi.end();
-// #endif
-//     Serial.println("WiFi turned off");
-// #endif
-//     delay(100);
-// }
 
 void WirelessTest::shutdownBLE()
 {
@@ -1012,27 +755,11 @@ void WirelessTest::shutdownBLE()
 bool WirelessTest::sendDataPacket(const unsigned char *data, size_t length)
 {
     return sendBLEDataPacket(data, length);
-    // if (currentMode == WirelessMode::BLE)
-    // {
-    //     return sendBLEDataPacket(data, length);
-    // }
-    // else
-    // {
-    //     return sendWiFiDataPacket(data, length);
-    // }
 }
 
 bool WirelessTest::isClientConnected()
 {
     return isBLEClientConnected();
-    // if (currentMode == WirelessMode::BLE)
-    // {
-    //     return isBLEClientConnected();
-    // }
-    // else
-    // {
-    //     return isWiFiClientConnected();
-    // }
 }
 
 bool WirelessTest::isBLEClientConnected()
@@ -1074,17 +801,11 @@ bool WirelessTest::sendBLEDataPacket(const unsigned char *data, size_t length)
 #elif PLATFORM_PICO
     if (bleInitialized && isBLEClientConnected() && picoTxHandle != 0)
     {
-
-        if (att_server_can_send_packet_now(WirelessTest::bleConnectionHandle))
-        {
-            int result = att_server_notify(WirelessTest::bleConnectionHandle, picoTxHandle, (uint8_t *)data, length);
-            return (result == ERROR_CODE_SUCCESS);
-        }
-        else
-        {
-            // BTstack is not ready to send
-            return false;
-        }
+        pendingData = data;
+        pendingLength = length;
+        bleSendPending = true;
+        att_server_request_can_send_now_event(bleConnectionHandle);
+        return true;  // request queued — not a failure
     }
     return false;
 
@@ -1118,26 +839,6 @@ bool WirelessTest::waitForClientConnection()
         maintainWireless();
 
 #if !PLATFORM_NANO33BLE // Only compile WiFi code for non-Nano platforms
-        // // Handle WiFi TCP connection attempts
-        // if (currentMode == WirelessMode::WIFI)
-        // {
-        //     if (!tcpConnected && (millis() - lastTcpAttempt >= TCP_RETRY_INTERVAL))
-        //     {
-        //         if (client.connect(TCP_HOST, TCP_PORT))
-        //         {
-        //             tcpConnected = true;
-        //             client.setNoDelay(true); // Disable Nagle algorithm, no packet buffering
-        //             client.setTimeout(1000); // 1 second timeout?
-        //             Serial.println("\nTCP connection established!");
-        //             Serial.println(" Connected!");
-        //             return true;
-        //         }
-        //         else
-        //         {
-        //             lastTcpAttempt = millis();
-        //         }
-        //     }
-        // }
 #endif
 
         if (isClientConnected())
@@ -1177,62 +878,4 @@ void WirelessTest::printConnectionStatus()
             Serial.println("No client connected");
         }
     }
-//     else
-//     {
-//         Serial.print("WiFi Status: ");
-//     }
-// #if !PLATFORM_NANO33BLE
-//         // if (tcpConnected && client.connected())
-//         // {
-//         //     Serial.println("TCP client connected");
-//         // }
-//         // else
-//         // {
-//         //     Serial.println("No TCP connection");
-//         // }
-// #else
-//         Serial.println("WiFi not supported on this platform");
-// #endif
-//     }
 }
-
-// bool WirelessTest::isWiFiClientConnected()
-// {
-// #if !PLATFORM_NANO33BLE
-//     if (tcpConnected && client.connected())
-//     {
-//         return true;
-//     }
-//     else
-//     {
-//         if (tcpConnected)
-//         {
-//             Serial.println("TCP connection lost");
-//             tcpConnected = false;
-//             client.stop();
-//         }
-//         return false;
-//     }
-// #else
-//     return false; // Nano 33 BLE doesn't support WiFi
-// #endif
-// }
-
-// bool WirelessTest::sendWiFiDataPacket(const unsigned char *data, size_t length)
-// {
-// #if !PLATFORM_NANO33BLE
-//     size_t bytesWritten = client.write(data, length);
-
-//     if (bytesWritten == length)
-//     {
-//         return true; // Success
-//     }
-//     else
-//     {
-//         // Partial or failed transmission
-//         return false;
-//     }
-// #else
-//     return false; // Nano 33 BLE doesn't support WiFi
-// #endif
-// }

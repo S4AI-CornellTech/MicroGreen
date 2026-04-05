@@ -44,10 +44,7 @@ namespace WirelessTestConstants
 {
     constexpr int PHASE_DURATION_MS = 30000;
     constexpr int BLE_MAX_PACKET_SIZE = 244;  
-    // constexpr int WIFI_MAX_PACKET_SIZE = 1460; 
     constexpr int BLE_TRANSMISSION_INTERVAL_MS = 33; // Found through trial and error
-    // constexpr int WIFI_TRANSMISSION_INTERVAL_MS = 1;// TODO try smaller numbers
-    // I guess we could try sending on multiple sockets simultanously? I suspect with additional optimization we could get the throughput higher for wifi but not for BLE
 }
 
 enum class WirelessMode
@@ -80,6 +77,7 @@ public:
     static bool bleClientConnected;
     static WirelessTest* bleInstance;
     static btstack_packet_callback_registration_t hci_event_callback_registration;
+    void onCanSendNow();
 #endif
 
 private:
@@ -91,14 +89,11 @@ private:
     void cleanupService();  // Add missing cleanupService declaration
 #endif
 
-    // bool initializeWiFi();
     bool initializeBLE();
-    // void shutdownWiFi();
     void shutdownBLE();
     bool sendBLEDataPacket(const unsigned char* data, size_t length);
     bool isBLEClientConnected();
-    // bool sendWiFiDataPacket(const unsigned char* data, size_t length);
-    // bool isWiFiClientConnected();
+
     void generateStaticPacket(unsigned char* buffer, size_t length, unsigned char pattern = 0x55);
     bool waitForClientConnection();
     void printConnectionStatus();
@@ -113,17 +108,16 @@ private:
 
 #elif PLATFORM_PICO
    
-    // WiFiClient client;
-    // bool tcpConnected;
-   
     bool bleInitialized;
     uint16_t picoTxHandle;
     uint16_t picoRxHandle;
 
+
+    bool bleSendPending;
+    const unsigned char* pendingData;
+    size_t pendingLength;
+
 #elif PLATFORM_ESP32
-    
-    // WiFiClient client;
-    // bool tcpConnected;
 
     BLEServer *bleServer;
     BLEService *bleService;
