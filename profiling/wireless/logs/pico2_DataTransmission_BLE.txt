@@ -1,0 +1,65 @@
+(BOARD)
+BTstack setup complete
+BLE event handler registered
+Nordic UART Service added
+TX Characteristic added (handle: 0x3)
+RX Characteristic added (handle: 0x6)
+BLE advertising started as: Pico2NUS
+Initializing BLE stack... Done!
+Pico BLE ready for connections as: Pico2NUS
+Service UUID: 6E400001-B5A3-F393-E0A9-E50E24DCCA9E
+Bluetooth Low Energy (Pico W Arduino-BTstack) initialized successfully
+Waiting for client connection............BLE client connected
+ Connected!
+BLE Status: Client connected
+Connection handle: 0x40
+Packet size: 244 bytes
+Transmission interval: 33ms
+
+=== 30-SECOND DATA TRANSMISSION TEST STARTING ===
+Test progress: 5s - Packets: 146 (3 failed) - Throughput: 57.0 kbps
+Test progress: 10s - Packets: 295 (3 failed) - Throughput: 57.6 kbps
+Test progress: 15s - Packets: 444 (3 failed) - Throughput: 57.8 kbps
+Test progress: 20s - Packets: 594 (3 failed) - Throughput: 58.0 kbps
+Test progress: 25s - Packets: 743 (3 failed) - Throughput: 58.0 kbps
+=== STATISTICS ===
+Test duration: 30.0 seconds
+Total packets attempted: 895
+Successful transmissions: 892
+Failed transmissions: 3
+Success rate: 99.7%
+Average throughput: 58.0 kbps
+Total data transmitted: 212.5 KB
+Transmission rate: 29.7 packets/second
+
+Phase 3 complete - 58.0 kbps avg, 892 packets, 99.7% success
+
+Shutting down BLE
+BLE powered off completely
+BLE client disconnected
+
+(PYTHON)
+Scanning for target devices...
+Found device: Pico2NUS at EDF8FC7F-E3A9-74CE-ADB9-FA13002A0719
+Connecting to Pico2NUS
+Connected in 1.27 seconds
+Monitoring data transfer...
+[14:43:49] Rate: 4048 B/s, 16.6 msg/s, Total: 50 msgs, 12200 bytes
+[14:43:53] Rate: 7391 B/s, 30.3 msg/s, Total: 150 msgs, 36600 bytes
+[14:43:56] Rate: 7333 B/s, 30.1 msg/s, Total: 250 msgs, 61000 bytes
+[14:43:59] Rate: 7450 B/s, 30.5 msg/s, Total: 350 msgs, 85400 bytes
+[14:44:03] Rate: 7261 B/s, 29.8 msg/s, Total: 450 msgs, 109800 bytes
+[14:44:06] Rate: 7278 B/s, 29.8 msg/s, Total: 550 msgs, 134200 bytes
+[14:44:09] Rate: 7252 B/s, 29.7 msg/s, Total: 650 msgs, 158600 bytes
+[14:44:13] Rate: 7205 B/s, 29.5 msg/s, Total: 750 msgs, 183000 bytes
+[14:44:16] Rate: 7451 B/s, 30.5 msg/s, Total: 850 msgs, 207400 bytes
+Connection lost
+
+=== SESSION SUMMARY ===
+Device: Pico2NUS
+Duration: 30.33 seconds
+Messages received: 865
+Total bytes received: 211060
+Average data rate: 6958.68 bytes/second (55.7 kbps)
+Average message size: 244.0 bytes
+Message rate: 28.52 messages/second

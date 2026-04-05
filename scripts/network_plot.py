@@ -23,9 +23,6 @@ RP2040,BLE_transmission_current,36.475,mA
 RP2350,BLE_transmission_current,13.813,mA
 ESP32,BLE_transmission_current,78.047,mA
 nRF52840,BLE_transmission_current,7.63,mA
-RP2040,WIFI_transmission_current,103.231,mA
-RP2350,WIFI_transmission_current,102.488,mA
-ESP32,WIFI_transmission_current,141.453,mA
 RP2040,idle_current,13.409,mA
 RP2350,idle_current,6.881,mA
 ESP32,idle_current,46.593,mA
@@ -34,9 +31,6 @@ RP2040,BLE_throughput,57.8,kbps
 RP2350,BLE_throughput,58.0,kbps
 ESP32,BLE_throughput,54.3,kbps
 nRF52840,BLE_throughput,58.1,kbps
-RP2040,WIFI_throughput,17196.3,kbps
-RP2350,WIFI_throughput,22139.5,kbps
-ESP32,WIFI_throughput,11181.0,kbps
 """
 
 wifi_antenna_idle = pl.DataFrame({

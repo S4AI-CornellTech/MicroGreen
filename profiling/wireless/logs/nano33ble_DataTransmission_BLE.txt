@@ -1,0 +1,49 @@
+(BOARD)
+Packet size: 244 bytes
+Transmission interval: 33ms
+=== 30-SECOND DATA TRANSMISSION TEST STARTING ===
+Test progress: 5s - Packets: 151 (0 failed) - Throughput: 58.9 kbps
+Test progress: 10s - Packets: 301 (0 failed) - Throughput: 58.7 kbps
+Test progress: 15s - Packets: 448 (0 failed) - Throughput: 58.3 kbps
+Test progress: 20s - Packets: 596 (0 failed) - Throughput: 58.1 kbps
+Test progress: 25s - Packets: 745 (0 failed) - Throughput: 58.1 kbps
+=== STATISTICS ===
+Test duration: 30.0 seconds
+Total packets attempted: 893
+Successful transmissions: 893
+Failed transmissions: 0
+Success rate: 100.0%
+Average throughput: 58.1 kbps
+Total data transmitted: 212.8 KB
+Transmission rate: 29.8 packets/second
+
+Phase 3 complete - 58.1 kbps avg, 893 packets, 100.0% success
+
+Nano 33 BLE turned off
+
+(PYTHON)
+Scanning for target devices...
+Found device: NanoBLE at 35A5B192-32AA-6C10-933D-51DA05A5A96B
+Connecting to NanoBLE
+Connected in 1.92 seconds
+Monitoring data transfer...
+[21:08:51] Rate: 3373 B/s, 13.8 msg/s, Total: 50 msgs, 12200 bytes
+[21:08:54] Rate: 7354 B/s, 30.1 msg/s, Total: 150 msgs, 36600 bytes
+[21:08:58] Rate: 7299 B/s, 29.9 msg/s, Total: 250 msgs, 61000 bytes
+[21:09:01] Rate: 7226 B/s, 29.6 msg/s, Total: 350 msgs, 85400 bytes
+[21:09:04] Rate: 7173 B/s, 29.4 msg/s, Total: 450 msgs, 109800 bytes
+[21:09:08] Rate: 7256 B/s, 29.7 msg/s, Total: 550 msgs, 134200 bytes
+[21:09:11] Rate: 7262 B/s, 29.8 msg/s, Total: 650 msgs, 158600 bytes
+[21:09:15] Rate: 7229 B/s, 29.6 msg/s, Total: 750 msgs, 183000 bytes
+[21:09:18] Rate: 7263 B/s, 29.8 msg/s, Total: 850 msgs, 207400 bytes
+Connection lost
+
+=== SESSION SUMMARY ===
+Device: NanoBLE
+Duration: 31.73 seconds
+Messages received: 861
+Total bytes received: 210084
+Average data rate: 6620.54 bytes/second (53.0 kbps)
+Average message size: 244.0 bytes
+Message rate: 27.13 messages/second
+sustainablemcuilanmandel@Ilans-MacBook-Air sustainableMCU % 

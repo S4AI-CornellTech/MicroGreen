@@ -1,0 +1,74 @@
+(BOARD)
+Device: TinyPICO ESP32
+
+=== PHASE 3: DATA TRANSMISSION ===
+Phase 3: Maximum BLE data transmission
+Initializing wireless for data transmission...
+Initializing BLE...
+Setting up ESP32 BLE...
+BLE device initialized
+Connection callbacks set
+Nordic UART Service created
+TX characteristic with notification descriptor created
+RX characteristic created
+Service started
+BLE advertising started
+ESP32 BLE ready for connections
+Device Name: ESP32-NUS
+Service UUID: 6E400001-B5A3-F393-E0A9-E50E24DCCA9E
+Bluetooth Low Energy (ESP32) initialized successfully
+Waiting for client connection.BLE client connected
+ Connected!
+BLE Status: Client connected
+Packet size: 244 bytes
+Transmission interval: 33ms
+
+=== 30-SECOND DATA TRANSMISSION TEST STARTING ===
+Test progress: 5s - Packets: 139 (0 failed) - Throughput: 54.3 kbps
+Test progress: 10s - Packets: 278 (0 failed) - Throughput: 54.3 kbps
+Test progress: 15s - Packets: 417 (0 failed) - Throughput: 54.3 kbps
+Test progress: 20s - Packets: 556 (0 failed) - Throughput: 54.3 kbps
+Test progress: 25s - Packets: 695 (0 failed) - Throughput: 54.3 kbps
+=== STATISTICS ===
+Test duration: 30.0 seconds
+Total packets attempted: 834
+Successful transmissions: 834
+Failed transmissions: 0
+Success rate: 100.0%
+Average throughput: 54.3 kbps
+Total data transmitted: 198.7 KB
+Transmission rate: 27.8 packets/second
+
+Phase 3 complete - 54.3 kbps avg, 834 packets, 100.0% success
+
+BLE client disconnected
+ESP32 BLE turned off
+
+(PYTHON)
+
+Scanning for target devices...
+Found device: ESP32-NUS at 5167105B-4FCF-129A-D490-CF495A985B6B
+Connecting to ESP32-NUS
+Connected in 1.62 seconds
+Monitoring data transfer...
+[14:48:46] Rate: 3596 B/s, 14.7 msg/s, Total: 50 msgs, 12200 bytes
+[14:48:50] Rate: 6776 B/s, 27.8 msg/s, Total: 150 msgs, 36600 bytes
+[14:48:53] Rate: 6780 B/s, 27.8 msg/s, Total: 250 msgs, 61000 bytes
+[14:48:57] Rate: 6776 B/s, 27.8 msg/s, Total: 350 msgs, 85400 bytes
+[14:49:00] Rate: 6774 B/s, 27.8 msg/s, Total: 450 msgs, 109800 bytes
+[14:49:04] Rate: 6783 B/s, 27.8 msg/s, Total: 550 msgs, 134200 bytes
+[14:49:08] Rate: 6778 B/s, 27.8 msg/s, Total: 650 msgs, 158600 bytes
+[14:49:11] Rate: 6777 B/s, 27.8 msg/s, Total: 750 msgs, 183000 bytes
+Connection lost
+
+=== SESSION SUMMARY ===
+Device: ESP32-NUS
+Duration: 30.89 seconds
+Messages received: 809
+Total bytes received: 197396
+Average data rate: 6389.33 bytes/second (51.1 kbps)
+Average message size: 244.0 bytes
+Message rate: 26.19 messages/second
+ilanmandel@Mac sustainableMCU % >....           
+0 msgs, 158600 bytes
+Rate: 6777 B/s, 27.8 msg/s, Total: 750 msgs, 183000 bytes

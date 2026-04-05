@@ -1,0 +1,58 @@
+(BOARD)
+Pico BLE ready for connections as: PicoNUS
+Service UUID: 6E400001-B5A3-F393-E0A9-E50E24DCCA9E
+Bluetooth Low Energy (Pico W Arduino-BTstack) initialized successfully
+Waiting for client connection.........BLE client connected
+ Connected!
+BLE Status: Client connected
+Connection handle: 0x40
+Packet size: 244 bytes
+Transmission interval: 33ms
+
+=== 30-SECOND DATA TRANSMISSION TEST STARTING ===
+Test progress: 5s - Packets: 148 (0 failed) - Throughput: 57.8 kbps
+Test progress: 10s - Packets: 296 (0 failed) - Throughput: 57.8 kbps
+Test progress: 15s - Packets: 444 (0 failed) - Throughput: 57.8 kbps
+Test progress: 20s - Packets: 592 (0 failed) - Throughput: 57.8 kbps
+Test progress: 25s - Packets: 740 (0 failed) - Throughput: 57.8 kbps
+=== STATISTICS ===
+Test duration: 30.0 seconds
+Total packets attempted: 888
+Successful transmissions: 888
+Failed transmissions: 0
+Success rate: 100.0%
+Average throughput: 57.8 kbps
+Total data transmitted: 211.6 KB
+Transmission rate: 29.6 packets/second
+
+Phase 3 complete - 57.8 kbps avg, 888 packets, 100.0% success
+
+Shutting down BLE
+BLE powered off completely
+BLE client disconnected
+
+(PYTHON)
+Scanning for target devices...
+Found device: PicoNUS at 2C9D26E1-A300-B1F5-6219-9621C227FC82
+Connecting to PicoNUS
+Connected in 1.20 seconds
+Monitoring data transfer...
+[14:46:07] Rate: 4376 B/s, 17.9 msg/s, Total: 50 msgs, 12200 bytes
+[14:46:11] Rate: 7136 B/s, 29.2 msg/s, Total: 150 msgs, 36600 bytes
+[14:46:14] Rate: 7263 B/s, 29.8 msg/s, Total: 250 msgs, 61000 bytes
+[14:46:18] Rate: 7255 B/s, 29.7 msg/s, Total: 350 msgs, 85400 bytes
+[14:46:21] Rate: 7199 B/s, 29.5 msg/s, Total: 450 msgs, 109800 bytes
+[14:46:24] Rate: 7138 B/s, 29.3 msg/s, Total: 550 msgs, 134200 bytes
+[14:46:28] Rate: 7321 B/s, 30.0 msg/s, Total: 650 msgs, 158600 bytes
+[14:46:31] Rate: 7197 B/s, 29.5 msg/s, Total: 750 msgs, 183000 bytes
+[14:46:34] Rate: 7259 B/s, 29.8 msg/s, Total: 850 msgs, 207400 bytes
+Connection lost
+
+=== SESSION SUMMARY ===
+Device: PicoNUS
+Duration: 30.44 seconds
+Messages received: 864
+Total bytes received: 210816
+Average data rate: 6925.43 bytes/second (55.4 kbps)
+Average message size: 244.0 bytes
+Message rate: 28.38 messages/second
