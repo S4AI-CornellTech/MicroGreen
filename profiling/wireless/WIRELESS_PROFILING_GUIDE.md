@@ -35,12 +35,12 @@ pio init
 
 ## Supported Platforms
 
-| Environment | Board | Flash Command |
-|---|---|---|
-| `pico` | Raspberry Pi Pico W | `cp firmware.uf2 /Volumes/RPI-RP2` |
-| `pico2` | Raspberry Pi Pico 2W | `cp firmware.uf2 /Volumes/RP2350` |
-| `tinypico` | TinyPICO ESP32 | flashed via USB/serial |
-| `nano33ble` | Arduino Nano 33 BLE | flashed via USB/serial |
+| Environment | Board |
+|---|---|
+| `pico` | Raspberry Pi Pico W | 
+| `pico2` | Raspberry Pi Pico 2W | 
+| `tinypico` | TinyPICO ESP32 |
+| `nano33ble` | Arduino Nano 33 BLE | 
 
 ---
 
@@ -64,28 +64,13 @@ powerTest.runPhase3_DataTransmission(WirelessMode::BLE); // Phase 3: Active BLE 
 
 ## Compiling & Flashing
 
-### Compile
-
 ```bash
-pio run -e pico        # Pico W
-pio run -e pico2       # Pico 2W
-pio run -e tinypico    # TinyPICO ESP32
-pio run -e nano33ble   # Arduino Nano 33 BLE
+pio run -e pico -t upload        # Pico W
+pio run -e pico2 -t upload       # Pico 2W
+pio run -e tinypico -t upload    # TinyPICO ESP32
+pio run -e nano33ble -t upload   # Arduino Nano 33 BLE
 ```
 
-### Flash (Pico / Pico 2W)
-
-Put the board into bootloader mode by holding **BOOTSEL** while plugging in USB. The board will appear as a mass storage volume.
-
-```bash
-# Pico W
-cp .pio/build/pico/firmware.uf2 /Volumes/RPI-RP2
-
-# Pico 2W
-cp .pio/build/pico2/firmware.uf2 /Volumes/RP2350
-```
-
-The board will reboot automatically after flashing. The mass storage volume will disappear — this is expected.
 
 ---
 
@@ -112,32 +97,3 @@ python ble_connect.py
 ```
 
 The script will scan for the device (`PicoNUS`, `Pico2NUS`, `NanoBLE`, `ESP32-NUS`, or `BTstack`), connect automatically, and print live throughput statistics.
-
-### Expected output
-
-```
-BLE Connection Monitor
-Scanning for target devices...
-Found device: Pico2NUS at ...
-Connecting to Pico2NUS
-Connected in 1.27 seconds
-Monitoring data transfer...
-[14:43:49] Rate: 4048 B/s, 16.6 msg/s, Total: 50 msgs, 12200 bytes
-...
-=== SESSION SUMMARY ===
-Duration: 30.33 seconds
-Average data rate: 6958.68 bytes/second (55.7 kbps)
-```
-
----
-
-## Troubleshooting
-
-**Board not appearing after flash**
-The Pico reboots into firmware mode after flashing — the `RPI-RP2` / `RP2350` volume disappearing is normal. Check for `/dev/cu.usbmodem*` instead.
-
-**`cp: Operation not permitted` when copying `.uf2`**
-Grant your terminal Full Disk Access in **System Settings → Privacy & Security → Full Disk Access**, or use `sudo cp`.
-
-**BLE device not found by Python script**
-Ensure Bluetooth is enabled on your computer. The script scans for 5 seconds — if the board hasn't finished booting, it will retry automatically.
