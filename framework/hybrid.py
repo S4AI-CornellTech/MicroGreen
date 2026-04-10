@@ -86,7 +86,7 @@ def run_hybrid_powered_analysis(
     workload_df_hybrid["kg CO2e (board)"] = workload_df_hybrid["Devices"].map(whole_board_carbon)
     workload_df_hybrid["kg CO2e (voltage regulator)"] = workload_df_hybrid["Devices"].map(voltage_regulator_CO2)
     workload_df_hybrid["kg CO2e (capacitor only)"] = (
-        workload_df_hybrid["kg CO2e (capacitor only)"] * workload_df_hybrid["number of capacitor sets"] * lifetime_years * 12
+        workload_df_hybrid["kg CO2e (capacitor only)"] * workload_df_hybrid["number of capacitor sets"] * lifetime_years * 12 # 12 months
     )
     workload_df_hybrid["kg CO2e (switches only)"] = capacitor_switches_CO2e * (workload_df_hybrid["number of capacitor sets"] - 1)
 
@@ -153,7 +153,7 @@ def run_hybrid_powered_analysis(
         total_height = row[components].sum()
         duty_cycle = row["battery duty cycle (%)"] + row["solar duty cycle (%)"]
         area_cm2 = row["solar panel area capped (cm2)"]
-        caps = row.get("number of capacitors", None) * row.get("number of capacitor sets", 1) * 2
+        caps = row.get("number of capacitors", None) * row.get("number of capacitor sets", 1) * 2 # we need to have two sets of capcitors to support "non-stop" inference, so we multiply by 2 to get the total number of capacitors used in the system.
 
         # Build a multi-line label
         label_lines = [

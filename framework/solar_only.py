@@ -99,7 +99,7 @@ def run_solar_harvesting_analysis(
         workload_df_solar["number of capacitors"]
         * per_capacitor_cost
         * workload_df_solar["number of capacitor sets"]
-        * 2
+        * 2 # we need to have two sets of capcitors to support "non-stop" inference, so we multiply by 2 to get the total number of capacitors used in the system.
     )
     workload_df_solar["voltage regulator cost ($)"] = workload_df_solar["Devices"].map(
         voltage_regulator_cost
