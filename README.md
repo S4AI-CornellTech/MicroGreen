@@ -45,23 +45,27 @@ Figure 6 - Carbon Rank Plot
 ```bash
 python3 scripts/overall_eval_carbon.py --lifetime-years 1 --solar-panel-area-cap 611
 ```
-Figure 7 - Irradiance Analysis Plot
+Figure 7 - Energy Efficiency Rank Plot
+```bash
+python3 scripts/overall_eval_energy.py
+```
+Figure 8 - Irradiance Analysis Plot
 ```bash
 python3 framework/main.py --workload kws-l --solar-plot
 ```
-Figure 8 - Battery Analysis Plot
+Figure 9 - Battery Analysis Plot
 ```bash
 python3 framework/main.py --workload kws-s --battery-plot
 ```
-Figure 9 - Network Analysis Plot
+Figure 10 - Network Analysis Plot
 ```bash
 python3 scripts/network_plot.py
 ```
-Figure 10 - Hybrid Analysis Plot
+Figure 11 - Hybrid Analysis Plot
 ```bash
 python3 framework/main.py --workload kws-l --lifetime-plot
 ```
-Figure 13
+Figure 14 Heterogeneous Deployment Results
 ```bash
 python3 framework/heterogeneousDeployment.py
 python3 scripts/case_study_plot.py
