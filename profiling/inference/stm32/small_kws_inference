@@ -1,0 +1,255 @@
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 559 microseconds
+
+Inference 54 starts at: 389982
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 55 starts at: 39555
+memcpy took: 117 microseconds
+Inference took: 54351 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 559 microseconds
+
+Inference 56 starts at: 391128
+memcpy took: 117 microseconds
+Inference took: 54351 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 57 starts at: 39171
+memcpy took: 117 microseconds
+Inference took: 54351 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 58 starts at: 392274
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 559 microseconds
+
+Inference 59 starts at: 392847
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 51 starts at: 39342
+memcpy took: 117 microseconds
+Inference took: 54351 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+--- Completed 51 inferences, entering sleep cycle ---
+Average memcpy time: 117. microseconds
+Average inference time: 54351.5 microseconds
+Average post-processing time: 5589.3 microseconds
+Average total loop time: 549216 microseconds
+Entering sleep for 2 seconds...
+Woke up from sleep
+
+Inference 511 starts at: 39629
+memcpy took: 117 microseconds
+Inference took: 54351 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 512 starts at: 39662
+memcpy took: 117 microseconds
+Inference took: 54351 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 559 microseconds
+
+Inference 513 starts at: 397175
+memcpy took: 117 microseconds
+Inference took: 54351 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 514 starts at: 397748
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 515 starts at: 398321
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 559 microseconds
+
+Inference 516 starts at: 398894
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 517 starts at: 399467
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 518 starts at: 44
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 519 starts at: 4613
+memcpy took: 117 microseconds
+Inference took: 54351 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 52 starts at: 41186
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+--- Completed 52 inferences, entering sleep cycle ---
+Average memcpy time: 117. microseconds
+Average inference time: 54351.62 microseconds
+Average post-processing time: 5589.2 microseconds
+Average total loop time: 549216 microseconds
+Entering sleep for 2 seconds...
+Woke up from sleep
+
+Inference 521 starts at: 43795
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 522 starts at: 44368
+memcpy took: 117 microseconds
+Inference took: 54351 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 559 microseconds
+
+Inference 523 starts at: 44941
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 524 starts at: 45514
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 525 starts at: 4687
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 526 starts at: 4666
+memcpy took: 117 microseconds
+Inference took: 54351 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 527 starts at: 47233
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 528 starts at: 4786
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 529 starts at: 48379
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 53 starts at: 48952
+memcpy took: 117 microseconds
+Inference took: 54351 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+--- Completed 53 inferences, entering sleep cycle ---
+Average memcpy time: 117. microseconds
+Average inference time: 54351.69 microseconds
+Average post-processing time: 5589.1 microseconds
+Average total loop time: 549216 microseconds
+Entering sleep for 2 seconds...
+Woke up from sleep
+
+Inference 531 starts at: 411561
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 559 microseconds
+
+Inference 532 starts at: 412134
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 533 starts at: 41277
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 534 starts at: 41328
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 535 starts at: 413853
+memcpy took: 117 microseconds
+Inference took: 543511 microseconds
+Results: [., .27, .31, .941]
+Detected: no (.941)
+Post-processing took: 5589 microseconds
+
+Inference 536 starts at: 414426
+memcpy took: 117 microseconds

@@ -1,0 +1,341 @@
+Executing action: flash
+Serial port /dev/cu.usbmodem101
+Connecting...
+Detecting chip type... ESP32-S3
+Running make in directory '/Users/katelynn/Desktop/Research/Professor Udit Gupta/MicroGreen/profiling/inference/idf-sdk/micro_speech_large/build'
+Executing "make -j 16 flash"...
+[  0%] Built target memory.ld
+[  0%] Built target custom_bundle
+[  0%] Built target partition_table_bin
+[  0%] Built target sections.ld.in
+[  0%] Built target _project_elf_src
+[  1%] Performing build step for 'bootloader'
+[  1%] Built target __idf_esp_https_ota
+[  2%] Built target __idf_esp_http_server
+[  1%] Built target _project_elf_src
+[  9%] Built target __idf_log
+[  2%] Built target __idf_esp_http_client
+[ 19%] Built target __idf_esp_rom
+[  2%] Built target __idf_tcp_transport
+[ 20%] Built target __idf_esp_common
+[  3%] Built target __idf_esp_adc
+[  4%] Built target __idf_esp-tls
+[ 29%] Built target __idf_esp_hw_support
+[  4%] Built target __idf_http_parser
+[ 31%] Built target __idf_esp_system
+[ 39%] Built target __idf_efuse
+[  5%] Built target __idf_driver
+[  5%] Built target __idf_esp_driver_twai
+[ 58%] Built target __idf_bootloader_support
+[  5%] Built target __idf_esp_driver_ledc
+[ 60%] Built target __idf_esp_bootloader_format
+[  6%] Built target __idf_esp_driver_i2c
+[ 62%] Built target __idf_spi_flash
+[ 69%] Built target __idf_hal
+[  6%] Built target __idf_esp_driver_sdm
+[  6%] Built target __idf_esp_driver_tsens
+[ 71%] Built target __idf_micro-ecc
+[  7%] Built target __idf_esp_driver_rmt
+[ 93%] Built target __idf_soc
+[  7%] Built target __idf_esp_driver_sdspi
+[ 95%] Built target __idf_xtensa
+[ 96%] Built target __idf_main
+[  7%] Built target __idf_esp_driver_sdmmc
+[ 98%] Built target bootloader.elf
+[  8%] Built target __idf_sdmmc
+[100%] Built target gen_project_binary
+[  8%] Built target __idf_esp_driver_i2s
+[  9%] Built target __idf_esp_driver_mcpwm
+Bootloader binary size 0x5800 bytes. 0x2800 bytes (31%) free.
+[  9%] Built target __idf_esp_driver_pcnt
+[100%] Built target bootloader_check_size
+[100%] Built target app
+[  9%] Built target __idf_esp_gdbstub
+[  9%] No install step for 'bootloader'
+[ 10%] Built target __idf_esp_driver_spi
+[ 10%] Completed 'bootloader'
+[ 10%] Built target __idf_esp_wifi
+[ 10%] Built target bootloader
+[ 10%] Built target __idf_esp_coex
+[ 17%] Built target __idf_wpa_supplicant
+[ 17%] Built target __idf_esp_netif
+[ 25%] Built target __idf_lwip
+[ 26%] Built target __idf_vfs
+[ 27%] Built target __idf_esp_vfs_console
+[ 27%] Built target __idf_esp_driver_usb_serial_jtag
+[ 28%] Built target __idf_esp_phy
+[ 30%] Built target __idf_nvs_flash
+[ 31%] Built target __idf_esp_event
+[ 32%] Built target __idf_esp_driver_uart
+[ 32%] Built target __idf_esp_ringbuf
+[ 32%] Built target __idf_esp_driver_gptimer
+[ 32%] Built target __idf_esp_timer
+[ 33%] Built target __idf_cxx
+[ 34%] Built target __idf_pthread
+[ 35%] Built target __idf_newlib
+[ 36%] Built target __idf_freertos
+[ 40%] Built target __idf_esp_hw_support
+[ 41%] Built target __idf_esp_security
+[ 43%] Built target __idf_soc
+[ 44%] Built target __idf_heap
+[ 45%] Built target __idf_log
+[ 49%] Built target __idf_hal
+[ 50%] Built target __idf_esp_rom
+[ 50%] Built target __idf_esp_common
+[ 53%] Built target __idf_esp_system
+[ 54%] Built target __idf_spi_flash
+[ 55%] Built target __idf_esp_mm
+[ 56%] Built target __idf_bootloader_support
+[ 56%] Built target __idf_efuse
+[ 56%] Built target __idf_esp_partition
+[ 56%] Built target __idf_app_update
+[ 56%] Built target __idf_esp_bootloader_format
+[ 56%] Built target __idf_esp_app_format
+[ 58%] Built target mbedtls
+[ 59%] Built target mbedx509
+[ 67%] Built target mbedcrypto
+[ 67%] Built target p256m
+[ 67%] Built target everest
+[ 67%] Built target __idf_mbedtls
+[ 67%] Built target __idf_esp_pm
+[ 67%] Built target __idf_esp_driver_gpio
+[ 67%] Built target __idf_xtensa
+[ 68%] Built target __idf_esp_hid
+[ 69%] Built target __idf_unity
+[ 69%] Built target __idf_esp_driver_touch_sens
+[ 69%] Built target __idf_esp_eth
+[ 69%] Built target __idf_app_trace
+[ 70%] Built target __idf_esp_driver_cam
+[ 70%] Built target __idf_nvs_sec_provider
+[ 70%] Built target __idf_wear_levelling
+[ 71%] Built target __idf_console
+[ 71%] Built target __idf_json
+[ 71%] Built target __idf_esp_https_server
+[ 72%] Built target __idf_espcoredump
+[ 76%] Built target __idf_espressif__esp-nn
+[ 76%] Built target __idf_protobuf-c
+[ 77%] Built target __idf_esp_lcd
+[ 78%] Built target __idf_mqtt
+[ 78%] Built target __idf_perfmon
+[ 79%] Built target __idf_rt
+[ 79%] Built target __idf_cmock
+[ 79%] Built target __idf_touch_element
+[ 80%] Built target __idf_usb
+[ 80%] Built target __idf_spiffs
+[ 81%] Built target __idf_fatfs
+[ 82%] Built target __idf_protocomm
+[ 83%] Built target __idf_esp_local_ctrl
+[ 83%] Built target __idf_wifi_provisioning
+[ 98%] Built target __idf_espressif__esp-tflite-micro
+[ 98%] Built target __idf_main
+[100%] Built target __idf_tflite_common
+[100%] Built target __ldgen_output_sections.ld
+[100%] Built target micro_speech_large.elf
+[100%] Built target gen_project_binary
+micro_speech_large.bin binary size 0x57520 bytes. Smallest app partition is 0x100000 bytes. 0xa8ae0 bytes (66%) free.
+[100%] Built target app_check_size
+[100%] Built target app
+esptool.py --chip esp32s3 -p /dev/cu.usbmodem101 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 80m --flash_size 2MB 0x0 bootloader/bootloader.bin 0x10000 micro_speech_large.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.12.dev2
+Serial port /dev/cu.usbmodem101
+Connecting...
+Chip is ESP32-S3 (QFN56) (revision v0.2)
+Features: WiFi, BLE, Embedded Flash 4MB (XMC), Embedded PSRAM 2MB (AP_3v3)
+Crystal is 40MHz
+USB mode: USB-Serial/JTAG
+MAC: f0:f5:bd:76:f2:e0
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00000000 to 0x00005fff...
+Flash will be erased from 0x00010000 to 0x00067fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+SHA digest in image updated
+Compressed 22528 bytes to 14316...
+Writing at 0x00000000... (100 %)
+Wrote 22528 bytes (14316 compressed) at 0x00000000 in 0.4 seconds (effective 483.2 kbit/s)...
+Hash of data verified.
+Compressed 357664 bytes to 220530...
+Writing at 0x00010000... (7 %)
+Writing at 0x0001b9ac... (14 %)
+Writing at 0x0001fa7f... (21 %)
+Writing at 0x00027099... (28 %)
+Writing at 0x00030589... (35 %)
+Writing at 0x0003615d... (42 %)
+Writing at 0x0003b9dc... (50 %)
+Writing at 0x00040c7b... (57 %)
+Writing at 0x00045fc5... (64 %)
+Writing at 0x0004ae83... (71 %)
+Writing at 0x00051ba8... (78 %)
+Writing at 0x00058d2f... (85 %)
+Writing at 0x0005e90d... (92 %)
+Writing at 0x000646a0... (100 %)
+Wrote 357664 bytes (220530 compressed) at 0x00010000 in 3.2 seconds (effective 885.6 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 103...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (103 compressed) at 0x00008000 in 0.1 seconds (effective 378.7 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
+[100%] Built target flash
+Executing action: monitor
+Running idf_monitor in directory '/Users/katelynn/Desktop/Research/Professor Udit Gupta/MicroGreen/profiling/inference/idf-sdk/micro_speech_large'
+Executing "/Users/katelynn/.espressif/python_env/idf5.5_py3.12_env/bin/python /Users/katelynn/esp/esp-idf/tools/idf_monitor.py -p /dev/cu.usbmodem101 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 '/Users/katelynn/Desktop/Research/Professor Udit Gupta/MicroGreen/profiling/inference/idf-sdk/micro_speech_large/build/micro_speech_large.elf' '/Users/katelynn/Desktop/Research/Professor Udit Gupta/MicroGreen/profiling/inference/idf-sdk/micro_speech_large/build/bootloader/bootloader.elf' -m '/Users/katelynn/.espressif/python_env/idf5.5_py3.12_env/bin/python' '/Users/katelynn/esp/esp-idf/tools/idf.py'"...
+Model loaded successfully: KWS Large
+Input size: 490 bytes
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x8 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x420062dc
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x1710
+load:0x403c8700,len:0xec0
+load:0x403cb700,len:0x31d4
+entry 0x403c894c
+[0;32mI (24) boot: ESP-IDF v5.5-dirty 2nd stage bootloader[0m
+[0;32mI (24) boot: compile time May 20 2026 12:08:42[0m
+[0;32mI (25) boot: Multicore bootloader[0m
+[0;32mI (25) boot: chip revision: v0.2[0m
+[0;32mI (28) boot: efuse block revision: v1.3[0m
+[0;32mI (31) qio_mode: Enabling default flash chip QIO[0m
+[0;32mI (36) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (40) boot.esp32s3: SPI Mode       : QIO[0m
+[0;32mI (43) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (52) boot: Partition Table:[0m
+[0;32mI (54) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (61) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (67) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (74) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (80) boot: End of partition table[0m
+[0;32mI (83) esp_image: segment 0: paddr=00010020 vaddr=3c030020 size=1adfch (110076) map[0m
+[0;32mI (107) esp_image: segment 1: paddr=0002ae24 vaddr=3fc93500 size=02a40h ( 10816) load[0m
+[0;32mI (110) esp_image: segment 2: paddr=0002d86c vaddr=40374000 size=027ach ( 10156) load[0m
+[0;32mI (113) esp_image: segment 3: paddr=00030020 vaddr=42000020 size=2a780h (173952) map[0m
+[0;32mI (144) esp_image: segment 4: paddr=0005a7a8 vaddr=403767ac size=0ccfch ( 52476) load[0m
+[0;32mI (155) esp_image: segment 5: paddr=000674ac vaddr=600fe000 size=00050h (    80) load[0m
+[0;32mI (161) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (161) boot: Disabling RNG early entropy source...[0m
+[0;32mI (173) cpu_start: Multicore app[0m
+[0;32mI (181) cpu_start: Pro cpu start user code[0m
+[0;32mI (182) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (182) app_init: Application information:[0m
+[0;32mI (182) app_init: Project name:     micro_speech_large[0m
+[0;32mI (186) app_init: App version:      384d8b7-dirty[0m
+[0;32mI (191) app_init: Compile time:     May 20 2026 12:08:56[0m
+[0;32mI (196) app_init: ELF file SHA256:  2e2f68ee1...[0m
+[0;32mI (200) app_init: ESP-IDF:          v5.5-dirty[0m
+[0;32mI (204) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (208) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (212) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (216) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (222) heap_init: At 3FCAFBF0 len 00039B20 (230 KiB): RAM[0m
+[0;32mI (228) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (233) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (238) heap_init: At 600FE050 len 00001F98 (7 KiB): RTCRAM[0m
+[0;32mI (244) spi_flash: detected chip: generic[0m
+[0;32mI (247) spi_flash: flash io: qio[0m
+[0;33mW (250) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (262) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (268) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (275) main_task: Started on CPU0[0m
+[0;32mI (285) main_task: Calling app_main()[0m
+
+=== Starting KWS Large Model Test with Sleep Cycles ===
+
+Program start time: 43484 microseconds
+Model loaded successfully: KWS Large
+Input size: 490 bytes
+Expected categories: 12
+Input tensor type: 9, scale: 0.584703, zero point: 83
+Output tensor type: 9, scale: 0.003906, zero point: -128
+Tensor arena memory used: 35500 bytes
+Tensor arena memory available: 102400 bytes
+Initialization complete
+Setup end time: 73724
+Setup takes: 30240 microseconds
+
+Inference 1 starts at: 78599
+memcpy took: 4 microseconds
+Inference took: 217390 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2344 microseconds
+[0;32mI (555) main_task: Returned from app_main()[0m
+
+Inference 2 starts at: 407041
+memcpy took: 6 microseconds
+Inference took: 216888 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2345 microseconds
+
+Inference 3 starts at: 727039
+memcpy took: 5 microseconds
+Inference took: 216880 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2345 microseconds
+
+Inference 4 starts at: 1047039
+memcpy took: 6 microseconds
+Inference took: 216855 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2346 microseconds
+
+Inference 5 starts at: 1367039
+memcpy took: 6 microseconds
+Inference took: 216866 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2345 microseconds
+
+Inference 6 starts at: 1687039
+memcpy took: 6 microseconds
+Inference took: 216854 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2345 microseconds
+
+Inference 7 starts at: 2007039
+memcpy took: 6 microseconds
+Inference took: 216866 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2345 microseconds
+
+Inference 8 starts at: 2327039
+memcpy took: 6 microseconds
+Inference took: 216854 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2346 microseconds
+
+Inference 9 starts at: 2647039
+memcpy took: 6 microseconds
+Inference took: 216866 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2345 microseconds
+
+Inference 10 starts at: 2967039
+memcpy took: 6 microseconds
+Inference took: 216855 microseconds
+Results: [0.496, 0.000, 0.000, 0.000, 0.000, 0.496, 0.000, 0.000, 0.000, 0.000, 0.000, 0.004]
+Detected: down (0.496)
+Post-processing took: 2346 microseconds
+
+--- Completed 10 inferences, entering sleep cycle ---
+Average memcpy time: 5.70 microseconds
+Average inference time: 216917.41 microseconds
+Average post-processing time: 2345.20 microseconds
+Average total loop time: 219268 microseconds
+Entering light sleep for 2 seconds...
+Done

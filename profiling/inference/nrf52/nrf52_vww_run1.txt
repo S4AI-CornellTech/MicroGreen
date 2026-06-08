@@ -1,0 +1,88 @@
+--- Terminal on /dev/cu.usbmodem0010502864501 | 115200 8-N-1
+--- Available filters and text transformations: debug, default, direct, hexlify, log2file, nocontrol, printable, send_on_enter, time
+--- More details at https://bit.ly/pio-monitor-filters
+--- Quit: Ctrl+C | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H
+Inference took: 10927825 microseconds
+Results: [0.977, 0.023]
+Detected: notperson (0.977)
+Post-processing took: 4883 microseconds
+
+Inference 3 starts at: 23256011
+memcpy took: 4303 microseconds
+Inference took: 10928070 microseconds
+Results: [0.977, 0.023]
+Detected: notperson (0.977)
+Post-processing took: 4883 microseconds
+
+Inference 4 starts at: 34305023
+memcpy took: 4303 microseconds
+Inference took: 10931304 microseconds
+Results: [0.977, 0.023]
+Detected: notperson (0.977)
+Post-processing took: 4913 microseconds
+
+Inference 5 starts at: 45358001
+memcpy took: 4334 microseconds
+Inference took: 10935883 microseconds
+Results: [0.977, 0.023]
+Detected: notperson (0.977)
+Post-processing took: 4883 microseconds
+
+Inference 6 starts at: 56415008
+memcpy took: 4334 microseconds
+Inference took: 10934784 microseconds
+Results: [0.977, 0.023]
+Detected: notperson (0.977)
+Post-processing took: 4883 microseconds
+
+Inference 7 starts at: 67471008
+memcpy took: 4303 microseconds
+Inference took: 10936676 microseconds
+Results: [0.977, 0.023]
+Detected: notperson (0.977)
+Post-processing took: 4882 microseconds
+
+Inference 8 starts at: 78529022
+memcpy took: 4303 microseconds
+Inference took: 10927368 microseconds
+Results: [0.977, 0.023]
+Detected: notperson (0.977)
+Post-processing took: 4882 microseconds
+
+Inference 9 starts at: 89578002
+memcpy took: 4303 microseconds
+Inference took: 10926850 microseconds
+Results: [0.977, 0.023]
+Detected: notperson (0.977)
+Post-processing took: 4883 microseconds
+
+Inference 10 starts at: 100626007
+memcpy took: 4303 microseconds
+Inference took: 10920563 microseconds
+Results: [0.977, 0.023]
+Detected: notperson (0.977)
+Post-processing took: 4883 microseconds
+
+--- Completed 10 Visual Wake Word inferences
+Average memcpy time: 4309.20 microseconds
+Average inference time: 10929818.00 microseconds
+Average post-processing time: 4885.80 microseconds
+Average total loop time: 10939013 microseconds
+Preparing to sleep for 3 seconds...
+
+Inference 11 starts at: 114692016
+memcpy took: 4303 microseconds
+Inference took: 10924713 microseconds
+Results: [0.977, 0.023]
+Detected: notperson (0.977)
+Post-processing took: 4883 microseconds
+
+Inference 12 starts at: 125738006
+memcpy took: 4303 microseconds
+Inference took: 10931610 microseconds
+Results: [0.977, 0.023]
+Detected: notperson (0.977)
+Post-processing took: 4883 microseconds
+
+Inference 13 starts at: 136791015
+memcpy took: 4303 microseconds

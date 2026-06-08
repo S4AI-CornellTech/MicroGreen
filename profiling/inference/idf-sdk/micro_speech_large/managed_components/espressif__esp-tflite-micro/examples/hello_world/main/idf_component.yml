@@ -1,4 +1,3 @@
 dependencies:
   espressif/esp-tflite-micro:
-    version: "*"
-    override_path: "../../../"
+    version: '*'

@@ -9,7 +9,7 @@ files:
 issues: https://github.com/espressif/esp-nn/issues
 repository: git://github.com/espressif/esp-nn.git
 repository_info:
-  commit_sha: d47fb37af4bf1e7366c74d6d971b41e9be35ccb7
+  commit_sha: d45b843ca5f873ca9d0706ab0e7f14eafd132e98
   path: .
 url: https://github.com/espressif/esp-nn
-version: 1.1.1
+version: 1.2.3

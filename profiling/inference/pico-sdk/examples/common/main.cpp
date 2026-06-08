@@ -2,6 +2,7 @@
 #include <string.h>
 #include "pico/stdlib.h"
 #include "pico/sleep.h"
+#include "pico/bootrom.h"
 
 
 // TensorFlow Lite Micro includes
@@ -37,40 +38,36 @@ bool is_serial_connected(void)
     return stdio_usb_connected();
 }
 
+// Non-blocking check for a serial command to reboot into BOOTSEL/USB-flash mode.
+// The host flash script sends 'b' over this board's USB serial port; we then
+// call reset_usb_boot() so the board re-enumerates as a mass-storage device and
+// a new UF2 can be flashed without pressing the BOOTSEL button. Works on both
+// RP2040 and RP2350. reset_usb_boot() does not return.
+void check_bootsel_request(void)
+{
+    int c = getchar_timeout_us(0); // PICO_ERROR_TIMEOUT if no byte waiting
+    if (c == 'b' || c == 'B')
+    {
+        printf("Rebooting into BOOTSEL mode for flashing...\r\n");
+        stdio_flush();
+        reset_usb_boot(0, 0);
+    }
+}
+
 void enter_sleep_cycle(void)
 {
     printf("Preparing to sleep for 2 seconds...\r\n");
-    
-    if (is_serial_connected()) {
-        stdio_flush(); // Ensure output is sent before sleep
-        sleep_ms(2000);
-        printf("Woke up from regular sleep\r\n");
-    } else {
-        printf("No serial connection - entering deep sleep\r\n");
-        stdio_flush(); 
-        
-        // Set dormant source - use ROSC for both RP2040 and RP2350
-        sleep_run_from_rosc();
-        
-        // Small delay to ensure any pending operations complete
-        sleep_ms(10);
-        
-        // Use sleep_goto_sleep_for with proper callback
-        bool sleep_success = sleep_goto_sleep_for(2000, sleep_callback);
-        
-        if (sleep_success) {
-            // Wake up and reconfigure 
-            sleep_power_up();
-            
-            // Re-initialize stdio after deep sleep wake
-            stdio_init_all();
-            
-            printf("Woke up from deep sleep\r\n");
-        } else {
-            printf("Deep sleep failed, using regular delay\r\n");
-            sleep_ms(2000);
-        }
-    }
+
+    // Light sleep for BOTH the RP2040 and RP2350: a plain sleep_ms keeps the
+    // clocks and USB alive, so the board stays enumerated and reachable for
+    // automated flashing - either the serial 'b' reboot (check_bootsel_request)
+    // or picotool's force-reboot (picotool reboot -u --bus .. --address .. -f),
+    // both of which require live USB. NOTE: this is NOT a true low-power sleep,
+    // so sleep-phase power numbers from this build are inflated - use
+    // main_dormant.cpp for real dormant low-power measurements.
+    stdio_flush();
+    sleep_ms(2000);
+    printf("Woke up from light sleep\r\n");
 }
 
 int main(void)
@@ -147,6 +144,9 @@ int main(void)
 
     while (1)
     {
+        // Allow on-demand reboot into BOOTSEL: host sends 'b' over USB serial.
+        check_bootsel_request();
+
         // Check if we need to sleep after every 10 inferences
         if (inference_count > 0 && inference_count % 10 == 0)
         {

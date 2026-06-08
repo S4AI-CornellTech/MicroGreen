@@ -1,0 +1,109 @@
+--- Terminal on /dev/cu.usbmodem0010502864501 | 115200 8-N-1
+--- Available filters and text transformations: debug, default, direct, hexlify, log2file, nocontrol, printable, send_on_enter, time
+--- More details at https://bit.ly/pio-monitor-filters
+--- Quit: Ctrl+C | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H
+Inference took: 10482727 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4883 microseconds
+
+Inference 10 starts at: 96515014
+memcpy took: 1434 microseconds
+Inference took: 10480133 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4883 microseconds
+
+--- Completed 10 Person Detection inferences
+Average memcpy time: 1437.20 microseconds
+Average inference time: 10478726.00 microseconds
+Average post-processing time: 4895.10 microseconds
+Average total loop time: 10485058 microseconds
+Preparing to sleep for 3 seconds...
+
+Inference 11 starts at: 110138000
+memcpy took: 1435 microseconds
+Inference took: 10478851 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4882 microseconds
+
+Inference 12 starts at: 120736022
+memcpy took: 1434 microseconds
+Inference took: 10466370 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4883 microseconds
+
+Inference 13 starts at: 131321014
+memcpy took: 1435 microseconds
+Inference took: 10464996 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4883 microseconds
+
+Inference 14 starts at: 141905029
+memcpy took: 1464 microseconds
+Inference took: 10464752 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4883 microseconds
+
+Inference 15 starts at: 152488006
+memcpy took: 1435 microseconds
+Inference took: 10467682 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4883 microseconds
+
+Inference 16 starts at: 163074005
+memcpy took: 1434 microseconds
+Inference took: 10469300 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4883 microseconds
+
+Inference 17 starts at: 173662017
+memcpy took: 1434 microseconds
+Inference took: 10467407 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4914 microseconds
+
+Inference 18 starts at: 184248016
+memcpy took: 1435 microseconds
+Inference took: 10471161 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4883 microseconds
+
+Inference 19 starts at: 194838012
+memcpy took: 1434 microseconds
+Inference took: 10472443 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4883 microseconds
+
+Inference 20 starts at: 205429016
+memcpy took: 1434 microseconds
+Inference took: 10467713 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4883 microseconds
+
+--- Completed 20 Person Detection inferences
+Average memcpy time: 1437.40 microseconds
+Average inference time: 10469067.00 microseconds
+Average post-processing time: 4886.00 microseconds
+Average total loop time: 10475390 microseconds
+Preparing to sleep for 3 seconds...
+
+Inference 21 starts at: 219039001
+memcpy took: 1435 microseconds
+Inference took: 10473114 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 4913 microseconds
+
+Inference 22 starts at: 229631011
+memcpy took: 1434 microseconds

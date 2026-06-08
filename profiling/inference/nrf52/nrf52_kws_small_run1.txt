@@ -1,0 +1,757 @@
+--- Terminal on /dev/cu.usbmodem0010502864501 | 115200 8-N-1
+--- Available filters and text transformations: debug, default, direct, hexlify, log2file, nocontrol, printable, send_on_enter, time
+--- More details at https://bit.ly/pio-monitor-filters
+--- Quit: Ctrl+C | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H
+Inference took: 325562 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 944 starts at: 703379028
+memcpy took: 305 microseconds
+Inference took: 325623 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5616 microseconds
+
+Inference 945 starts at: 703823028
+memcpy took: 305 microseconds
+Inference took: 325531 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5584 microseconds
+
+Inference 946 starts at: 704267028
+memcpy took: 305 microseconds
+Inference took: 325439 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 947 starts at: 704711029
+memcpy took: 306 microseconds
+Inference took: 325531 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 948 starts at: 705155029
+memcpy took: 305 microseconds
+Inference took: 325379 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5584 microseconds
+
+Inference 949 starts at: 705599029
+memcpy took: 305 microseconds
+Inference took: 325500 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5616 microseconds
+
+Inference 950 starts at: 706043029
+memcpy took: 305 microseconds
+Inference took: 325470 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5584 microseconds
+
+--- Completed 950 KWS Small inferences
+Average memcpy time: 305.20 microseconds
+Average inference time: 325518.81 microseconds
+Average post-processing time: 5596.90 microseconds
+Average total loop time: 331420 microseconds
+Preparing to sleep for 3 seconds...
+
+Inference 951 starts at: 709510009
+memcpy took: 305 microseconds
+Inference took: 325531 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5584 microseconds
+
+Inference 952 starts at: 709954010
+memcpy took: 306 microseconds
+Inference took: 325592 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 953 starts at: 710398010
+memcpy took: 305 microseconds
+Inference took: 325562 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5584 microseconds
+
+Inference 954 starts at: 710842010
+memcpy took: 305 microseconds
+Inference took: 325470 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5616 microseconds
+
+Inference 955 starts at: 711286010
+memcpy took: 305 microseconds
+Inference took: 325622 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 956 starts at: 711730010
+memcpy took: 306 microseconds
+Inference took: 325531 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5616 microseconds
+
+Inference 957 starts at: 712174011
+memcpy took: 305 microseconds
+Inference took: 325531 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 958 starts at: 712618011
+memcpy took: 305 microseconds
+Inference took: 325561 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 959 starts at: 713062011
+memcpy took: 305 microseconds
+Inference took: 325683 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 960 starts at: 713506011
+memcpy took: 306 microseconds
+Inference took: 325714 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+--- Completed 960 KWS Small inferences
+Average memcpy time: 305.30 microseconds
+Average inference time: 325579.69 microseconds
+Average post-processing time: 5603.00 microseconds
+Average total loop time: 331488 microseconds
+Preparing to sleep for 3 seconds...
+
+Inference 961 starts at: 716973022
+memcpy took: 336 microseconds
+Inference took: 325378 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5616 microseconds
+
+Inference 962 starts at: 717417022
+memcpy took: 305 microseconds
+Inference took: 325317 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 963 starts at: 717860015
+memcpy took: 305 microseconds
+Inference took: 325348 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 964 starts at: 718304016
+memcpy took: 305 microseconds
+Inference took: 325379 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 965 starts at: 718748016
+memcpy took: 305 microseconds
+Inference took: 325287 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 966 starts at: 719191009
+memcpy took: 305 microseconds
+Inference took: 325225 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 967 starts at: 719634002
+memcpy took: 305 microseconds
+Inference took: 325287 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 968 starts at: 720077026
+memcpy took: 305 microseconds
+Inference took: 325074 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 969 starts at: 720520019
+memcpy took: 305 microseconds
+Inference took: 324890 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5584 microseconds
+
+Inference 970 starts at: 720963012
+memcpy took: 335 microseconds
+Inference took: 325195 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+--- Completed 970 KWS Small inferences
+Average memcpy time: 311.10 microseconds
+Average inference time: 325238.00 microseconds
+Average post-processing time: 5603.00 microseconds
+Average total loop time: 331152 microseconds
+Preparing to sleep for 3 seconds...
+
+Inference 971 starts at: 724429016
+memcpy took: 336 microseconds
+Inference took: 325012 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 972 starts at: 724872009
+memcpy took: 305 microseconds
+Inference took: 325470 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 973 starts at: 725316009
+memcpy took: 305 microseconds
+Inference took: 325409 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 974 starts at: 725760009
+memcpy took: 305 microseconds
+Inference took: 325500 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 975 starts at: 726204010
+memcpy took: 306 microseconds
+Inference took: 325348 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5616 microseconds
+
+Inference 976 starts at: 726648010
+memcpy took: 305 microseconds
+Inference took: 325196 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5584 microseconds
+
+Inference 977 starts at: 727091003
+memcpy took: 305 microseconds
+Inference took: 325225 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5584 microseconds
+
+Inference 978 starts at: 727534027
+memcpy took: 306 microseconds
+Inference took: 325318 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 979 starts at: 727977020
+memcpy took: 305 microseconds
+Inference took: 325409 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 980 starts at: 728421020
+memcpy took: 305 microseconds
+Inference took: 325561 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5616 microseconds
+
+--- Completed 980 KWS Small inferences
+Average memcpy time: 308.30 microseconds
+Average inference time: 325344.81 microseconds
+Average post-processing time: 5600.00 microseconds
+Average total loop time: 331253 microseconds
+Preparing to sleep for 3 seconds...
+
+Inference 981 starts at: 731888000
+memcpy took: 305 microseconds
+Inference took: 325531 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5616 microseconds
+
+Inference 982 starts at: 732332000
+memcpy took: 305 microseconds
+Inference took: 325470 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 983 starts at: 732776000
+memcpy took: 306 microseconds
+Inference took: 325470 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 984 starts at: 733220001
+memcpy took: 305 microseconds
+Inference took: 325501 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 985 starts at: 733664001
+memcpy took: 305 microseconds
+Inference took: 325622 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5616 microseconds
+
+Inference 986 starts at: 734108001
+memcpy took: 305 microseconds
+Inference took: 325531 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 987 starts at: 734552001
+memcpy took: 306 microseconds
+Inference took: 325775 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 988 starts at: 734996002
+memcpy took: 305 microseconds
+Inference took: 325653 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 989 starts at: 735440002
+memcpy took: 305 microseconds
+Inference took: 325500 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5616 microseconds
+
+Inference 990 starts at: 735884002
+memcpy took: 305 microseconds
+Inference took: 325531 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+--- Completed 990 KWS Small inferences
+Average memcpy time: 305.20 microseconds
+Average inference time: 325558.41 microseconds
+Average post-processing time: 5612.30 microseconds
+Average total loop time: 331475 microseconds
+Preparing to sleep for 3 seconds...
+
+Inference 991 starts at: 739351013
+memcpy took: 305 microseconds
+Inference took: 325409 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 992 starts at: 739795013
+memcpy took: 305 microseconds
+Inference took: 325164 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 993 starts at: 740238006
+memcpy took: 305 microseconds
+Inference took: 324981 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 994 starts at: 740681030
+memcpy took: 305 microseconds
+Inference took: 325196 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 995 starts at: 741124023
+memcpy took: 305 microseconds
+Inference took: 325195 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 996 starts at: 741567016
+memcpy took: 305 microseconds
+Inference took: 325226 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 997 starts at: 742010009
+memcpy took: 305 microseconds
+Inference took: 325012 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 998 starts at: 742453002
+memcpy took: 306 microseconds
+Inference took: 324982 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 999 starts at: 742896026
+memcpy took: 336 microseconds
+Inference took: 325195 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 1000 starts at: 743339019
+memcpy took: 305 microseconds
+Inference took: 325013 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5584 microseconds
+
+--- Completed 1000 KWS Small inferences
+Average memcpy time: 308.20 microseconds
+Average inference time: 325137.31 microseconds
+Average post-processing time: 5596.90 microseconds
+Average total loop time: 331042 microseconds
+Preparing to sleep for 3 seconds...
+
+Inference 1001 starts at: 746805023
+memcpy took: 335 microseconds
+Inference took: 325195 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 1002 starts at: 747248016
+memcpy took: 305 microseconds
+Inference took: 325195 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5584 microseconds
+
+Inference 1003 starts at: 747691009
+memcpy took: 305 microseconds
+Inference took: 325196 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 1004 starts at: 748134002
+memcpy took: 305 microseconds
+Inference took: 324952 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 1005 starts at: 748577026
+memcpy took: 305 microseconds
+Inference took: 324981 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 1006 starts at: 749020019
+memcpy took: 305 microseconds
+Inference took: 325134 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 1007 starts at: 749463012
+memcpy took: 305 microseconds
+Inference took: 325043 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 1008 starts at: 749906005
+memcpy took: 305 microseconds
+Inference took: 324981 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 1009 starts at: 750349029
+memcpy took: 306 microseconds
+Inference took: 325165 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5616 microseconds
+
+Inference 1010 starts at: 750792022
+memcpy took: 305 microseconds
+Inference took: 325104 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+--- Completed 1010 KWS Small inferences
+Average memcpy time: 308.10 microseconds
+Average inference time: 325094.59 microseconds
+Average post-processing time: 5594.00 microseconds
+Average total loop time: 330996 microseconds
+Preparing to sleep for 3 seconds...
+
+Inference 1011 starts at: 754258026
+memcpy took: 305 microseconds
+Inference took: 325012 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 1012 starts at: 754701019
+memcpy took: 305 microseconds
+Inference took: 325073 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 1013 starts at: 755144012
+memcpy took: 305 microseconds
+Inference took: 325165 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 1014 starts at: 755587005
+memcpy took: 305 microseconds
+Inference took: 325104 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5616 microseconds
+
+Inference 1015 starts at: 756030029
+memcpy took: 305 microseconds
+Inference took: 325134 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5584 microseconds
+
+Inference 1016 starts at: 756473022
+memcpy took: 305 microseconds
+Inference took: 325073 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5584 microseconds
+
+Inference 1017 starts at: 756916015
+memcpy took: 305 microseconds
+Inference took: 324951 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 1018 starts at: 757359008
+memcpy took: 305 microseconds
+Inference took: 325165 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 1019 starts at: 757802001
+memcpy took: 306 microseconds
+Inference took: 325134 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 1020 starts at: 758245025
+memcpy took: 336 microseconds
+Inference took: 324951 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+--- Completed 1020 KWS Small inferences
+Average memcpy time: 308.20 microseconds
+Average inference time: 325076.19 microseconds
+Average post-processing time: 5596.90 microseconds
+Average total loop time: 330981 microseconds
+Preparing to sleep for 3 seconds...
+
+Inference 1021 starts at: 761711029
+memcpy took: 306 microseconds
+Inference took: 325134 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 1022 starts at: 762154022
+memcpy took: 305 microseconds
+Inference took: 324799 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5616 microseconds
+
+Inference 1023 starts at: 762597015
+memcpy took: 336 microseconds
+Inference took: 325043 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 1024 starts at: 763040008
+memcpy took: 305 microseconds
+Inference took: 325012 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 1025 starts at: 763483001
+memcpy took: 336 microseconds
+Inference took: 325135 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5584 microseconds
+
+Inference 1026 starts at: 763926025
+memcpy took: 336 microseconds
+Inference took: 325134 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 1027 starts at: 764369018
+memcpy took: 305 microseconds
+Inference took: 325104 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 1028 starts at: 764812011
+memcpy took: 305 microseconds
+Inference took: 325043 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5616 microseconds
+
+Inference 1029 starts at: 765255004
+memcpy took: 305 microseconds
+Inference took: 325073 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 1030 starts at: 765698028
+memcpy took: 336 microseconds
+Inference took: 325073 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+--- Completed 1030 KWS Small inferences
+Average memcpy time: 317.50 microseconds
+Average inference time: 325055.00 microseconds
+Average post-processing time: 5597.10 microseconds
+Average total loop time: 330969 microseconds
+Preparing to sleep for 3 seconds...
+
+Inference 1031 starts at: 769164001
+memcpy took: 336 microseconds
+Inference took: 325134 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 1032 starts at: 769607025
+memcpy took: 335 microseconds
+Inference took: 325226 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 1033 starts at: 770050018
+memcpy took: 305 microseconds
+Inference took: 325073 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5584 microseconds
+
+Inference 1034 starts at: 770493011
+memcpy took: 305 microseconds
+Inference took: 325043 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 1035 starts at: 770936004
+memcpy took: 305 microseconds
+Inference took: 324982 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 1036 starts at: 771379028
+memcpy took: 335 microseconds
+Inference took: 325073 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 1037 starts at: 771822021
+memcpy took: 305 microseconds
+Inference took: 324829 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5615 microseconds
+
+Inference 1038 starts at: 772265014
+memcpy took: 305 microseconds
+Inference took: 324951 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5585 microseconds
+
+Inference 1039 starts at: 772708007
+memcpy took: 305 microseconds
+Inference took: 324982 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5584 microseconds
+
+Inference 1040 starts at: 773151000
+memcpy took: 306 microseconds
+Inference took: 325042 microseconds
+Results: [0.000, 0.027, 0.031, 0.941]
+Detected: no (0.941)
+Post-processing took: 5584 microseconds
+
+--- Completed 1040 KWS Small inferences
+Average memcpy time: 314.20 microseconds
+Average inference time: 325033.50 microseconds
+Average post-processing time: 5599.70 microseconds
+Average total loop time: 330947 microseconds
+Preparing to sleep for 3 seconds...

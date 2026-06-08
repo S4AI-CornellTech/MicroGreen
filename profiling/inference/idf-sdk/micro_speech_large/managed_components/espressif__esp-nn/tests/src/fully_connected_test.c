@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2020-2023 Espressif Systems (Shanghai) CO LTD
+ * SPDX-FileCopyrightText: 2020-2026 Espressif Systems (Shanghai) CO LTD
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -19,10 +19,23 @@ void esp_nn_fully_connected_s8_test()
     uint32_t total_c = 0, total_opt = 0;
     /* prepare data */
     uint16_t row_len = 256 + 8 + 7; /* odd len to test unaligned+left-over */
+    const int32_t max_out_ch = 16;
+    const int32_t max_row_len = 271;
     uint16_t out_channels = 3;
-    int8_t input[row_len];
-    int8_t filter_data[row_len * out_channels];
-    int8_t output_c[out_channels], output_opt[out_channels];
+
+    /* Use heap-allocated aligned buffers (matches TFLite real-world usage) */
+    int8_t *input_orig = malloc(max_row_len + 16);
+    int8_t *filter_orig = malloc(max_row_len * max_out_ch + 16);
+    int8_t *out_c_orig = malloc(max_out_ch + 16);
+    int8_t *out_opt_orig = malloc(max_out_ch + 16);
+    if (!input_orig || !filter_orig || !out_c_orig || !out_opt_orig) {
+        printf(ANSI_COLOR_RED"%s allocations failed\n"ANSI_COLOR_RESET, __FUNCTION__);
+        goto fc_s8_cleanup;
+    }
+    int8_t *input = (int8_t *)(((uint32_t)input_orig + 15) & ~15);
+    int8_t *filter_data = (int8_t *)(((uint32_t)filter_orig + 15) & ~15);
+    int8_t *output_c = (int8_t *)(((uint32_t)out_c_orig + 15) & ~15);
+    int8_t *output_opt = (int8_t *)(((uint32_t)out_opt_orig + 15) & ~15);
     int32_t activation_min = -128;
     int32_t activation_max = 127;
     int32_t input_offset = 0;
@@ -122,11 +135,25 @@ void esp_nn_fully_connected_s8_test()
             printf("Out shift: %d\n", out_shift);
             printf("Out mult: %x\n", out_mult);
 #endif
-            return;
+            goto fc_s8_cleanup;
         }
         printf(ANSI_COLOR_GREEN"[%3d] passed [row_len %"PRIu16", out_ch %"PRIu16"]"ANSI_COLOR_RESET,
                itr, row_len, out_channels);
         printf("\tcycles: c %8"PRIu32", opt %8"PRIu32"\n", total_c, total_opt);
+    }
+
+fc_s8_cleanup:
+    if (input_orig) {
+        free(input_orig);
+    }
+    if (filter_orig) {
+        free(filter_orig);
+    }
+    if (out_c_orig) {
+        free(out_c_orig);
+    }
+    if (out_opt_orig) {
+        free(out_opt_orig);
     }
 }
 
@@ -136,10 +163,22 @@ void esp_nn_fully_connected_per_ch_s8_test()
     /* prepare data */
     uint16_t row_len = 256 + 8 + 7; /* odd len to test unaligned+left-over */
     const int32_t max_out_ch = 16;
+    const int32_t max_row_len = 271;
     uint16_t out_channels = 3;
-    int8_t input[row_len];
-    int8_t filter_data[row_len * max_out_ch];
-    int8_t output_c[max_out_ch], output_opt[max_out_ch];
+
+    /* Use heap-allocated aligned buffers (matches TFLite real-world usage) */
+    int8_t *input_orig = malloc(max_row_len + 16);
+    int8_t *filter_orig = malloc(max_row_len * max_out_ch + 16);
+    int8_t *out_c_orig = malloc(max_out_ch + 16);
+    int8_t *out_opt_orig = malloc(max_out_ch + 16);
+    if (!input_orig || !filter_orig || !out_c_orig || !out_opt_orig) {
+        printf(ANSI_COLOR_RED"%s allocations failed\n"ANSI_COLOR_RESET, __FUNCTION__);
+        goto fc_per_ch_s8_buffers_cleanup;
+    }
+    int8_t *input = (int8_t *)(((uint32_t)input_orig + 15) & ~15);
+    int8_t *filter_data = (int8_t *)(((uint32_t)filter_orig + 15) & ~15);
+    int8_t *output_c = (int8_t *)(((uint32_t)out_c_orig + 15) & ~15);
+    int8_t *output_opt = (int8_t *)(((uint32_t)out_opt_orig + 15) & ~15);
     int32_t activation_min = -128;
     int32_t activation_max = 127;
     int32_t input_offset = 0;
@@ -238,27 +277,6 @@ void esp_nn_fully_connected_per_ch_s8_test()
         bool ret = CHECK_EQUAL(output_c, output_opt, out_channels);
         if (ret == false) {
             printf(ANSI_COLOR_RED"[%3d] failed\n"ANSI_COLOR_RESET, itr);
-#if 0
-            printf("Output: \n");
-            PRINT_ARRAY_HEX(output_opt, out_channels, 1);
-            printf("Expected: \n");
-            PRINT_ARRAY_HEX(output_c, out_channels, 1);
-            printf("Input:\n");
-            PRINT_ARRAY_HEX(input, row_len, 1);
-            printf("Filter data:\n");
-            PRINT_ARRAY_HEX(filter_data, row_len, out_channels);
-
-            printf("Out shift: ");
-            for (int i = 0; i < out_channels; i++) {
-                printf("%d, ", out_shift[i]);
-            }
-
-            printf("\nOut mult: ");
-            for (int i = 0; i < out_channels; i++) {
-                printf("%d, ", out_mult[i]);
-            }
-            printf("\n");
-#endif
             goto fully_connected_per_ch_cleanup;
         }
         printf(ANSI_COLOR_GREEN"[%3d] passed [row_len %"PRIu16", out_ch %"PRIu16"]"ANSI_COLOR_RESET,
@@ -272,5 +290,19 @@ void esp_nn_fully_connected_per_ch_s8_test()
         if (out_mult) {
             free(out_mult);
         }
+    }
+
+fc_per_ch_s8_buffers_cleanup:
+    if (input_orig) {
+        free(input_orig);
+    }
+    if (filter_orig) {
+        free(filter_orig);
+    }
+    if (out_c_orig) {
+        free(out_c_orig);
+    }
+    if (out_opt_orig) {
+        free(out_opt_orig);
     }
 }

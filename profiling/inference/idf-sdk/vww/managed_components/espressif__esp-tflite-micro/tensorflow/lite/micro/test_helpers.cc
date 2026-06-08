@@ -1,4 +1,4 @@
-/* Copyright 2024 The TensorFlow Authors. All Rights Reserved.
+/* Copyright 2025 The TensorFlow Authors. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -103,13 +103,14 @@ class ModelBuilder {
   Operator RegisterOp(BuiltinOperator op, const char* custom_code);
 
   // Adds a tensor to the model.
-  Tensor AddTensor(TensorType type, std::initializer_list<int32_t> shape) {
+  Tensor AddTensor(TensorType type,
+                   const std::initializer_list<int32_t> shape) {
     return AddTensorImpl(type, /* is_variable */ false, shape);
   }
 
   // Adds a variable tensor to the model.
   Tensor AddVariableTensor(TensorType type,
-                           std::initializer_list<int32_t> shape) {
+                           const std::initializer_list<int32_t> shape) {
     return AddTensorImpl(type, /* is_variable */ true, shape);
   }
 
@@ -133,7 +134,7 @@ class ModelBuilder {
  private:
   // Adds a tensor to the model.
   Tensor AddTensorImpl(TensorType type, bool is_variable,
-                       std::initializer_list<int32_t> shape);
+                       const std::initializer_list<int32_t> shape);
 
   flatbuffers::FlatBufferBuilder* builder_;
 
@@ -1546,6 +1547,23 @@ const Model* BuildSimpleMockModelWithNullInputsOutputs() {
   return model;
 }
 
+const Model* BuildNoOpModelWithTensorShape(
+    const std::initializer_list<int32_t>& shape) {
+  using flatbuffers::Offset;
+  flatbuffers::FlatBufferBuilder* fb_builder = BuilderInstance();
+
+  ModelBuilder model_builder(fb_builder);
+
+  // build model with 2 tensor outputs, the first with shape [3, 2]
+  // and the second with the supplied shape.
+  const int op_id = model_builder.RegisterOp(BuiltinOperator_CUSTOM, "no_op");
+  const int tensor_0 = model_builder.AddTensor(TensorType_INT8, {3, 2});
+  const int tensor_1 = model_builder.AddTensor(TensorType_INT8, shape);
+
+  model_builder.AddNode(op_id, {}, {tensor_0, tensor_1}, {});
+  return model_builder.BuildModel({}, {tensor_0, tensor_1});
+}
+
 }  // namespace
 
 const TFLMRegistration* SimpleStatefulOp::getRegistration() {
@@ -1912,6 +1930,12 @@ const Model* GetSimpleStatefulModel() {
   return model;
 }
 
+const Model* GetNoOpModelWithTensorShape(
+    const std::initializer_list<int32_t>& shape) {
+  // don't cache the model as the tensor shape can be different on each call
+  return const_cast<Model*>(BuildNoOpModelWithTensorShape(shape));
+}
+
 const Tensor* Create1dFlatbufferTensor(int size, bool is_variable) {
   using flatbuffers::Offset;
   flatbuffers::FlatBufferBuilder* builder = BuilderInstance();
@@ -2053,6 +2077,31 @@ size_t GetModelTensorCount(const Model* model) {
     return (*subgraphs)[0]->tensors()->size();
   }
   return 0;
+}
+
+TfLiteTensor CreateSymmetricPerChannelQuantizedTensorWithoutScaleEstimation(
+    const float* input, int8_t* quantized, TfLiteIntArray* dims, float* scales,
+    int* zero_points, TfLiteAffineQuantization* affine_quant,
+    int quantized_dimension, bool is_variable, TfLiteType tensor_weight_type) {
+  int input_size = ElementCount(*dims);
+  int channel_count = dims->data[quantized_dimension];
+  scales[0] = static_cast<float>(channel_count);
+  zero_points[0] = channel_count;
+
+  SymmetricPerChannelQuantize<int8_t>(input, quantized, input_size,
+                                      channel_count, &scales[1]);
+
+  for (int i = 0; i < channel_count; i++) {
+    zero_points[i + 1] = 0;
+  }
+
+  affine_quant->scale = FloatArrayFromFloats(scales);
+  affine_quant->zero_point = IntArrayFromInts(zero_points);
+  affine_quant->quantized_dimension = quantized_dimension;
+  TfLiteTensor result =
+      CreateTensor(quantized, dims, is_variable, tensor_weight_type);
+  result.quantization = {kTfLiteAffineQuantization, affine_quant};
+  return result;
 }
 
 void PackInt4ValuesDenselyInPlace(uint8_t* src_buffer, int buffer_size) {

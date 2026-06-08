@@ -1,0 +1,589 @@
+Inference took: 699493 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 683 microseconds
+
+Inference 27 starts at: 22256908
+memcpy took: 52 microseconds
+Inference took: 698503 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 694 microseconds
+
+Inference 28 starts at: 22956987
+memcpy took: 53 microseconds
+Inference took: 698724 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 717 microseconds
+
+Inference 29 starts at: 23657317
+memcpy took: 53 microseconds
+Inference took: 698569 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 682 microseconds
+
+Inference 30 starts at: 24357479
+memcpy took: 58 microseconds
+Inference took: 698418 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 689 microseconds
+
+--- Completed 30 inferences, entering sleep cycle ---
+Average memcpy time: 46.10 microseconds
+Average inference time: 698599.19 microseconds
+Average post-processing time: 527.20 microseconds
+Average total loop time: 699172 microseconds
+Preparing to sleep for 2 seconds...
+Woke up from regular sleep
+
+Inference 31 starts at: 27058376
+memcpy took: 49 microseconds
+Inference took: 698605 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 674 microseconds
+
+Inference 32 starts at: 27758501
+memcpy took: 52 microseconds
+Inference took: 698714 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 707 microseconds
+
+Inference 33 starts at: 28458809
+memcpy took: 58 microseconds
+Inference took: 698466 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 687 microseconds
+
+Inference 34 starts at: 29158875
+memcpy took: 56 microseconds
+Inference took: 698505 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 701 microseconds
+
+Inference 35 starts at: 29858992
+memcpy took: 56 microseconds
+Inference took: 698799 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 704 microseconds
+
+Inference 36 starts at: 30559374
+memcpy took: 60 microseconds
+Inference took: 698664 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 688 microseconds
+
+Inference 37 starts at: 31259629
+memcpy took: 56 microseconds
+Inference took: 698574 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 715 microseconds
+
+Inference 38 starts at: 31959805
+memcpy took: 59 microseconds
+Inference took: 698603 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 687 microseconds
+
+Inference 39 starts at: 32659989
+memcpy took: 57 microseconds
+Inference took: 698546 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 705 microseconds
+
+Inference 40 starts at: 33360135
+memcpy took: 58 microseconds
+Inference took: 698773 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 679 microseconds
+
+--- Completed 40 inferences, entering sleep cycle ---
+Average memcpy time: 56.10 microseconds
+Average inference time: 698624.88 microseconds
+Average post-processing time: 694.70 microseconds
+Average total loop time: 699375 microseconds
+Preparing to sleep for 2 seconds...
+Woke up from regular sleep
+
+Inference 41 starts at: 36061398
+memcpy took: 51 microseconds
+Inference took: 698905 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 689 microseconds
+
+Inference 42 starts at: 36761866
+memcpy took: 55 microseconds
+Inference took: 698544 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 726 microseconds
+
+Inference 43 starts at: 37462017
+memcpy took: 58 microseconds
+Inference took: 698779 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 686 microseconds
+
+Inference 44 starts at: 38162381
+memcpy took: 61 microseconds
+Inference took: 698820 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 708 microseconds
+
+Inference 45 starts at: 38862885
+memcpy took: 56 microseconds
+Inference took: 698525 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 710 microseconds
+
+Inference 46 starts at: 39563022
+memcpy took: 57 microseconds
+Inference took: 698688 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 709 microseconds
+
+Inference 47 starts at: 40263306
+memcpy took: 39 microseconds
+Inference took: 698698 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 687 microseconds
+
+Inference 48 starts at: 40963634
+memcpy took: 55 microseconds
+Inference took: 698364 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 701 microseconds
+
+Inference 49 starts at: 41663552
+memcpy took: 60 microseconds
+Inference took: 698450 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 688 microseconds
+
+Inference 50 starts at: 42363657
+memcpy took: 57 microseconds
+Inference took: 698697 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 713 microseconds
+
+--- Completed 50 inferences, entering sleep cycle ---
+Average memcpy time: 54.90 microseconds
+Average inference time: 698647.00 microseconds
+Average post-processing time: 701.70 microseconds
+Average total loop time: 699403 microseconds
+Preparing to sleep for 2 seconds...
+Woke up from regular sleep
+
+Inference 51 starts at: 45064826
+memcpy took: 57 microseconds
+Inference took: 698905 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 713 microseconds
+
+Inference 52 starts at: 45765277
+memcpy took: 40 microseconds
+Inference took: 698413 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 701 microseconds
+
+Inference 53 starts at: 46465247
+memcpy took: 40 microseconds
+Inference took: 698792 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 676 microseconds
+
+Inference 54 starts at: 47165595
+memcpy took: 51 microseconds
+Inference took: 698650 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 692 microseconds
+
+Inference 55 starts at: 47865822
+memcpy took: 53 microseconds
+Inference took: 698586 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 717 microseconds
+
+Inference 56 starts at: 48566011
+memcpy took: 56 microseconds
+Inference took: 698474 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 689 microseconds
+
+Inference 57 starts at: 49266072
+memcpy took: 55 microseconds
+Inference took: 698699 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 686 microseconds
+
+Inference 58 starts at: 49966337
+memcpy took: 40 microseconds
+Inference took: 698565 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 688 microseconds
+
+Inference 59 starts at: 50666503
+memcpy took: 59 microseconds
+Inference took: 698412 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 673 microseconds
+
+Inference 60 starts at: 51366525
+memcpy took: 54 microseconds
+Inference took: 698425 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 695 microseconds
+
+--- Completed 60 inferences, entering sleep cycle ---
+Average memcpy time: 50.50 microseconds
+Average inference time: 698592.12 microseconds
+Average post-processing time: 693.00 microseconds
+Average total loop time: 699335 microseconds
+Preparing to sleep for 2 seconds...
+Woke up from regular sleep
+
+Inference 61 starts at: 54067449
+memcpy took: 53 microseconds
+Inference took: 698749 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 703 microseconds
+
+Inference 62 starts at: 54767745
+memcpy took: 55 microseconds
+Inference took: 698671 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 698 microseconds
+
+Inference 63 starts at: 55467996
+memcpy took: 56 microseconds
+Inference took: 698582 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 694 microseconds
+
+Inference 64 starts at: 56168172
+memcpy took: 53 microseconds
+Inference took: 698565 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 696 microseconds
+
+Inference 65 starts at: 56868312
+memcpy took: 39 microseconds
+Inference took: 698782 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 697 microseconds
+
+Inference 66 starts at: 57568739
+memcpy took: 56 microseconds
+Inference took: 698460 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 698 microseconds
+
+Inference 67 starts at: 58268800
+memcpy took: 55 microseconds
+Inference took: 698588 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 700 microseconds
+
+Inference 68 starts at: 58968974
+memcpy took: 59 microseconds
+Inference took: 698387 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 700 microseconds
+
+Inference 69 starts at: 59668960
+memcpy took: 57 microseconds
+Inference took: 698184 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 701 microseconds
+
+Inference 70 starts at: 60368749
+memcpy took: 59 microseconds
+Inference took: 698594 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 665 microseconds
+
+--- Completed 70 inferences, entering sleep cycle ---
+Average memcpy time: 54.20 microseconds
+Average inference time: 698556.19 microseconds
+Average post-processing time: 695.20 microseconds
+Average total loop time: 699305 microseconds
+Preparing to sleep for 2 seconds...
+Woke up from regular sleep
+
+Inference 71 starts at: 63069836
+memcpy took: 55 microseconds
+Inference took: 698594 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 697 microseconds
+
+Inference 72 starts at: 63769969
+memcpy took: 56 microseconds
+Inference took: 698644 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 693 microseconds
+
+Inference 73 starts at: 64470213
+memcpy took: 40 microseconds
+Inference took: 698455 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 708 microseconds
+
+Inference 74 starts at: 65170252
+memcpy took: 40 microseconds
+Inference took: 698681 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 698 microseconds
+
+Inference 75 starts at: 65870493
+memcpy took: 56 microseconds
+Inference took: 698499 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 686 microseconds
+
+Inference 76 starts at: 66570633
+memcpy took: 60 microseconds
+Inference took: 698887 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 690 microseconds
+
+Inference 77 starts at: 67271111
+memcpy took: 56 microseconds
+Inference took: 698481 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 702 microseconds
+
+Inference 78 starts at: 67971185
+memcpy took: 57 microseconds
+Inference took: 698217 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 693 microseconds
+
+Inference 79 starts at: 68670980
+memcpy took: 55 microseconds
+Inference took: 698922 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 699 microseconds
+
+Inference 80 starts at: 69371487
+memcpy took: 57 microseconds
+Inference took: 698863 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 642 microseconds
+
+--- Completed 80 inferences, entering sleep cycle ---
+Average memcpy time: 53.20 microseconds
+Average inference time: 698624.31 microseconds
+Average post-processing time: 690.80 microseconds
+Average total loop time: 699368 microseconds
+Preparing to sleep for 2 seconds...
+Woke up from regular sleep
+
+Inference 81 starts at: 72072852
+memcpy took: 57 microseconds
+Inference took: 698880 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 690 microseconds
+
+Inference 82 starts at: 72773275
+memcpy took: 39 microseconds
+Inference took: 698587 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 701 microseconds
+
+Inference 83 starts at: 73473418
+memcpy took: 40 microseconds
+Inference took: 698534 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 672 microseconds
+
+Inference 84 starts at: 74173554
+memcpy took: 56 microseconds
+Inference took: 698698 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 706 microseconds
+
+Inference 85 starts at: 74873864
+memcpy took: 56 microseconds
+Inference took: 698457 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 705 microseconds
+
+Inference 86 starts at: 75573927
+memcpy took: 56 microseconds
+Inference took: 698720 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 714 microseconds
+
+Inference 87 starts at: 76274265
+memcpy took: 39 microseconds
+Inference took: 698655 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 688 microseconds
+
+Inference 88 starts at: 76974476
+memcpy took: 83 microseconds
+Inference took: 698681 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 686 microseconds
+
+Inference 89 starts at: 77674777
+memcpy took: 55 microseconds
+Inference took: 698694 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 719 microseconds
+
+Inference 90 starts at: 78375087
+memcpy took: 56 microseconds
+Inference took: 698343 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 707 microseconds
+
+--- Completed 90 inferences, entering sleep cycle ---
+Average memcpy time: 53.70 microseconds
+Average inference time: 698624.88 microseconds
+Average post-processing time: 698.80 microseconds
+Average total loop time: 699377 microseconds
+Preparing to sleep for 2 seconds...
+Woke up from regular sleep
+
+Inference 91 starts at: 81075930
+memcpy took: 58 microseconds
+Inference took: 698860 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 704 microseconds
+
+Inference 92 starts at: 81776343
+memcpy took: 40 microseconds
+Inference took: 698285 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 705 microseconds
+
+Inference 93 starts at: 82476286
+memcpy took: 39 microseconds
+Inference took: 698518 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 712 microseconds
+
+Inference 94 starts at: 83176379
+memcpy took: 52 microseconds
+Inference took: 698493 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 710 microseconds
+
+Inference 95 starts at: 83876490
+memcpy took: 55 microseconds
+Inference took: 698691 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 698 microseconds
+
+Inference 96 starts at: 84576773
+memcpy took: 54 microseconds
+Inference took: 698692 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 669 microseconds
+
+Inference 97 starts at: 85277036
+memcpy took: 53 microseconds
+Inference took: 698725 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 690 microseconds
+
+Inference 98 starts at: 85977348
+memcpy took: 40 microseconds
+Inference took: 698693 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 696 microseconds
+
+Inference 99 starts at: 86677681
+memcpy took: 56 microseconds
+Inference took: 698495 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 693 microseconds
+
+Inference 100 starts at: 87377764
+memcpy took: 56 microseconds
+Inference took: 698575 microseconds
+Results: [0.781, 0.219]
+Detected: notperson (0.781)
+Post-processing took: 681 microseconds
+
+--- Completed 100 inferences, entering sleep cycle ---
+Average memcpy time: 50.30 microseconds
+Average inference time: 698602.69 microseconds
+Average post-processing time: 695.80 microseconds
+Average total loop time: 699348 microseconds
+Preparing to sleep for 2 seconds...
+Woke up from regular sleep
+
+Inference 101 starts at: 90078801
+memcpy took: 55 microseconds

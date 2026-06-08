@@ -34,9 +34,7 @@
 #include FLATBUFFERS_ASSERT_INCLUDE
 #endif
 
-#ifndef ARDUINO
 #include <cstdint>
-#endif
 
 #include <cstddef>
 #include <cstdlib>

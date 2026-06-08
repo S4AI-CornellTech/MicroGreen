@@ -1,16 +1,8 @@
-// Copyright 2020-2021 Espressif Systems (Shanghai) PTE LTD
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+/*
+ * SPDX-FileCopyrightText: 2020-2026 Espressif Systems (Shanghai) CO LTD
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 #pragma once
 
@@ -153,6 +145,69 @@ __NN_FORCE_INLINE__ int32_t esp_nn_multiply_by_quantized_mult(int32_t x, int32_t
     return esp_nn_div_by_power_of_two(result, right_shift);
 }
 
+#if CONFIG_IDF_TARGET_ESP32P4
+/** PIE enable macro - call once before using any esp.* instructions */
+#define ESP_NN_PIE_ENABLE() do { \
+    asm volatile ( \
+        "csrsi  0x7f2, 0b01        \n\t" \
+        "li     x29, 0b10          \n\t" \
+        "esp.movx.w.cfg x29        \n\t" \
+        ::: "x29" \
+    ); \
+} while(0)
+
+/** Extract 16 int32 per-lane results from QACC into array */
+#define ESP_NN_QACC_EXTRACT_S32(dst) do { \
+    asm volatile ( \
+        "mv                      x30, %0     \n\t" \
+        "esp.st.qacc.l.l.128.ip  x30, 16     \n\t" \
+        "esp.st.qacc.l.h.128.ip  x30, 16     \n\t" \
+        "esp.st.qacc.h.l.128.ip  x30, 16     \n\t" \
+        "esp.st.qacc.h.h.128.ip  x30, 0      \n\t" \
+        :: "r"(dst) \
+        : "x30", "memory" \
+    ); \
+} while(0)
+#endif /* CONFIG_IDF_TARGET_ESP32P4 - PIE_ENABLE and QACC_EXTRACT */
+
+/**
+ * 2-wide interleaved requant macro for ESP32-P4 RISC-V.
+ * Interleaves mulh across two independent elements for pipeline fill.
+ * Outputs r0, r1 as requantized int32 values (before offset/clamp).
+ */
+#if CONFIG_IDF_TARGET_ESP32P4
+#define ESP_NN_REQUANT_2X(x0, x1, m0, m1, s0, s1, r0, r1) do { \
+    int32_t _ls0 = (s0) > 0 ? (s0) : 0; \
+    int32_t _ls1 = (s1) > 0 ? (s1) : 0; \
+    int32_t _v0 = (x0) << _ls0; \
+    int32_t _v1 = (x1) << _ls1; \
+    int32_t _rs0 = _ls0 - (s0); \
+    int32_t _rs1 = _ls1 - (s1); \
+    int32_t _hi0, _lo0, _hi1, _lo1; \
+    asm volatile ( \
+        "mulh  %[h0], %[v0], %[mm0]  \n\t" \
+        "mulh  %[h1], %[v1], %[mm1]  \n\t" \
+        "mul   %[l0], %[v0], %[mm0]  \n\t" \
+        "mul   %[l1], %[v1], %[mm1]  \n\t" \
+        : [h0] "=&r"(_hi0), [h1] "=&r"(_hi1), \
+          [l0] "=&r"(_lo0), [l1] "=&r"(_lo1) \
+        : [v0] "r"(_v0), [v1] "r"(_v1), \
+          [mm0] "r"((int32_t)(m0)), [mm1] "r"((int32_t)(m1)) \
+    ); \
+    /* Add nudge (1<<30) and extract bits [31:62] */ \
+    uint32_t _n = 0x40000000u; \
+    uint32_t _a0 = (uint32_t)_lo0 + _n; \
+    _hi0 += (_a0 < (uint32_t)_lo0); \
+    (r0) = (_hi0 << 1) | (_a0 >> 31); \
+    uint32_t _a1 = (uint32_t)_lo1 + _n; \
+    _hi1 += (_a1 < (uint32_t)_lo1); \
+    (r1) = (_hi1 << 1) | (_a1 >> 31); \
+    /* Right shift with rounding */ \
+    if (_rs0) { (r0) = ((r0) + (1 << (_rs0 - 1)) - ((r0) < 0)) >> _rs0; } \
+    if (_rs1) { (r1) = ((r1) + (1 << (_rs1 - 1)) - ((r1) < 0)) >> _rs1; } \
+} while(0)
+#endif
+
 __NN_FORCE_INLINE__ int32_t esp_nn_multiply_by_quantized_mult_fast(int32_t x, int32_t mult, int32_t shift)
 {
     int32_t left_shift = max(shift, 0);
@@ -169,6 +224,17 @@ __NN_FORCE_INLINE__ int32_t esp_nn_multiply_by_quantized_mult_fast(int32_t x, in
     }
     return result;
 }
+
+/*
+ * Unified requantize wrapper. Defining either SKIP_NUDGE (legacy) or
+ * CONFIG_NN_SKIP_NUDGE (Kconfig-driven) selects the faster, non-bit-exact
+ * path; otherwise the bit-exact TFLite-reference path is used.
+ */
+#if defined(SKIP_NUDGE) || defined(CONFIG_NN_SKIP_NUDGE)
+#define esp_nn_requantize(x, m, s) esp_nn_multiply_by_quantized_mult_fast((x), (m), (s))
+#else
+#define esp_nn_requantize(x, m, s) esp_nn_multiply_by_quantized_mult((x), (m), (s))
+#endif
 
 static void esp_nn_aligned_s8_pad_with_value(const int8_t *src, int8_t *dst,
                                              const uint16_t input_wd,
@@ -253,3 +319,27 @@ __NN_FORCE_INLINE__ void esp_nn_s8_to_s16(const int8_t *src, int16_t *dst, const
         dst[i] = src[i];
     }
 }
+
+#if CONFIG_IDF_TARGET_ESP32S3
+/**
+ * @brief       s8 dot product — both pointers 16-byte aligned.
+ *              Uses ACCX accumulator with fused MAC+load.
+ *
+ * @param       a       input data (16-byte aligned)
+ * @param       b       filter data (16-byte aligned)
+ * @param       len     number of elements (must be multiple of 16, >= 16)
+ * @return      int32_t dot product result
+ */
+extern int32_t esp_nn_dot_s8_aligned_esp32s3(const int8_t *a, const int8_t *b, int32_t len);
+
+/**
+ * @brief       s8 dot product — input aligned, filter may be unaligned.
+ *              Uses USAR+QUP pattern for filter data.
+ *
+ * @param       a       input data (16-byte aligned)
+ * @param       b       filter data (may be unaligned)
+ * @param       len_div16  number of 16-element chunks (>= 1)
+ * @return      int32_t dot product result
+ */
+extern int32_t esp_nn_dot_s8_unaligned_esp32s3(const int8_t *a, const int8_t *b, int32_t len_div16);
+#endif

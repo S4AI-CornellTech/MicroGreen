@@ -1,16 +1,8 @@
-// Copyright 2020-2021 Espressif Systems (Shanghai) PTE LTD
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+/*
+ * SPDX-FileCopyrightText: 2020-2026 Espressif Systems (Shanghai) CO LTD
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 /**
  * @file        Header definitions to include for esp_nn optimized functions for
@@ -233,6 +225,20 @@ void esp_nn_relu6_s8_esp32s3(int8_t *data, uint16_t size);
 #define esp_nn_add_elementwise_s8 esp_nn_add_elementwise_s8_esp32s3
 #define esp_nn_mul_elementwise_s8 esp_nn_mul_elementwise_s8_esp32s3
 
+void esp_nn_mul_broadcast_channel_s8_esp32s3(const int8_t *input1,
+                                              const int8_t *input2_per_ch,
+                                              const int32_t input1_offset,
+                                              const int32_t input2_offset,
+                                              int8_t *output,
+                                              const int32_t output_offset,
+                                              const int32_t output_mult,
+                                              const int32_t output_shift,
+                                              const int32_t activation_min,
+                                              const int32_t activation_max,
+                                              const int32_t total_spatial,
+                                              const int32_t channels);
+#define esp_nn_mul_broadcast_channel_s8 esp_nn_mul_broadcast_channel_s8_esp32s3
+
 #define esp_nn_depthwise_conv_s8 esp_nn_depthwise_conv_s8_esp32s3
 
 #define esp_nn_get_conv_scratch_size esp_nn_get_conv_scratch_size_esp32s3
@@ -245,12 +251,47 @@ void esp_nn_relu6_s8_esp32s3(int8_t *data, uint16_t size);
 
 #define esp_nn_relu6_s8 esp_nn_relu6_s8_esp32s3
 
+int32_t esp_nn_get_hard_swish_scratch_size_esp32s3(void);
+void esp_nn_set_hard_swish_scratch_buf_esp32s3(void *buf);
+void esp_nn_hard_swish_s8_esp32s3(const int8_t *input, int8_t *output,
+                                   const int32_t size,
+                                   const int16_t input_zero_point,
+                                   const int16_t output_mult_fxp,
+                                   const int16_t reluish_mult_fxp,
+                                   const int32_t reluish_mult_exp,
+                                   const int32_t output_mult_exp,
+                                   const int16_t output_zero_point);
+#define esp_nn_get_hard_swish_scratch_size esp_nn_get_hard_swish_scratch_size_esp32s3
+#define esp_nn_set_hard_swish_scratch_buf esp_nn_set_hard_swish_scratch_buf_esp32s3
+#define esp_nn_hard_swish_s8 esp_nn_hard_swish_s8_esp32s3
+
+void esp_nn_mean_nhwc_s8_esp32s3(const int8_t *input, int8_t *output,
+                                  const int32_t height, const int32_t width,
+                                  const int32_t channels,
+                                  const int32_t input_zero_point,
+                                  const int32_t output_zero_point,
+                                  const int32_t multiplier,
+                                  const int32_t shift);
+#define esp_nn_mean_nhwc_s8 esp_nn_mean_nhwc_s8_esp32s3
+
 #define esp_nn_avg_pool_s8 esp_nn_avg_pool_s8_esp32s3
 #define esp_nn_max_pool_s8 esp_nn_max_pool_s8_esp32s3
 
 #define esp_nn_fully_connected_s8 esp_nn_fully_connected_s8_esp32s3
 #define esp_nn_fully_connected_per_ch_s8 esp_nn_fully_connected_per_ch_s8_esp32s3
 
-#define esp_nn_get_softmax_scratch_size esp_nn_get_softmax_scratch_size_opt
-#define esp_nn_set_softmax_scratch_buf esp_nn_set_softmax_scratch_buf_opt
-#define esp_nn_softmax_s8 esp_nn_softmax_s8_opt
+int32_t esp_nn_get_softmax_scratch_size_esp32s3(const int32_t width, const int32_t height);
+void esp_nn_set_softmax_scratch_buf_esp32s3(void *buffer);
+void esp_nn_softmax_s8_esp32s3(const int8_t *input_data, const int32_t height,
+                                const int32_t width, const int32_t mult,
+                                const int32_t shift, const int32_t diff_min,
+                                int8_t *output_data);
+
+#define esp_nn_get_softmax_scratch_size esp_nn_get_softmax_scratch_size_esp32s3
+#define esp_nn_set_softmax_scratch_buf esp_nn_set_softmax_scratch_buf_esp32s3
+#define esp_nn_softmax_s8 esp_nn_softmax_s8_esp32s3
+
+/* Logistic (sigmoid) — LUT-based, same impl for all targets */
+#define esp_nn_get_logistic_s8_scratch_size esp_nn_get_logistic_s8_scratch_size_ansi
+#define esp_nn_logistic_s8_prepare esp_nn_logistic_s8_prepare_ansi
+#define esp_nn_logistic_s8 esp_nn_logistic_s8_ansi
