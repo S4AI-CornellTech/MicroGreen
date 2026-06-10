@@ -84,6 +84,21 @@ void LED_Init()
   HAL_GPIO_Init(LED_GPIO_PORT, &GPIO_InitStruct);
 }
 
+void Marker_Init(void)
+{
+  MARKER_GPIO_CLK_ENABLE();
+
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  GPIO_InitStruct.Pin = MARKER_PIN;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  HAL_GPIO_Init(MARKER_GPIO_PORT, &GPIO_InitStruct);
+
+  HAL_GPIO_WritePin(MARKER_GPIO_PORT, MARKER_PIN, GPIO_PIN_RESET); // start LOW
+}
+
 void UART_Init(void)
 {
   // Enable clocks
@@ -249,6 +264,7 @@ int main(void)
   SystemClock_Config(); // Configure clock to 100 MHz
   UART_Init();
   DWT_Init();
+  Marker_Init(); // PPK2 per-inference energy marker (see MARKER_PIN in main.h)
 
   UART_printf("\r\n=== Starting %s Model Test with Sleep Cycles ===\r\n", ModelConfig::GetModelName());
 
@@ -362,7 +378,9 @@ int main(void)
 
     // Time inference
     TimingContext inference_ctx = start_timing();
+    HAL_GPIO_WritePin(MARKER_GPIO_PORT, MARKER_PIN, GPIO_PIN_SET);   // marker HIGH: inference begins
     TfLiteStatus invoke_status = interpreter.Invoke();
+    HAL_GPIO_WritePin(MARKER_GPIO_PORT, MARKER_PIN, GPIO_PIN_RESET); // marker LOW: inference done
     if (invoke_status != kTfLiteOk)
     {
       UART_printf("Invoke failed\r\n");

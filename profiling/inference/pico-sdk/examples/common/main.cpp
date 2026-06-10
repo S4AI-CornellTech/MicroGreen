@@ -14,6 +14,8 @@
 
 #include "model_config.h"
 
+#define MARKER_PIN 15
+
 // Sleep callback function - does nothing, just for wakeup
 void sleep_callback(uint alarm_num) {
     // Empty callback used to wake up
@@ -74,6 +76,10 @@ int main(void)
 {
     stdio_init_all();
     
+    gpio_init(MARKER_PIN);
+    gpio_set_dir(MARKER_PIN, GPIO_OUT);
+    gpio_put(MARKER_PIN, 0);
+
     printf("\r\n=== Starting %s Model Test with Sleep Cycles ===\r\n", ModelConfig::GetModelName());
 
     uint64_t program_start_time = time_us_64();
@@ -151,6 +157,9 @@ int main(void)
         if (inference_count > 0 && inference_count % 10 == 0)
         {
             printf("\r\n--- Completed %d inferences, entering sleep cycle ---\r\n", inference_count);
+            // Recurring model-name line so the flashing pipeline can verify which
+            // binary is actually running (not just the one-time boot banner).
+            printf("Model: %s\r\n", ModelConfig::GetModelName());
             printf("Average memcpy time: %.2f microseconds\r\n", (float)total_memcpy_time / 10);
             printf("Average inference time: %.2f microseconds\r\n", (float)total_inference_time / 10);
             printf("Average post-processing time: %.2f microseconds\r\n", (float)total_postprocess_time / 10);
@@ -177,7 +186,9 @@ int main(void)
         printf("memcpy took: %llu microseconds\r\n", memcpy_time);
 
         uint64_t inference_start_time = time_us_64();
+        gpio_put(MARKER_PIN, 1);                       // marker HIGH: inference begins
         TfLiteStatus invoke_status = interpreter.Invoke();
+        gpio_put(MARKER_PIN, 0);                        // marker LOW: inference done
         if (invoke_status != kTfLiteOk)
         {
             printf("Invoke failed\r\n");

@@ -21,6 +21,9 @@
 
 #include "model_config.h"
 
+#define MARKER_PORT NRF_P0
+#define MARKER_BIT  (1UL << 3) // P0.03
+
 inline float DequantizeInt8ToFloat(int8_t value, float scale, int zero_point)
 {
     return static_cast<float>(value - zero_point) * scale;
@@ -74,6 +77,10 @@ void setup(void)
 
     // Brief delay to allow serial to stabilize
     delay(1000);
+
+    // Marker pin for per-inference energy measurement (see MARKER_PORT above).
+    MARKER_PORT->DIRSET = MARKER_BIT;   // configure marker pin as output
+    MARKER_PORT->OUTCLR = MARKER_BIT;   // start LOW
 
     Serial.print("\r\n=== Starting ");
     Serial.print(ModelConfig::GetModelName());
@@ -234,7 +241,9 @@ void loop(void)
     Serial.println(" microseconds");
 
     unsigned long inference_start_time = micros();
+    MARKER_PORT->OUTSET = MARKER_BIT;        // marker HIGH: inference begins
     TfLiteStatus invoke_status = interpreter->Invoke();
+    MARKER_PORT->OUTCLR = MARKER_BIT;        // marker LOW: inference done
     if (invoke_status != kTfLiteOk)
     {
         Serial.println("Invoke failed");

@@ -1,5 +1,10 @@
 #include "tflite_inference_runner.h"
 #include "model_config.h"
+#include "driver/gpio.h"
+
+// Energy-per-inference marker: driven HIGH only during Invoke(), wired to a PPK2
+// logic input (D0). GPIO4 is free on the esp32 / esp32c6 / esp32s3 devkits.
+#define MARKER_PIN GPIO_NUM_4
 
 inline float DequantizeInt8ToFloat(int8_t value, float scale, int zero_point)
 {
@@ -108,6 +113,10 @@ void tflite_model_task(void *pvParameters)
     int64_t setup_time = current_time - program_start_time;
     printf("Setup takes: %lld microseconds\n", setup_time);
 
+    // Marker pin for per-inference energy measurement (see MARKER_PIN above).
+    gpio_set_direction(MARKER_PIN, GPIO_MODE_OUTPUT);
+    gpio_set_level(MARKER_PIN, 0);
+
     // Continuous inference loop with sleep cycles
     int inference_count = 0;
     int64_t total_memcpy_time = 0;
@@ -145,7 +154,9 @@ void tflite_model_task(void *pvParameters)
         printf("memcpy took: %lld microseconds\n", memcpy_time);
 
         int64_t inference_start_time = esp_timer_get_time();
+        gpio_set_level(MARKER_PIN, 1);            // marker HIGH: inference begins
         TfLiteStatus invoke_status = interpreter->Invoke();
+        gpio_set_level(MARKER_PIN, 0);            // marker LOW: inference done
         if (invoke_status != kTfLiteOk)
         {
             printf("ERROR: Invoke failed\n");

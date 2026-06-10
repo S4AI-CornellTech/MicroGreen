@@ -8,6 +8,14 @@
 #define LED_GPIO_PORT                          GPIOD
 #define LED_GPIO_CLK_ENABLE()                  __HAL_RCC_GPIOD_CLK_ENABLE()
 
+// Per-inference energy marker for the PPK2 logic input (driven HIGH only during
+// Invoke(), wired to logic D0). PE4 is a free GPIO broken out on the F411VE
+// Discovery headers and clear of the UART/LEDs/gyro/audio/USB/SWD. Change these
+// three lines to any free pin if PE4 conflicts with your wiring.
+#define MARKER_PIN                             GPIO_PIN_4
+#define MARKER_GPIO_PORT                       GPIOE
+#define MARKER_GPIO_CLK_ENABLE()               __HAL_RCC_GPIOE_CLK_ENABLE()
+
 // UART Configuration for STM32F411VE Discovery Board
 // Using USART2 connected to ST-LINK Virtual COM Port
 // PA2 = USART2_TX, PA3 = USART2_RX
@@ -24,6 +32,7 @@ extern UART_HandleTypeDef huart2;
 
 // Function prototypes
 void Error_Handler(void);
+void Marker_Init(void);
 void UART_Init(void);
 void UART_printf(const char* format, ...);
 void enter_sleep_cycle(void);
