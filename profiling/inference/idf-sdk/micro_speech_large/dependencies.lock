@@ -30,5 +30,5 @@ dependencies:
 direct_dependencies:
 - espressif/esp-tflite-micro
 manifest_hash: ab5f0e058d85d5fb2b5d5e3f981b0b6b506c6684f43858783a97e0772f808642
-target: esp32
+target: esp32c6
 version: 2.0.0
