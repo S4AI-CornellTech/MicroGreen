@@ -114,6 +114,9 @@ void tflite_model_task(void *pvParameters)
     printf("Setup takes: %lld microseconds\n", setup_time);
 
     // Marker pin for per-inference energy measurement (see MARKER_PIN above).
+    // gpio_reset_pin() detaches any boot-time IO-MUX function/pulls so the pin
+    // is a clean GPIO before we drive it (required on some pins/targets).
+    gpio_reset_pin(MARKER_PIN);
     gpio_set_direction(MARKER_PIN, GPIO_MODE_OUTPUT);
     gpio_set_level(MARKER_PIN, 0);
 
