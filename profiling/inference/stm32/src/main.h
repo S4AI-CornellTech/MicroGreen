@@ -9,10 +9,12 @@
 #define LED_GPIO_CLK_ENABLE()                  __HAL_RCC_GPIOD_CLK_ENABLE()
 
 // Per-inference energy marker for the PPK2 logic input (driven HIGH only during
-// Invoke(), wired to logic D0). PE4 is a free GPIO broken out on the F411VE
-// Discovery headers and clear of the UART/LEDs/gyro/audio/USB/SWD. Change these
-// three lines to any free pin if PE4 conflicts with your wiring.
-#define MARKER_PIN                             GPIO_PIN_4
+// Invoke(), wired to logic D0). NOTE: on the F411VE Discovery, PE0-PE5 are the
+// onboard motion-sensor lines (L3GD20 gyro PE0/PE1/PE3, LSM303DLHC accel/mag
+// interrupts PE2/PE4/PE5) - using one of those makes the output sag (~0.5V) due
+// to contention. PE6+ on port E are clear of all onboard peripherals. Verify any
+// new pin reads a clean ~3.3V when driven HIGH before relying on it.
+#define MARKER_PIN                             GPIO_PIN_6
 #define MARKER_GPIO_PORT                       GPIOE
 #define MARKER_GPIO_CLK_ENABLE()               __HAL_RCC_GPIOE_CLK_ENABLE()
 
