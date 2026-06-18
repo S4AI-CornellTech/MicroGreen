@@ -1,7 +1,7 @@
 [submodule "EmbodiedCarbonModeling"]
 	path = EmbodiedCarbonModeling
 	url = https://github.com/S4AI-CornellTech/EmbodiedCarbonModeling.git
-	branch = microgreen
+	branch = act-core
 [submodule "profiling/inference/pico-sdk"]
 	path = profiling/inference/pico-sdk
 	url = https://github.com/imandel/pico-tflmicro.git
