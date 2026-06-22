@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "pico/stdlib.h"
 #include "pico/sleep.h"
 #include "pico/bootrom.h"
+#include "hardware/clocks.h"
 
 
 // TensorFlow Lite Micro includes
@@ -15,6 +17,12 @@
 #include "model_config.h"
 
 #define MARKER_PIN 15
+
+// Safe runtime CPU-frequency window for the optimizer to sweep over.
+// Lower bound keeps XIP flash access reliable; upper bound stays at/below the
+// board default to avoid overclock instability without a matching voltage bump.
+#define MIN_SYS_CLOCK_KHZ 48000u
+#define MAX_SYS_CLOCK_KHZ 150000u
 
 // Sleep callback function - does nothing, just for wakeup
 void sleep_callback(uint alarm_num) {
@@ -39,18 +47,92 @@ bool is_serial_connected(void)
     return stdio_usb_connected();
 }
 
-// Non-blocking check for a serial command to reboot into BOOTSEL/USB-flash mode.
-// The flash script sends 'b' over this board's USB serial port; reset_usb_boot() 
-// is called so the board re-enumerates as a mass-storage device and
-// a new UF2 can be flashed without pressing the BOOTSEL button
-void check_bootsel_request(void)
+// Report the live system clock so the host can confirm an applied operating point.
+void report_clock(void)
 {
-    int c = getchar_timeout_us(0); // PICO_ERROR_TIMEOUT if no byte waiting
-    if (c == 'b' || c == 'B')
+    printf("CLK sys=%lu Hz\r\n", (unsigned long)clock_get_hz(clk_sys));
+}
+
+// Apply a requested system clock (in kHz) at runtime. Returns true if applied.
+// USB stdio runs off PLL_USB, so the serial link survives the clk_sys change and
+// stays reachable for the next command. time_us_64() is driven by the always-on
+// timer tick, so reported inference times remain valid across frequency changes.
+bool set_cpu_freq_khz(uint32_t khz)
+{
+    if (khz < MIN_SYS_CLOCK_KHZ || khz > MAX_SYS_CLOCK_KHZ)
     {
-        printf("Rebooting into BOOTSEL mode for flashing...\r\n");
-        stdio_flush();
-        reset_usb_boot(0, 0);
+        printf("ERR freq %lu kHz out of range [%u,%u]\r\n",
+               (unsigned long)khz, MIN_SYS_CLOCK_KHZ, MAX_SYS_CLOCK_KHZ);
+        return false;
+    }
+    stdio_flush();
+    // false: return failure instead of panicking if no PLL/divider combo hits khz.
+    if (!set_sys_clock_khz(khz, false))
+    {
+        printf("ERR could not configure %lu kHz (no valid PLL/divider)\r\n",
+               (unsigned long)khz);
+        return false;
+    }
+    return true;
+}
+
+// Non-blocking serial command processor on this board's USB serial port.
+// Commands (one per line, terminated by CR/LF):
+//   b           reboot into BOOTSEL/USB-flash mode (re-enumerate as mass storage
+//               so a new UF2 can be flashed without pressing the BOOTSEL button)
+//   f<khz>      set the CPU frequency, e.g. "f100000" for 100 MHz; replies "ACK f"
+//   ?           report the current system clock
+// A bare 'b' (no newline) is still honored immediately to preserve the existing
+// flash flow that sends a single character.
+void process_serial_commands(void)
+{
+    static char buf[16];
+    static uint8_t len = 0;
+
+    int c;
+    while ((c = getchar_timeout_us(0)) != PICO_ERROR_TIMEOUT) // drain all waiting bytes
+    {
+        if ((c == 'b' || c == 'B') && len == 0)
+        {
+            printf("Rebooting into BOOTSEL mode for flashing...\r\n");
+            stdio_flush();
+            reset_usb_boot(0, 0);
+        }
+
+        if (c == '\r' || c == '\n')
+        {
+            if (len == 0)
+            {
+                continue;
+            }
+            buf[len] = '\0';
+            switch (buf[0])
+            {
+                case 'f':
+                case 'F':
+                    if (set_cpu_freq_khz((uint32_t)strtoul(buf + 1, NULL, 10)))
+                    {
+                        printf("ACK f ");
+                        report_clock();
+                    }
+                    break;
+                case '?':
+                    report_clock();
+                    break;
+                default:
+                    printf("ERR unknown cmd '%s'\r\n", buf);
+                    break;
+            }
+            len = 0;
+        }
+        else if (len < sizeof(buf) - 1)
+        {
+            buf[len++] = (char)c;
+        }
+        else
+        {
+            len = 0; // overflow: drop the malformed line
+        }
     }
 }
 
@@ -75,6 +157,7 @@ int main(void)
     gpio_put(MARKER_PIN, 0);
 
     printf("\r\n=== Starting %s Model Test with Sleep Cycles ===\r\n", ModelConfig::GetModelName());
+    report_clock();  // baseline operating point for the energy log
 
     uint64_t program_start_time = time_us_64();
 
@@ -144,8 +227,8 @@ int main(void)
 
     while (1)
     {
-        // Allow on-demand reboot into BOOTSEL: host sends 'b' over USB serial.
-        check_bootsel_request();
+        // Handle host serial commands: 'b' (BOOTSEL flash), 'f<khz>' (CPU freq), '?'.
+        process_serial_commands();
 
         // Check if we need to sleep after every 10 inferences
         if (inference_count > 0 && inference_count % 10 == 0)
