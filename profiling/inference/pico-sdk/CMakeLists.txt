@@ -52,10 +52,15 @@ target_compile_definitions(
   COMPILE_DEFINITIONS TFLITE_USE_CTIME=1
 )
 
+# Optimization level is owned by CMAKE_BUILD_TYPE (the pipeline's build-time
+# compiler knob: Release=-O3, RelWithDebInfo=-O2, MinSizeRel=-Os, Debug=-O0), so
+# no -O is pinned here -- a pinned -O would override the build type and defeat the
+# knob. NOTE: set_target_properties keeps only the LAST COMPILE_FLAGS value, so
+# the other flags here are effectively inert (a pre-existing quirk); left as-is to
+# avoid changing build behavior alongside the knob.
 set_target_properties(
   pico-tflmicro
   PROPERTIES
-  COMPILE_FLAGS -Os
   COMPILE_FLAGS -fno-rtti
   COMPILE_FLAGS -fno-exceptions
   COMPILE_FLAGS -fno-threadsafe-statics
