@@ -103,17 +103,21 @@ void process_serial_commands(void)
             {
                 continue;
             }
-w
+            buf[len] = '\0';
+            switch (buf[0])
+            {
                 case 'f':
                 case 'F':
-                char *freq_str = buf + 1; // skip the 'f' character
-                uint32_t freq = (uint32_t)strtoul(freq_str, NULL, 10);
-                if (set_cpu_freq_khz(freq))
                 {
-                    printf("ACK f ");
-                    report_clock();
+                    char *freq_str = buf + 1; // skip the 'f' character
+                    uint32_t freq = (uint32_t)strtoul(freq_str, NULL, 10);
+                    if (set_cpu_freq_khz(freq))
+                    {
+                        printf("ACK f ");
+                        report_clock();
+                    }
+                    break;
                 }
-                break;
                 case '?':
                     report_clock();
                     break;
