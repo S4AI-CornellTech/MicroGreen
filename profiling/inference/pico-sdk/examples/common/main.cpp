@@ -18,9 +18,7 @@
 
 #define MARKER_PIN 15
 
-// Safe runtime CPU-frequency window for the optimizer to sweep over.
-// Lower bound keeps XIP flash access reliable; upper bound stays at/below the
-// board default to avoid overclock instability without a matching voltage bump.
+// Safe runtime CPU-frequency range for the optimizer to sweep over
 #define MIN_SYS_CLOCK_KHZ 48000u
 #define MAX_SYS_CLOCK_KHZ 150000u
 
@@ -47,13 +45,14 @@ bool is_serial_connected(void)
     return stdio_usb_connected();
 }
 
-// Report the live system clock so the host can confirm an applied operating point.
+// Report the live system clock and check if the requested frequency took effect
 void report_clock(void)
 {
     printf("CLK sys=%lu Hz\r\n", (unsigned long)clock_get_hz(clk_sys));
 }
 
-// Apply a requested system clock (in kHz) at runtime. Returns true if applied.
+// A requested system clock (in kHz) at runtime. Returns true if CPU frequency 
+// is sucessfully set. 
 // USB stdio runs off PLL_USB, so the serial link survives the clk_sys change and
 // stays reachable for the next command. time_us_64() is driven by the always-on
 // timer tick, so reported inference times remain valid across frequency changes.
@@ -66,7 +65,7 @@ bool set_cpu_freq_khz(uint32_t khz)
         return false;
     }
     stdio_flush();
-    // false: return failure instead of panicking if no PLL/divider combo hits khz.
+    // false: return failure if no PLL/divider can produce the requested khz
     if (!set_sys_clock_khz(khz, false))
     {
         printf("ERR could not configure %lu kHz (no valid PLL/divider)\r\n",
@@ -88,34 +87,33 @@ void process_serial_commands(void)
 {
     static char buf[16];
     static uint8_t len = 0;
-
     int c;
     while ((c = getchar_timeout_us(0)) != PICO_ERROR_TIMEOUT) // drain all waiting bytes
     {
-        if ((c == 'b' || c == 'B') && len == 0)
+        if ((c == 'b' || c == 'B') && len == 0) // only want to reboot if buffer is empty
         {
             printf("Rebooting into BOOTSEL mode for flashing...\r\n");
             stdio_flush();
             reset_usb_boot(0, 0);
         }
 
-        if (c == '\r' || c == '\n')
+        if (c == '\r' || c == '\n') // checks for the end of a command
         {
             if (len == 0)
             {
                 continue;
             }
-            buf[len] = '\0';
-            switch (buf[0])
-            {
+w
                 case 'f':
                 case 'F':
-                    if (set_cpu_freq_khz((uint32_t)strtoul(buf + 1, NULL, 10)))
-                    {
-                        printf("ACK f ");
-                        report_clock();
-                    }
-                    break;
+                char *freq_str = buf + 1; // skip the 'f' character
+                uint32_t freq = (uint32_t)strtoul(freq_str, NULL, 10);
+                if (set_cpu_freq_khz(freq))
+                {
+                    printf("ACK f ");
+                    report_clock();
+                }
+                break;
                 case '?':
                     report_clock();
                     break;
@@ -142,7 +140,7 @@ void enter_sleep_cycle(void)
 
     // Light sleep for BOTH the RP2040 and RP2350 that keeps the clocks and USB alive
     // so the board stays enumerated and reachable for automated flashing.
-    // This is NOT a true low-power sleep, so sleep-phase power numbers are inflated
+    // This is NOT a true low-power sleep
     stdio_flush();
     sleep_ms(2000);
     printf("Woke up from light sleep\r\n");
