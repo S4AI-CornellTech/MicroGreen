@@ -31,6 +31,7 @@ target_link_libraries(
   person_detection
   pico-tflmicro
   pico_stdlib
+  hardware_sleep
 )
 
 pico_enable_stdio_usb(person_detection 1)

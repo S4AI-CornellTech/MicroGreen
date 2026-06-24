@@ -5,7 +5,8 @@
 #include "pico/sleep.h"
 #include "pico/bootrom.h"
 #include "hardware/clocks.h"
-#include "hardware/sync.h"   // __wfe()
+#include "hardware/sync.h"           // __wfe() / __wfi()
+#include "hardware/structs/scb.h"    // scb_hw->scr SLEEPDEEP bit (s2/s3 deep sleep)
 
 
 // TensorFlow Lite Micro includes
@@ -24,26 +25,46 @@
 #define MAX_SYS_CLOCK_KHZ 250000u // 48 MHz to 250 MHz
 
 // Sleep-mode knob, selectable at runtime via the 's<n>' serial command.
-// Every exposed mode keeps the system clocks and USB alive, so the host control
-// channel and software reboot survive a sleep cycle. DORMANT is deliberately
-// NOT exposed here: it stops the oscillators and drops USB, which would strand
-// the board. set_sleep_mode() rejects any value outside this enum, so the
-// optimizer cannot select dormant over the USB loop.
+//
+//   0/1  keep the CPU running, so USB stays CONTINUOUSLY enumerated.
+//   2/3  real processor deep sleep: the CPU halts and stops servicing USB, so
+//        the serial port DROPS during the sleep window and RE-ENUMERATES on the
+//        timer wake. They are still "recoverable" (self-wake via the always-on
+//        timer + clock restore), so software reboot works again in the command
+//        window after each wake -- unlike DORMANT, which can only wake from a
+//        GPIO edge and so is deliberately NOT exposed. set_sleep_mode() rejects
+//        anything outside this enum, so the optimizer can never select dormant.
 enum SleepMode
 {
     SLEEP_MODE_BASELINE = 0, // sleep_ms(): park on WFE, all clocks running
     SLEEP_MODE_WFE      = 1, // run-idle: arm a timer alarm, park on __wfe()
+    SLEEP_MODE_SLEEP_EN = 2, // deep sleep, PLLs left on (clk_sys/freq preserved)
+    SLEEP_MODE_XOSC     = 3, // deep sleep, run from XOSC with PLLs off (deepest)
     SLEEP_MODE_COUNT
 };
 static volatile uint8_t g_sleep_mode = SLEEP_MODE_BASELINE;
 
-// Wake flag for the run-idle (__wfe) path; set from the alarm IRQ.
-static volatile bool g_wfe_woke = false;
-static int64_t wfe_wake_cb(alarm_id_t id, void *user_data)
+// Last CPU frequency requested via 'f<khz>' (0 = never set, use firmware
+// default). sleep_power_up() runs clocks_init() which resets clk_sys to the
+// default, so after an s3 deep sleep we re-apply this to keep a frequency sweep
+// honest across sleep cycles.
+static volatile uint32_t g_cur_freq_khz = 0;
+
+// Cortex SLEEPDEEP bit differs by core (M0+ on RP2040, M33 on RP2350-ARM).
+#if PICO_RP2040
+#define MG_SCR_SLEEPDEEP M0PLUS_SCR_SLEEPDEEP_BITS
+#elif !defined(__riscv)
+#define MG_SCR_SLEEPDEEP M33_SCR_SLEEPDEEP_BITS
+#endif
+
+// Wake flag for every timer-driven wait (run-idle and deep sleep); set from the
+// alarm IRQ, which is what brings the core back out of __wfe()/__wfi().
+static volatile bool g_timer_woke = false;
+static int64_t timer_wake_cb(alarm_id_t id, void *user_data)
 {
     (void)id;
     (void)user_data;
-    g_wfe_woke = true;
+    g_timer_woke = true;
     return 0; // do not reschedule
 }
 
@@ -53,16 +74,88 @@ static int64_t wfe_wake_cb(alarm_id_t id, void *user_data)
 // polling the timer. Falls back to sleep_ms() if no alarm slot is available.
 void idle_wfe_for_ms(uint32_t ms)
 {
-    g_wfe_woke = false;
-    if (add_alarm_in_ms(ms, wfe_wake_cb, NULL, true) < 0)
+    g_timer_woke = false;
+    if (add_alarm_in_ms(ms, timer_wake_cb, NULL, true) < 0)
     {
         sleep_ms(ms);
         return;
     }
-    while (!g_wfe_woke)
+    while (!g_timer_woke)
     {
         __wfe();
     }
+}
+
+// Real processor deep sleep for `ms`, self-waking from the always-on system
+// timer. Mirrors the SDK's sleep_goto_sleep_for() but uses the default alarm
+// pool (add_alarm_in_ms) so it does NOT leak a hardware alarm per call -- the
+// SDK helper claims one each time and never frees it, which would panic after a
+// few sleep cycles. With from_xosc=false (s2) the PLLs stay up and clk_sys/freq
+// is preserved; with from_xosc=true (s3) we drop to XOSC with the PLLs off for
+// the lowest power, then sleep_power_up() restores clocks and we re-apply the
+// requested frequency. USB drops during the sleep and re-enumerates after.
+void deep_sleep_for_ms(uint32_t ms, bool from_xosc)
+{
+#if defined(MG_SCR_SLEEPDEEP)
+    if (from_xosc)
+    {
+        sleep_run_from_xosc(); // clk_sys -> XOSC (12 MHz), PLLs deinit'd
+    }
+
+    // Gate every clock except the system timer (our wake source); save the
+    // current masks so s2 (which keeps the PLLs) can restore them verbatim.
+    uint32_t save_en0 = clocks_hw->sleep_en0;
+    uint32_t save_en1 = clocks_hw->sleep_en1;
+    clocks_hw->sleep_en0 = 0x0;
+#if PICO_RP2040
+    clocks_hw->sleep_en1 = CLOCKS_SLEEP_EN1_CLK_SYS_TIMER_BITS;
+#else
+    clocks_hw->sleep_en1 = CLOCKS_SLEEP_EN1_CLK_REF_TICKS_BITS |
+                           CLOCKS_SLEEP_EN1_CLK_SYS_TIMER0_BITS;
+#endif
+
+    g_timer_woke = false;
+    alarm_id_t id = add_alarm_in_ms(ms, timer_wake_cb, NULL, true);
+    if (id < 0)
+    {
+        // Could not arm the wake -- never deep-sleep without a way back. Restore
+        // and fall back to a plain delay so the board can't get stranded.
+        clocks_hw->sleep_en0 = save_en0;
+        clocks_hw->sleep_en1 = save_en1;
+        if (from_xosc)
+        {
+            sleep_power_up();
+        }
+        sleep_ms(ms);
+        return;
+    }
+
+    scb_hw->scr |= MG_SCR_SLEEPDEEP;        // deepen the next __wfi()
+    while (!g_timer_woke)
+    {
+        __wfi();                            // halt until the timer IRQ fires
+    }
+    scb_hw->scr &= ~MG_SCR_SLEEPDEEP;       // back to normal sleep depth
+
+    if (from_xosc)
+    {
+        sleep_power_up();                   // restore PLLs/clocks (also resets sleep_en)
+        if (g_cur_freq_khz)
+        {
+            set_sys_clock_khz(g_cur_freq_khz, false); // re-apply the f-knob freq
+        }
+    }
+    else
+    {
+        clocks_hw->sleep_en0 = save_en0;    // s2: PLLs untouched, just restore masks
+        clocks_hw->sleep_en1 = save_en1;
+    }
+#else
+    // RISC-V (RP2350) builds: SLEEPDEEP bit handling not wired up here; fall back
+    // to a plain delay so these modes still behave safely.
+    (void)from_xosc;
+    sleep_ms(ms);
+#endif
 }
 
 inline float DequantizeInt8ToFloat(int8_t value, float scale, int zero_point)
@@ -107,6 +200,7 @@ bool set_cpu_freq_khz(uint32_t khz)
                (unsigned long)khz);
         return false;
     }
+    g_cur_freq_khz = khz; // remembered so s3 can re-apply it after sleep_power_up()
     return true;
 }
 
@@ -128,7 +222,9 @@ bool set_sleep_mode(uint32_t mode)
 // Commands (one per line, terminated by CR/LF):
 //   b           reboot into BOOTSEL/USB-flash mode
 //   f<khz>      set the CPU frequency
-//   s<n>        select sleep mode (0=baseline sleep_ms, 1=run-idle __wfe)
+//   s<n>        select sleep mode (0=baseline sleep_ms, 1=run-idle __wfe,
+//               2=deep sleep PLLs-on, 3=deep sleep XOSC). 2/3 drop USB during
+//               the sleep and re-enumerate after.
 //   ?           report the current system clock
 void process_serial_commands(void)
 {
@@ -198,14 +294,21 @@ void enter_sleep_cycle(void)
 {
     printf("Preparing to sleep for 2 seconds (mode %u)...\r\n", (unsigned)g_sleep_mode);
 
-    // Every mode below keeps the clocks and USB alive for BOTH the RP2040 and
-    // RP2350, so the board stays enumerated and reachable for automated
-    // flashing. These are NOT true low-power sleeps.
+    // Modes 0/1 keep the clocks and USB alive; modes 2/3 are real deep sleep
+    // that drops USB during the window and re-enumerates on the timer wake.
+    // Either way the board self-wakes and returns to the command loop, so
+    // software reboot ('b') works again in the next command window.
     stdio_flush();
     switch (g_sleep_mode)
     {
         case SLEEP_MODE_WFE:
             idle_wfe_for_ms(2000);
+            break;
+        case SLEEP_MODE_SLEEP_EN:
+            deep_sleep_for_ms(2000, false); // PLLs stay on, freq preserved
+            break;
+        case SLEEP_MODE_XOSC:
+            deep_sleep_for_ms(2000, true);  // drop to XOSC, PLLs off (deepest)
             break;
         case SLEEP_MODE_BASELINE:
         default:
