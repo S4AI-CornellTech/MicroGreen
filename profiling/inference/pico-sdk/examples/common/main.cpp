@@ -7,6 +7,8 @@
 #include "hardware/clocks.h"
 #include "hardware/sync.h"           // __wfe() / __wfi()
 #include "hardware/structs/scb.h"    // scb_hw->scr SLEEPDEEP bit (s2/s3 deep sleep)
+#include "hardware/timer.h"          // dedicated hardware alarm for the deep-sleep wake
+#include "hardware/watchdog.h"       // backstop reset if a deep sleep fails to wake
 
 
 // TensorFlow Lite Micro includes
@@ -68,6 +70,17 @@ static int64_t timer_wake_cb(alarm_id_t id, void *user_data)
     return 0; // do not reschedule
 }
 
+// Dedicated hardware alarm for the deep-sleep wake, claimed once and reused for
+// every sleep (so it never leaks, unlike a fresh add_alarm per call). This is
+// the same low-level path the SDK's sleep_goto_sleep_for() uses to bring the
+// core back out of deep sleep; its callback sets the same g_timer_woke flag.
+static int g_deep_alarm = -1;
+static void deep_alarm_cb(uint alarm_num)
+{
+    (void)alarm_num;
+    g_timer_woke = true;
+}
+
 // Run-idle: park the core on __wfe() until a one-shot timer alarm fires. All
 // clocks, PLLs and USB stay up, so power is equivalent to sleep_ms(); the
 // difference is that the core waits on an explicit wake event instead of
@@ -97,10 +110,48 @@ void idle_wfe_for_ms(uint32_t ms)
 void deep_sleep_for_ms(uint32_t ms, bool from_xosc)
 {
 #if defined(MG_SCR_SLEEPDEEP)
+    // Claim the dedicated wake alarm once. If none is free, never deep-sleep
+    // (we'd have no way back) -- fall back to a plain delay.
+    if (g_deep_alarm < 0)
+    {
+        g_deep_alarm = hardware_alarm_claim_unused(false);
+        if (g_deep_alarm >= 0)
+        {
+            hardware_alarm_set_callback((uint)g_deep_alarm, deep_alarm_cb);
+        }
+    }
+    if (g_deep_alarm < 0)
+    {
+        sleep_ms(ms);
+        return;
+    }
+
     if (from_xosc)
     {
         sleep_run_from_xosc(); // clk_sys -> XOSC (12 MHz), PLLs deinit'd
     }
+
+    // Arm the timer wake. set_target() returns true if the deadline already
+    // passed, in which case don't sleep -- just restore and return.
+    g_timer_woke = false;
+    if (hardware_alarm_set_target((uint)g_deep_alarm, make_timeout_time_ms(ms)))
+    {
+        if (from_xosc)
+        {
+            sleep_power_up();
+            if (g_cur_freq_khz)
+            {
+                set_sys_clock_khz(g_cur_freq_khz, false);
+            }
+        }
+        return;
+    }
+
+    // Backstop: if this deep sleep ever fails to wake, the watchdog resets the
+    // board (which reboots into s0 with USB alive) instead of wedging forever.
+    // The margin is comfortably longer than the sleep; we disable it the instant
+    // we wake cleanly, so it never fires during normal operation.
+    watchdog_enable(ms + 1000, true);
 
     // Gate every clock except the system timer (our wake source); save the
     // current masks so s2 (which keeps the PLLs) can restore them verbatim.
@@ -114,28 +165,14 @@ void deep_sleep_for_ms(uint32_t ms, bool from_xosc)
                            CLOCKS_SLEEP_EN1_CLK_SYS_TIMER0_BITS;
 #endif
 
-    g_timer_woke = false;
-    alarm_id_t id = add_alarm_in_ms(ms, timer_wake_cb, NULL, true);
-    if (id < 0)
-    {
-        // Could not arm the wake -- never deep-sleep without a way back. Restore
-        // and fall back to a plain delay so the board can't get stranded.
-        clocks_hw->sleep_en0 = save_en0;
-        clocks_hw->sleep_en1 = save_en1;
-        if (from_xosc)
-        {
-            sleep_power_up();
-        }
-        sleep_ms(ms);
-        return;
-    }
-
     scb_hw->scr |= MG_SCR_SLEEPDEEP;        // deepen the next __wfi()
     while (!g_timer_woke)
     {
         __wfi();                            // halt until the timer IRQ fires
     }
     scb_hw->scr &= ~MG_SCR_SLEEPDEEP;       // back to normal sleep depth
+
+    watchdog_disable();                     // woke cleanly -> cancel the backstop
 
     if (from_xosc)
     {
