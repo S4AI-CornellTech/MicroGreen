@@ -5,6 +5,7 @@
 #include "pico/sleep.h"
 #include "pico/bootrom.h"
 #include "hardware/clocks.h"
+#include "hardware/sync.h"   // __wfe()
 
 
 // TensorFlow Lite Micro includes
@@ -20,11 +21,48 @@
 
 // Safe runtime CPU-frequency range for the optimizer to sweep over
 #define MIN_SYS_CLOCK_KHZ 48000u
-#define MAX_SYS_CLOCK_KHZ 150000u
+#define MAX_SYS_CLOCK_KHZ 250000u // 48 MHz to 250 MHz
 
-// Sleep callback function - does nothing, just for wakeup
-void sleep_callback(uint alarm_num) {
-    // Empty callback used to wake up
+// Sleep-mode knob, selectable at runtime via the 's<n>' serial command.
+// Every exposed mode keeps the system clocks and USB alive, so the host control
+// channel and software reboot survive a sleep cycle. DORMANT is deliberately
+// NOT exposed here: it stops the oscillators and drops USB, which would strand
+// the board. set_sleep_mode() rejects any value outside this enum, so the
+// optimizer cannot select dormant over the USB loop.
+enum SleepMode
+{
+    SLEEP_MODE_BASELINE = 0, // sleep_ms(): park on WFE, all clocks running
+    SLEEP_MODE_WFE      = 1, // run-idle: arm a timer alarm, park on __wfe()
+    SLEEP_MODE_COUNT
+};
+static volatile uint8_t g_sleep_mode = SLEEP_MODE_BASELINE;
+
+// Wake flag for the run-idle (__wfe) path; set from the alarm IRQ.
+static volatile bool g_wfe_woke = false;
+static int64_t wfe_wake_cb(alarm_id_t id, void *user_data)
+{
+    (void)id;
+    (void)user_data;
+    g_wfe_woke = true;
+    return 0; // do not reschedule
+}
+
+// Run-idle: park the core on __wfe() until a one-shot timer alarm fires. All
+// clocks, PLLs and USB stay up, so power is equivalent to sleep_ms(); the
+// difference is that the core waits on an explicit wake event instead of
+// polling the timer. Falls back to sleep_ms() if no alarm slot is available.
+void idle_wfe_for_ms(uint32_t ms)
+{
+    g_wfe_woke = false;
+    if (add_alarm_in_ms(ms, wfe_wake_cb, NULL, true) < 0)
+    {
+        sleep_ms(ms);
+        return;
+    }
+    while (!g_wfe_woke)
+    {
+        __wfe();
+    }
 }
 
 inline float DequantizeInt8ToFloat(int8_t value, float scale, int zero_point)
@@ -53,9 +91,6 @@ void report_clock(void)
 
 // A requested system clock (in kHz) at runtime. Returns true if CPU frequency 
 // is sucessfully set. 
-// USB stdio runs off PLL_USB, so the serial link survives the clk_sys change and
-// stays reachable for the next command. time_us_64() is driven by the always-on
-// timer tick, so reported inference times remain valid across frequency changes.
 bool set_cpu_freq_khz(uint32_t khz)
 {
     if (khz < MIN_SYS_CLOCK_KHZ || khz > MAX_SYS_CLOCK_KHZ)
@@ -75,14 +110,26 @@ bool set_cpu_freq_khz(uint32_t khz)
     return true;
 }
 
+// Select the sleep mode used by enter_sleep_cycle(). Rejects anything outside
+// the SleepMode enum (this is what keeps dormant off-limits to the optimizer).
+bool set_sleep_mode(uint32_t mode)
+{
+    if (mode >= SLEEP_MODE_COUNT)
+    {
+        printf("ERR sleep mode %lu out of range [0,%d]\r\n",
+               (unsigned long)mode, SLEEP_MODE_COUNT - 1);
+        return false;
+    }
+    g_sleep_mode = (uint8_t)mode;
+    return true;
+}
+
 // Non-blocking serial command processor on this board's USB serial port.
 // Commands (one per line, terminated by CR/LF):
-//   b           reboot into BOOTSEL/USB-flash mode (re-enumerate as mass storage
-//               so a new UF2 can be flashed without pressing the BOOTSEL button)
-//   f<khz>      set the CPU frequency, e.g. "f100000" for 100 MHz; replies "ACK f"
+//   b           reboot into BOOTSEL/USB-flash mode
+//   f<khz>      set the CPU frequency
+//   s<n>        select sleep mode (0=baseline sleep_ms, 1=run-idle __wfe)
 //   ?           report the current system clock
-// A bare 'b' (no newline) is still honored immediately to preserve the existing
-// flash flow that sends a single character.
 void process_serial_commands(void)
 {
     static char buf[16];
@@ -96,7 +143,6 @@ void process_serial_commands(void)
             stdio_flush();
             reset_usb_boot(0, 0);
         }
-
         if (c == '\r' || c == '\n') // checks for the end of a command
         {
             if (len == 0)
@@ -115,6 +161,16 @@ void process_serial_commands(void)
                     {
                         printf("ACK f ");
                         report_clock();
+                    }
+                    break;
+                }
+                case 's':
+                case 'S':
+                {
+                    uint32_t mode = (uint32_t)strtoul(buf + 1, NULL, 10);
+                    if (set_sleep_mode(mode))
+                    {
+                        printf("ACK s mode=%u\r\n", (unsigned)g_sleep_mode);
                     }
                     break;
                 }
@@ -140,14 +196,23 @@ void process_serial_commands(void)
 
 void enter_sleep_cycle(void)
 {
-    printf("Preparing to sleep for 2 seconds...\r\n");
+    printf("Preparing to sleep for 2 seconds (mode %u)...\r\n", (unsigned)g_sleep_mode);
 
-    // Light sleep for BOTH the RP2040 and RP2350 that keeps the clocks and USB alive
-    // so the board stays enumerated and reachable for automated flashing.
-    // This is NOT a true low-power sleep
+    // Every mode below keeps the clocks and USB alive for BOTH the RP2040 and
+    // RP2350, so the board stays enumerated and reachable for automated
+    // flashing. These are NOT true low-power sleeps.
     stdio_flush();
-    sleep_ms(2000);
-    printf("Woke up from light sleep\r\n");
+    switch (g_sleep_mode)
+    {
+        case SLEEP_MODE_WFE:
+            idle_wfe_for_ms(2000);
+            break;
+        case SLEEP_MODE_BASELINE:
+        default:
+            sleep_ms(2000);
+            break;
+    }
+    printf("Woke up from sleep (mode %u)\r\n", (unsigned)g_sleep_mode);
 }
 
 int main(void)
