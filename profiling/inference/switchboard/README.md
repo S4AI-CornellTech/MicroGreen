@@ -13,9 +13,19 @@ PPK2 SIG line. Enforces break-before-make so two devices are never powered at on
 
 ## Flashing
 
+Flash **once**; the firmware is persistent (survives reboots, replugs, and the
+pipeline's DTR resets). Reflash only when you edit the sketch/`device_table.h`.
+
+On this rig the measurement desktop **cannot compile or install `arduino-cli`**
+(locked-down network, no sudo), so you compile the `.hex` on an internet-connected
+machine and flash it on the desktop with its existing `avrdude`. Full procedure,
+board facts (port, serial, avrdude flags), and verification steps are in
+**[firmware/FLASHING.md](firmware/FLASHING.md)**.
+
+On a machine that *can* reach the Arduino toolchain, the plain path is:
 ```
 arduino-cli compile --fqbn arduino:avr:uno firmware/switch_controller
-arduino-cli upload  --fqbn arduino:avr:uno -p /dev/ttyACM0 firmware/switch_controller
+arduino-cli upload  --fqbn arduino:avr:uno -p <arduino-port> firmware/switch_controller
 ```
 (or open `switch_controller.ino` in the Arduino IDE and upload to the Uno.)
 

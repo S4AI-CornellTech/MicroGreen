@@ -29,14 +29,16 @@
 // MOSFET board jumper polarity. 0 = active-LOW 
 #define MOSFET_ACTIVE_HIGH 0
 
-// Mux address width: 4 for CD74HC4067 (16ch), 3 for CD74HC4051 (8ch).
-// CONFIRM the part from the silkscreen/datasheet, not the board name.
-#define MUX_ADDR_BITS 4
+// Mux address width. This rig drives only S0..S2 from the Arduino (8 channels,
+// enough for the fleet); the mux's S3 pin is tied to GND on the board so the
+// upper 8 channels are unused. Bump to 4 and wire S3 to a pin if you ever need
+// channels 8..15.
+#define MUX_ADDR_BITS 3
 
-// Arduino pins driving mux address lines S0..S3. Only the first MUX_ADDR_BITS
-// are used. TODO: transcribe from HARDWARE.md once these are physically wired.
+// Arduino pins driving mux address lines S0..S2 (S3 tied to GND on the board).
+// Only the first MUX_ADDR_BITS entries are used. Confirmed: S0=12, S1=11, S2=10.
 // (Tie the mux EN pin active on the board — do not sequence it from here.)
-static const uint8_t MUX_ADDR_PINS[4] = { 2, 3, 4, 5 };
+static const uint8_t MUX_ADDR_PINS[4] = { 12, 11, 10, 0xFF };
 
 // Settle times — deliberately two different timescales (see HARDWARE.md):
 //   power-off: rail discharge through DUT bulk caps, tens–hundreds of ms
