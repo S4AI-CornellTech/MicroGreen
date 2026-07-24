@@ -20,15 +20,18 @@ struct Device {
 };
 
 // ---- CONFIRMED wiring -------------------------------------------------------
-//   pico2: Arduino ~9 -> MOSFET IN8 -> OUT1(+3V3/-GND); marker GP15 -> mux C7
+//   pico2:   Arduino ~9 -> MOSFET IN8 -> OUT1(+3V3/-GND); marker GP15  -> mux C7
+//   esp32:   Arduino ~5 -> MOSFET IN4 -> OUT5(+3V3/-GND); marker GPIO4 -> mux C3
+//   esp32s3: Arduino  4 -> MOSFET IN3 -> OUT6(+3V3/-GND); marker GPIO4 -> mux C2
+//   esp32c6: Arduino  3 -> MOSFET IN2 -> OUT7(+3V3/-GND); marker GPIO4 -> mux C1
 static const Device DEVICES[] = {
-  { "pico2", 9, 7, 400 },
+  { "pico2",   9, 7, 400 },
+  { "esp32",   5, 3, 500 },   // bootMargin 500ms — TUNE: ESP32 boot + TFLite init
+  { "esp32s3", 4, 2, 500 },   // bootMargin 500ms — TUNE: ESP32-S3 boot + TFLite init
+  { "esp32c6", 3, 1, 500 },   // bootMargin 500ms — TUNE: ESP32-C6 boot + TFLite init
 
   // ---- TODO: fill in as each device is physically wired --------------------
   //   MOSFET IN pin (Arduino pin) | mux channel (marker) | boot margin (ms)
-  // { "esp32",       0, 0, 0 },   // marker GPIO4
-  // { "esp32s3",     0, 0, 0 },   // marker GPIO4
-  // { "esp32c6",     0, 0, 0 },   // marker GPIO4
   // { "pico",        0, 0, 400 }, // marker GP15
   // { "stm32f411ve", 0, 0, 0 },   // marker PB0
   // { "nrf52840",    0, 0, 0 },   // marker P0.03; see HARDWARE.md re: VDD/GND tie
