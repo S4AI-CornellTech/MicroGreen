@@ -31,7 +31,6 @@ target_link_libraries(
   micro_speech_large
   pico-tflmicro
   pico_stdlib
-  hardware_sleep
 )
 
 pico_enable_stdio_usb(micro_speech_large 1)

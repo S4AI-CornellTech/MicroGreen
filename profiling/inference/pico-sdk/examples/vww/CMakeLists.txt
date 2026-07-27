@@ -31,7 +31,6 @@ target_link_libraries(
   vww
   pico-tflmicro
   pico_stdlib
-  hardware_sleep
 )
 
 pico_enable_stdio_usb(vww 1)
