@@ -1,50 +1,70 @@
-# MOSFET Switch Board + Mux Controller — Wiring Reference & Implementation Notes
+# Relay Switch Board + Mux Controller — Wiring Reference & Implementation Notes
 
 > Physical build notes for the fleet selector. The firmware in
 > [firmware/switch_controller/](firmware/switch_controller/) encodes some of these
-> facts (jumper polarity, mux width, device table) — keep the two in sync.
+> facts (trigger polarity, mux width, device table) — keep the two in sync.
+>
+> **The MOSFET switch board was replaced with an 8-channel relay module.** §2 and
+> the timing notes in §3 changed with it; the relay switches only the high side,
+> where the MOSFET board switched both rails.
 
 ## 1. Confirmed wiring
 
 ### Power / measurement chain
 | From | Pin | To | Pin |
 |---|---|---|---|
-| PPK2 | Vout | MOSFET switch board | Vin |
-| PPK2 | GND | MOSFET switch board | GND |
+| PPK2 | VOUT | Relay board | COM — **all** channels (the relay power bus) |
+| PPK2 | GND | Shared DUT ground bus | (not through the relay) |
 | PPK2 | D0 (logic port channel 0) | Analog/Digital mux | SIG (signal/common) |
 | PPK2 | Logic port VCC | pico2 | 3V3 |
 | PPK2 | Logic port GND | pico2 | GND |
 
+Relay contact convention: each `K_n NO` goes to exactly one DUT power input
+(3V3 / VSYS). **`NC` is left unconnected** on every channel.
+
 ### Control chain (Arduino Uno R3 = "Some MCU")
 | From | Pin | To | Pin |
 |---|---|---|---|
-| Arduino | 5V | MOSFET switch board | VCC |
-| Arduino | GND | MOSFET switch board | GND |
-| Arduino | ~9 | MOSFET switch board | IN8 |
+| Arduino | 5V | Relay board | VCC |
+| Arduino | GND | Relay board | GND |
+| Arduino | 3 | Relay board | IN1 |
+| Arduino | 4 | Relay board | IN2 |
+| Arduino | ~5 | Relay board | IN3 |
+| Arduino | ~6 | Relay board | IN4 |
+| Arduino | 7 | Relay board | IN5 |
+| Arduino | 8 | Relay board | IN7 |
+| Arduino | ~9 | Relay board | IN8 |
+| Arduino | 12 / 11 / 10 | Mux | S0 / S1 / S2 |
 | Arduino | 3V3 | Mux | VCC |
 | Arduino | GND | Mux | GND |
 
-> Mux address lines S0..S3 (and EN) are not yet in the confirmed table. The
-> firmware currently assumes Arduino pins `{2,3,4,5}` for S0..S3 and EN tied
-> active on-board — update both this table and `MUX_ADDR_PINS` once wired.
+> **IN6 is not wired** — no Arduino pin drives it, so relay K6 is unusable until a
+> wire is added. Don't assign a device to K6.
 
 ### Per-device (confirmed only)
-| Device | Inference marker pin | MOSFET board | Mux channel |
+| Device | Inference marker pin | Relay link | Mux channel |
 |---|---|---|---|
-| pico2 | GP15 | `OUT1-`→GND, `OUT1+`→3V3 (driven by Arduino IN8) | `C7` ← GP15 |
+| pico2 | GP15 | Arduino ~9 → IN8 → `K8 NO` → pico2 3V3 | `C7` ← GP15 |
+| pico (pico W) | GP15 | Arduino 8 → IN7 → `K7 NO` → pico 3V3 | `C0` ← GP15 |
+
+> Relay wiring and mux channel are independent facts — the mux only routes the
+> marker signal, so re-doing the power side never changes a mux channel (and
+> vice versa). Keep them in separate columns when transcribing.
 
 ### Everything else — still open (TODO)
-These need the same three links each, physically wired and then transcribed into
+These need the same three links each, physically wired and then uncommented in
 `firmware/switch_controller/device_table.h`:
-`MOSFET board IN_x ↔ Arduino pin`, `MOSFET board OUT_x ↔ device power`,
+`relay IN_x ↔ Arduino pin`, `relay K_x NO ↔ device 3V3`,
 `mux C_y ↔ device inference-marker pin`.
 
-| Device | Inference marker pin | MOSFET link | Mux link |
+Free relay channels: **K1** (pin 3), **K2** (pin 4), **K3** (pin 5),
+**K4** (pin 6), **K5** (pin 7).
+
+| Device | Inference marker pin | Relay link | Mux link |
 |---|---|---|---|
 | esp32 | GPIO4 | TODO | TODO |
 | esp32s3 | GPIO4 | TODO | TODO |
 | esp32c6 | GPIO4 | TODO | TODO |
-| pico (pico W) | GP15 | TODO | TODO |
 | stm32f411ve | PB0 | TODO | TODO |
 | nrf52840 | D0 → P0.03 (+ GND→GND, VDD→VDD) | TODO | TODO |
 | coral dev micro | J9/J10 | TODO | TODO |
@@ -55,27 +75,49 @@ double-checking whether the mux channel input can tolerate that VDD tie or
 whether it's only there to level-shift the marker signal; don't wire VDD into
 the mux channel pin itself unless you've confirmed that's what it's for.
 
-## 2. MOSFET board polarity — jumper decision
+## 2. Relay board trigger polarity — CONFIRMED ACTIVE-LOW
 
-Since it's jumper-selectable, here's the reasoning for which way to set it:
+From the board's input spec (SainSmart-style 8-channel module):
 
-**Recommend: ACTIVE-LOW** (IN pin pulled LOW turns the channel ON), if that's
-what the jumper supports.
+| IN pin voltage | State | Relay |
+|---|---|---|
+| 0V - 0.5V | LOW | **ON** (COM→NO closed) |
+| 2.5V - 5V | HIGH | **OFF** (COM→NO open) |
 
-Reasoning: most relay/MOSFET modules ship with an onboard pull-up on each IN line
-so the pin's default (floating/disconnected) state reads HIGH. Arduino pins are
-undefined for a brief window during power-up and during every reset (including
-the DTR-triggered reset that happens each time pyserial opens the port). If the
-board is set active-LOW, that undefined-floating-HIGH default corresponds to
-**OFF** — the fail-safe direction. If it's set active-HIGH, the same
-floating-HIGH default corresponds to **ON**, meaning every reset briefly risks
-energizing all channels at once.
+`RELAY_ACTIVE_HIGH` is set to `0` in the sketch to match.
 
-Action either way:
-- Set the jumper, then verify with a multimeter on one channel (don't trust silkscreen).
-- Set `MOSFET_ACTIVE_HIGH` in the sketch to match (`0` = active-LOW).
-- Re-verify after any reset-behavior change (e.g. if you add the DTR-suppression
-  cap mentioned below) since that changes what "undefined window" even looks like.
+This is also the fail-safe direction. These modules have an onboard pull-up on
+each IN line, so a pin's default (floating/disconnected) state reads HIGH.
+Arduino pins are undefined for a brief window during power-up and during every
+reset (including the DTR-triggered reset that happens each time pyserial opens
+the port). Active-LOW makes that floating-HIGH default mean **OFF**. Active-HIGH
+would make it mean **ON**, so every reset would briefly risk energizing all
+channels at once.
+
+The firmware follows from this directly:
+
+```c
+pinMode(relayPin, OUTPUT);
+digitalWrite(relayPin, HIGH);   // OFF — done for every IN pin in setup(), first
+...
+// select one:
+// all relay pins HIGH          // all OFF (powerOffAll)
+digitalWrite(selected, LOW);    // selected relay ON
+```
+
+`relayWrite(pin, false)` emits HIGH and `relayWrite(pin, true)` emits LOW, so the
+sketch reads in device terms while producing exactly the sequence above.
+
+Re-verify after any reset-behavior change (e.g. if you add the DTR-suppression
+cap mentioned below) since that changes what the "undefined window" looks like.
+
+### Coil current
+Relay coils draw real current (~70-90mA each) where MOSFET gates drew ~none. The
+design only ever energizes one channel at a time, so ~90mA off the Uno's 5V pin
+is within a USB-powered board's budget — but `powerOffAll()` must stay the only
+path that touches multiple channels, and it only ever de-energizes. If the board
+has a **JD-VCC / VCC jumper**, consider removing it and feeding JD-VCC from a
+separate 5V supply so coil switching noise stays off the Arduino rail.
 
 ## 3. Watch-list for writing the code / structuring the project
 
@@ -88,6 +130,12 @@ Action either way:
   than driving it from Arduino. One less thing to sequence.
 - **nRF52840's extra VDD/GND tie** — confirm purpose before wiring into the mux
   channel (see above).
+- **High side only, GND common.** The relay switches 3V3 through `K_n NO`; GND
+  stays connected to every device all the time. The old MOSFET board switched
+  both rails. Two consequences to check: (a) an "off" device can still be
+  back-powered through its marker line into the powered mux, or through its USB
+  port if that's plugged in — confirm the rail actually reads 0V when
+  de-selected; (b) leakage through those paths shows up in the PPK2 baseline.
 - **Arduino reset glitch**: pyserial opening the port toggles DTR → Uno resets →
   brief pin-undefined window. If the active-LOW fail-safe isn't enough on its own,
   add the standard 10µF+ cap between RESET and GND (or use a DTR-disable jumper on
@@ -105,14 +153,19 @@ Action either way:
   Don't hardcode one global settle time — key it per device (`bootMarginMs`), and
   let the *caller* (Python side) wait it out rather than blocking the Arduino's
   serial responsiveness.
-- **Mux settle vs MOSFET settle are different timescales** — mux propagation is
-  ~ns, only need a token delay; power rail discharge (especially anything with
-  bulk caps on the DUT) can be tens to hundreds of ms. Don't apply the same delay
-  constant to both without thinking about it. (`MUX_SETTLE_MS` vs
-  `POWER_OFF_SETTLE_MS`.)
+- **Mux settle vs relay settle are different timescales** — mux propagation is
+  ~ns, only need a token delay; relay coil travel is ~5-10ms each way, and power
+  rail discharge (especially anything with bulk caps on the DUT) can be tens to
+  hundreds of ms. Don't apply the same delay constant to all of them.
+  (`MUX_SETTLE_MS` vs `RELAY_MAKE_MS` vs `POWER_OFF_SETTLE_MS`.)
+- **Relays are mechanical, so ON isn't instant.** `RELAY_MAKE_MS` (20ms) holds
+  the ACK until the contact has closed and stopped bouncing — without it the
+  Arduino would report "OK" while the DUT is still unpowered, and the Python
+  side's `bootMarginMs` countdown would start early. If you see contact bounce
+  on the PPK2 current trace at switch-on, raise it.
 
 ### Firmware / code structure
-- Keep the **device table (name, MOSFET pin, mux channel, boot margin) as one data
+- Keep the **device table (name, relay pin, mux channel, boot margin) as one data
   structure**, separate from the control logic that walks it — see
   `device_table.h`. This is what makes the 7 remaining TODOs a one-line-per-device
   fix rather than a code change.

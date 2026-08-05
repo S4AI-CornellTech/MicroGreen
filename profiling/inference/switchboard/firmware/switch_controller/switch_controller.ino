@@ -1,14 +1,8 @@
 // switch_controller.ino — Arduino Uno R3 fleet power/marker selector.
 //
-// Purpose: pick exactly one DUT at a time by (a) powering it through the MOSFET
-// switch board and (b) routing its inference-marker pin through the mux into the
-// PPK2 SIG line. Enforces break-before-make so two devices are never powered at
-// once.
-//
-// This sketch is measurement-harness infrastructure ONLY. It knows nothing about
-// workloads, energy targets, accuracy floors, or MAP-Elites/OpenEvolve. It ACKs
-// when the electrical switch is done, NOT when a device has booted; boot-
-// readiness lives in the Python controller / per-device knowledge files.
+// Purpose: pick exactly one DUT at a time by (a) powering it through the relay
+// board and (b) connecting its inference-marker pin through the mux into the
+// PPK2 SIG line
 //
 // Serial protocol (115200 baud, newline-terminated, ASCII):
 //   PING            -> PONG
@@ -18,53 +12,51 @@
 //   SEL <name>      -> break-before-make switch; "OK <name>" or "ERR unknown <name>"
 //   OFF             -> de-energize all channels; "OK OFF"
 //   (anything else) -> "ERR bad-command"
-//
-// See HARDWARE.md for wiring, the mux part-number question, and — critically —
-// the MOSFET jumper polarity that MOSFET_ACTIVE_HIGH below must match.
 
 #include "device_table.h"
 
-// ===== Build-time hardware facts — MUST match the physical rig ==============
+// Relay board trigger polarity: 0 = active-LOW. Confirmed from the SainSmart-style
+// board's input spec: 0V-0.5V = relay ON, 2.5V-5V = relay OFF. So LOW energizes
+// the coil (closing NO) and HIGH releases it.
+//
+// This is also the fail-safe direction: the IN lines idle HIGH through their
+// onboard pull-ups during the Arduino's reset window, which must mean "all
+// devices off". setup() drives every IN pin HIGH before anything else, and
+// selectDevice() only ever pulls one pin LOW at a time.
+#define RELAY_ACTIVE_HIGH 0
 
-// MOSFET board jumper polarity. 0 = active-LOW 
-#define MOSFET_ACTIVE_HIGH 0
-
-// Mux address width. This rig drives only S0..S2 from the Arduino (8 channels,
-// enough for the fleet); the mux's S3 pin is tied to GND on the board so the
-// upper 8 channels are unused. Bump to 4 and wire S3 to a pin if you ever need
-// channels 8..15.
+// Mux address width (drives only S0-S2 from the Arduino, S3 pin is tied to GND)
 #define MUX_ADDR_BITS 3
 
-// Arduino pins driving mux address lines S0..S2 (S3 tied to GND on the board).
-// Only the first MUX_ADDR_BITS entries are used. Confirmed: S0=12, S1=11, S2=10.
-// (Tie the mux EN pin active on the board — do not sequence it from here.)
+// Arduino pins driving the mux: S0=12, S1=11, S2=10.
 static const uint8_t MUX_ADDR_PINS[4] = { 12, 11, 10, 0xFF };
 
-// Settle times — deliberately two different timescales (see HARDWARE.md):
-//   power-off: rail discharge through DUT bulk caps, tens–hundreds of ms
+// Relay contacts are mechanical, so unlike the old MOSFET board these delays
+// cover coil travel and contact bounce, not just electrical settling:
+//   power-off: coil release (~5-10ms) + rail discharge through the DUT's caps
+//   relay-make: coil pull-in (~10ms) + contact bounce, before we ACK
 //   mux:       propagation is ~ns, only a token debounce delay is needed
-static const uint16_t POWER_OFF_SETTLE_MS = 150;
-static const uint16_t MUX_SETTLE_MS       = 2;
+static const uint16_t POWER_OFF_SETTLE_MS = 150; // waiting for rails to discharge
+static const uint16_t RELAY_MAKE_MS       = 20; // contact close + bounce before ACK
+static const uint16_t MUX_SETTLE_MS       = 2; // token deounce delay for the mux to settle
 
-// ===== State ================================================================
+static int8_t g_current = -1;  // index of DEVICES, or -1 if "all off"
 
-static int8_t g_current = -1;  // index into DEVICES, or -1 for "all off"
-
-// ===== Low-level helpers ====================================================
-
-// Drive one MOSFET IN line to the requested logical state, honoring polarity.
-static inline void mosfetWrite(uint8_t pin, bool on) {
-#if MOSFET_ACTIVE_HIGH
+// Low-level helper functions
+// Drive one relay IN line to the requested logical state
+static inline void relayWrite(uint8_t pin, bool on) {
+#if RELAY_ACTIVE_HIGH
   digitalWrite(pin, on ? HIGH : LOW);
 #else
   digitalWrite(pin, on ? LOW : HIGH);
 #endif
 }
 
-// Force every known channel OFF. The fail-safe primitive; safe to call anytime.
+// Force every wired channel OFF — walks the wiring, not DEVICES, so relays with
+// no device assigned are released too. The fail-safe primitive; safe anytime.
 static void powerOffAll() {
-  for (uint8_t i = 0; i < DEVICE_COUNT; i++) {
-    mosfetWrite(DEVICES[i].mosfetPin, false);
+  for (uint8_t i = 0; i < RELAY_IN_COUNT; i++) {
+    relayWrite(RELAY_IN_PINS[i], false);
   }
   g_current = -1;
 }
@@ -76,13 +68,14 @@ static void setMux(uint8_t channel) {
   }
 }
 
-// Break-before-make: OFF current -> settle -> repoint mux -> settle -> ON new.
+// OFF current -> settle -> repoint mux -> settle -> ON new.
 static void selectDevice(int8_t idx) {
   powerOffAll();                     // never two devices powered at once
-  delay(POWER_OFF_SETTLE_MS);        // let the old rail discharge
+  delay(POWER_OFF_SETTLE_MS);      // let the old contact open and the rail discharge
   setMux(DEVICES[idx].muxChannel);   // repoint marker into PPK2 SIG
   delay(MUX_SETTLE_MS);
-  mosfetWrite(DEVICES[idx].mosfetPin, true);
+  relayWrite(DEVICES[idx].relayPin, true);
+  delay(RELAY_MAKE_MS);              // don't ACK until the contact has actually closed
   g_current = idx;
 }
 
@@ -93,7 +86,7 @@ static int8_t findDevice(const char* name) {
   return -1;
 }
 
-// ===== Serial command handling ==============================================
+// Serial command handling 
 
 static void handleLine(char* line) {
   // Split into command and (optional) argument on the first space.
@@ -132,14 +125,19 @@ static void handleLine(char* line) {
   }
 }
 
-// ===== Arduino entry points =================================================
-
+// Arduino entry points
 void setup() {
   // Drive everything to the fail-safe OFF state BEFORE anything else, so we
-  // don't energize the fleet during the pin-undefined window (see HARDWARE.md).
-  for (uint8_t i = 0; i < DEVICE_COUNT; i++) {
-    pinMode(DEVICES[i].mosfetPin, OUTPUT);
-    mosfetWrite(DEVICES[i].mosfetPin, false);
+  // don't energize the fleet during the pin-undefined window
+  for (uint8_t i = 0; i < RELAY_IN_COUNT; i++) {
+    // Set the level BEFORE switching the pin to OUTPUT. On AVR every PORT bit
+    // is 0 at reset, so pinMode(OUTPUT) first would drive the IN line LOW —
+    // i.e. relay ON — until the next instruction pulls it HIGH. Writing HIGH
+    // while the pin is still an input enables the internal pull-up (holding
+    // the line high), and pinMode then carries that PORT bit over and drives
+    // HIGH directly, so there is no ON window at all.
+    relayWrite(RELAY_IN_PINS[i], false);
+    pinMode(RELAY_IN_PINS[i], OUTPUT);
   }
   for (uint8_t b = 0; b < MUX_ADDR_BITS; b++) {
     pinMode(MUX_ADDR_PINS[b], OUTPUT);
@@ -157,9 +155,9 @@ void loop() {
 
   while (Serial.available()) {
     char c = (char)Serial.read();
-    if (c == '\r') continue;
-    if (c == '\n') {
-      buf[len] = '\0';
+    if (c == '\r') continue; // ignore unexpected or misplaced return character
+    if (c == '\n') { // new line
+      buf[len] = '\0'; // end of the string marker
       handleLine(buf);
       len = 0;
     } else if (len < sizeof(buf) - 1) {

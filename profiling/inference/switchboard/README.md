@@ -1,12 +1,12 @@
 # Switchboard — fleet power/marker selector
 
 Selects exactly one DUT at a time for PPK2 power profiling: powers it through the
-MOSFET switch board and routes its inference-marker pin through the mux into the
+relay switch board and routes its inference-marker pin through the mux into the
 PPK2 SIG line. Enforces break-before-make so two devices are never powered at once.
 
-- [HARDWARE.md](HARDWARE.md) — wiring, jumper polarity, mux part-number question,
+- [HARDWARE.md](HARDWARE.md) — wiring, trigger polarity, mux part-number question,
   and the reproducibility notes. **Read this before flashing** — the sketch's
-  `MOSFET_ACTIVE_HIGH` and `MUX_ADDR_BITS` must match the physical board.
+  `RELAY_ACTIVE_HIGH` and `MUX_ADDR_BITS` must match the physical board.
 - [firmware/switch_controller/](firmware/switch_controller/) — Arduino Uno R3 sketch.
   - `device_table.h` — the rig wiring, as data. Add devices here (one row each).
   - `switch_controller.ino` — the dumb serial selector that walks the table.

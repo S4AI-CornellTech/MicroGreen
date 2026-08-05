@@ -1,6 +1,6 @@
 # Flashing the Arduino selector
 
-How to get `switch_controller.ino` onto the Arduino Uno that drives the MOSFET
+How to get `switch_controller.ino` onto the Arduino Uno that drives the relay
 switch board + mux. Read this together with [../HARDWARE.md](../HARDWARE.md).
 
 ## TL;DR
