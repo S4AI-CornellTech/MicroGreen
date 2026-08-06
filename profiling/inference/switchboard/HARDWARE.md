@@ -46,10 +46,21 @@ Relay contact convention: each `K_n NO` goes to exactly one DUT power input
 |---|---|---|---|
 | pico2 | GP15 | Arduino ~9 → IN8 → `K8 NO` → pico2 3V3 | `C7` ← GP15 |
 | pico (pico W) | GP15 | Arduino 8 → IN7 → `K7 NO` → pico 3V3 | `C0` ← GP15 |
+| esp32c6 | GPIO4 | Arduino 7 → IN5 → `K5 NO` → esp32c6 3V3 | `C1` ← GPIO4 |
+| esp32s3 | GPIO4 | Arduino ~6 → IN4 → `K4 NO` → esp32s3 3V3 | `C2` ← GPIO4 (**unverified**) |
 
 > Relay wiring and mux channel are independent facts — the mux only routes the
 > marker signal, so re-doing the power side never changes a mux channel (and
 > vice versa). Keep them in separate columns when transcribing.
+
+**The ESP boards read ~0 mA unless their USB hub port is cut first.** Their
+onboard LDO holds the 3V3 rail up from USB 5V, so the PPK2 sources nothing and
+the capture looks like a dead board. Measured with USB still on: esp32s3
+`0.000 mA`, esp32c6 `0.026 mA`. With hub port 1 cut, esp32c6 reads
+`6.968 mA avg / 0.643 min / 41.538 max` with the marker toggling. The pipeline
+handles this automatically — both are in `HUB_OFF_FOR_MEASURE` — but any
+hand-run measurement must cut the port too. The picos differ here: they read
+the same with USB on or off, so this trap is ESP-specific.
 
 ### Everything else — still open (TODO)
 These need the same three links each, physically wired and then uncommented in
@@ -57,14 +68,12 @@ These need the same three links each, physically wired and then uncommented in
 `relay IN_x ↔ Arduino pin`, `relay K_x NO ↔ device 3V3`,
 `mux C_y ↔ device inference-marker pin`.
 
-Free relay channels: **K1** (pin 3), **K2** (pin 4), **K3** (pin 5),
-**K4** (pin 6), **K5** (pin 7).
+Free relay channels: **K1** (pin 3), **K2** (pin 4), **K3** (pin 5).
+K6 remains unusable — no Arduino pin is wired to IN6.
 
 | Device | Inference marker pin | Relay link | Mux link |
 |---|---|---|---|
 | esp32 | GPIO4 | TODO | TODO |
-| esp32s3 | GPIO4 | TODO | TODO |
-| esp32c6 | GPIO4 | TODO | TODO |
 | stm32f411ve | PB0 | TODO | TODO |
 | nrf52840 | D0 → P0.03 (+ GND→GND, VDD→VDD) | TODO | TODO |
 | coral dev micro | J9/J10 | TODO | TODO |
