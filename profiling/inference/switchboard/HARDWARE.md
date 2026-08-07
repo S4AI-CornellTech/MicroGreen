@@ -48,10 +48,65 @@ Relay contact convention: each `K_n NO` goes to exactly one DUT power input
 | pico (pico W) | GP15 | Arduino 8 → IN7 → `K7 NO` → pico 3V3 | `C0` ← GP15 |
 | esp32c6 | GPIO4 | Arduino 7 → IN5 → `K5 NO` → esp32c6 3V3 | `C1` ← GPIO4 |
 | esp32s3 | GPIO4 | Arduino ~6 → IN4 → `K4 NO` → esp32s3 3V3 | `C2` ← GPIO4 (**unverified**) |
+| esp32 | GPIO4 | Arduino ~5 → IN3 → `K3 NO` → esp32 3V3 | `C3` ← GPIO4 |
+| nrf52840 | **P0.03** | two relays across P22, see §1.1 | `C6` ← P0.03 |
 
 > Relay wiring and mux channel are independent facts — the mux only routes the
 > marker signal, so re-doing the power side never changes a mux channel (and
 > vice versa). Keep them in separate columns when transcribing.
+
+> **The marker pin is whatever the FIRMWARE drives, not what a wiring doc says.**
+> This table claimed the STM32 marker was `PB0` for a long time; the firmware
+> actually drove **PE6** (`MARKER_PIN`/`MARKER_GPIO_PORT` in `stm32/src/main.h`),
+> and `GPIOB` appeared nowhere in that project. The wire sat on PB0, the marker
+> read permanently idle, and the capture looked exactly like a board that had
+> failed to boot — it cost a full debugging cycle. The nRF52840's `P0.03` was
+> checked against `nrf52/src/main.cpp` (`MARKER_PORT`/`MARKER_BIT`) *before*
+> wiring, and read 15 clean pulses first try. Check the firmware header before
+> trusting any row in this column.
+
+### 1.1 nrf52840 — two relays across the P22 current header
+
+The nRF52840 DK has no supply pin to switch. Its MCU is fed through the P22
+current-measurement header, so it needs two relays that must never close together:
+
+| Relay | Arduino | Role | COM | NO |
+|---|---|---|---|---|
+| **K1** | 3 → IN1 | measure | PPK2 **VOUT** | P22 pin B (MCU side) |
+| **K2** | 4 → IN2 | flash | P22 pin A (supply side) | P22 pin B |
+
+Plus `P22 pin A → PPK2 VIN` and `PPK2 GND → board GND`. The physical P22 jumper
+stays **off** — K2 is what re-makes it.
+
+- `SEL nrf52840` closes K1: `pin A → VIN → shunt → VOUT → K1 → pin B`, and the
+  PPK2 meters MCU current in **ampere mode** while the board runs on its own USB.
+- `FLASH nrf52840` closes K2: pin A bridges to pin B, the MCU runs on the board
+  supply, and J-Link can program it.
+- Neither closed → P22 open → MCU unpowered. This is the rest state, which is why
+  the board is dark until a mode is selected, and why flashing has to happen
+  *after* the selector opens in `run_measurement()` — see `ARDUINO_FLASH_JUMPER`.
+
+The interlock is structural: both paths call `powerOffAll()` first, so at most one
+contact is ever made. **`pin A → VIN` is the wire to double-check** — without it
+the ammeter has no input side and reads exactly `0.000 mA` while source mode still
+works, a confusing pair of symptoms that cost a debugging cycle on the previous
+board in this slot.
+
+> **This slot previously held stm32f411ve** on identical wiring (JP2 instead of
+> P22, marker PE6 instead of P0.03, ST-Link/OpenOCD instead of J-Link). It was
+> swapped out because the desktop cannot build STM32 firmware — PlatformIO's
+> registry is DNS-sinkholed by the network whitelist, so the `ststm32` platform
+> cannot be installed and binaries had to be built on another machine and staged.
+> `nordicnrf52` **is** installed, so the nRF52840 builds and flashes locally in
+> ~5 s with no staging step. The STM32 rows already in `results_summary.csv` were
+> taken on that earlier wiring.
+
+> **The nRF52840 is the only board measured in ampere mode.** Its rows in
+> `results_summary.csv` are MCU current through P22 with the rest of the board
+> live on USB; every other board is source mode, measuring the whole 3V3 rail.
+> Nothing in the summary CSV records which mode produced a row, so don't compare
+> nrf52 (or the older stm32 rows) against pico/ESP energy figures without
+> accounting for that.
 
 **The ESP boards read ~0 mA unless their USB hub port is cut first.** Their
 onboard LDO holds the 3V3 rail up from USB 5V, so the PPK2 sources nothing and
@@ -68,21 +123,60 @@ These need the same three links each, physically wired and then uncommented in
 `relay IN_x ↔ Arduino pin`, `relay K_x NO ↔ device 3V3`,
 `mux C_y ↔ device inference-marker pin`.
 
-Free relay channels: **K1** (pin 3), **K2** (pin 4), **K3** (pin 5).
-K6 remains unusable — no Arduino pin is wired to IN6.
+**No relay channel is free.** K1/K2 are the nRF52840 pair (§1.1), K3/K4/K5 the
+ESPs, K7/K8 the picos. K6 is the only one left and it is dead — no Arduino pin is
+wired to IN6. To add another board, run a wire from a spare Arduino pin (pin 2 is
+free) to IN6 and add it to `RELAY_IN_PINS`.
 
 | Device | Inference marker pin | Relay link | Mux link |
 |---|---|---|---|
-| esp32 | GPIO4 | TODO | TODO |
-| stm32f411ve | PB0 | TODO | TODO |
-| nrf52840 | D0 → P0.03 (+ GND→GND, VDD→VDD) | TODO | TODO |
-| coral dev micro | J9/J10 | TODO | TODO |
+| stm32f411ve | PE6 | was K1/K2; displaced by nrf52840 | was `C6` |
+| coral dev micro | J9/J10 | TODO — needs K6 wired | TODO |
 
-Note the nRF52840 is the odd one out — it needs 3 wires (marker signal, GND
-reference, VDD reference) rather than just a signal line into the mux. Worth
-double-checking whether the mux channel input can tolerate that VDD tie or
-whether it's only there to level-shift the marker signal; don't wire VDD into
-the mux channel pin itself unless you've confirmed that's what it's for.
+An earlier note here claimed the nRF52840 needed three wires into the mux (marker
+signal, GND reference, VDD reference) and flagged the VDD tie as unconfirmed.
+**That turned out not to be needed.** A single `P0.03 → mux C6` line reads 15
+clean marker pulses, with only `PPK2 GND → board GND` and `P22 pin A → PPK2 VIN`
+on the power side. Nothing is wired into a mux channel except the marker itself.
+
+## 1.2 udev rules — required, and easy to lose
+
+USB probes are `root root` by default on the measurement desktop, so a normal
+user cannot open them and **every** tool fails identically with
+`LIBUSB_ERROR_ACCESS`. This is a machine-level prerequisite that no amount of
+software changes can work around, and it is invisible until something fails
+confusingly — chasing it once already cost a debugging cycle on "why can't we
+flash the STM32", where the answer had nothing to do with the flashing tool.
+
+`/etc/udev/rules.d/99-microgreen-probes.rules`:
+
+```
+# ST-LINK/V2 (STM32F411E-DISCO). Without this, st-flash AND OpenOCD both fail.
+SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+# ST-LINK/V2-1 and V3, for a swapped-in board later.
+SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374f", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+# Nordic PPK2. Needed for `usbreset 1915:c00a` to recover it without a replug.
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1915", ATTRS{idProduct}=="c00a", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+```
+
+```bash
+sudo cp 99-microgreen-probes.rules /etc/udev/rules.d/
+sudo udevadm control --reload-rules && sudo udevadm trigger
+# then replug the device (or power-cycle its hub port) so it re-enumerates
+```
+
+The user must be in `plugdev`. Verify with `ls -l /dev/bus/usb/<bus>/<dev>` —
+group should read `plugdev`, not `root`. Pico, J-Link and Coral already have
+their own rules (`99-picotool.rules`, `99-jlink.rules`, `99-coral-micro.rules`),
+which is exactly why those boards worked while the ST-Link and PPK2 did not.
+
+**The PPK2 rule matters beyond flashing.** The PPK2 can wedge in continuous
+streaming mode if a run dies without sending `AVERAGE_STOP`; it then floods the
+port with binary samples and every reconnect dies on a UTF-8 decode error inside
+`ppk2_api._read_metadata()`. It ignores commands in that state, so the only
+recovery is a power cycle — `usbreset 1915:c00a` with this rule in place, or a
+physical replug without it.
 
 ## 2. Relay board trigger polarity — CONFIRMED ACTIVE-LOW
 

@@ -10,6 +10,9 @@
 //                      then "OK"
 //   STATUS          -> "<name>" if a device is selected, else "OFF"
 //   SEL <name>      -> break-before-make switch; "OK <name>" or "ERR unknown <name>"
+//   FLASH <name>    -> close that device's jumper relay instead of its
+//                      measurement relay, so it runs on its own supply while
+//                      being flashed; "OK FLASH <name>" or "ERR no-jumper <name>"
 //   OFF             -> de-energize all channels; "OK OFF"
 //   (anything else) -> "ERR bad-command"
 
@@ -41,6 +44,7 @@ static const uint16_t RELAY_MAKE_MS       = 20; // contact close + bounce before
 static const uint16_t MUX_SETTLE_MS       = 2; // token deounce delay for the mux to settle
 
 static int8_t g_current = -1;  // index of DEVICES, or -1 if "all off"
+static bool   g_flashMode = false;  // true if g_current is held via FLASH, not SEL
 
 // Low-level helper functions
 // Drive one relay IN line to the requested logical state
@@ -59,6 +63,7 @@ static void powerOffAll() {
     relayWrite(RELAY_IN_PINS[i], false);
   }
   g_current = -1;
+  g_flashMode = false;
 }
 
 // Point the mux common at the given channel.
@@ -77,6 +82,22 @@ static void selectDevice(int8_t idx) {
   relayWrite(DEVICES[idx].relayPin, true);
   delay(RELAY_MAKE_MS);              // don't ACK until the contact has actually closed
   g_current = idx;
+  g_flashMode = false;
+}
+
+// Close a device's jumper relay instead of its measurement relay, so the board
+// runs on its own supply (e.g. STM32 JP2 re-made for ST-Link flashing). Routed
+// through powerOffAll() exactly like selectDevice(), which is what guarantees
+// the measurement relay is open first -- on the STM32 those two relays bridge
+// opposite sides of JP2, and closing both would tie the PPK2 output to the
+// board's own rail.
+static void flashDevice(int8_t idx) {
+  powerOffAll();
+  delay(POWER_OFF_SETTLE_MS);
+  relayWrite(DEVICES[idx].jumperPin, true);
+  delay(RELAY_MAKE_MS);
+  g_current = idx;
+  g_flashMode = true;
 }
 
 static int8_t findDevice(const char* name) {
@@ -106,7 +127,12 @@ static void handleLine(char* line) {
     Serial.println("OK");
 
   } else if (strcmp(line, "STATUS") == 0) {
-    Serial.println(g_current < 0 ? "OFF" : DEVICES[g_current].name);
+    if (g_current < 0) {
+      Serial.println("OFF");
+    } else {
+      Serial.print(DEVICES[g_current].name);
+      Serial.println(g_flashMode ? " FLASH" : "");
+    }
 
   } else if (strcmp(line, "SEL") == 0) {
     if (!arg) { Serial.println("ERR missing-arg"); return; }
@@ -114,6 +140,20 @@ static void handleLine(char* line) {
     if (idx < 0) { Serial.print("ERR unknown "); Serial.println(arg); return; }
     selectDevice(idx);               // ACKs on physical completion, below
     Serial.print("OK ");
+    Serial.println(DEVICES[idx].name);
+
+  } else if (strcmp(line, "FLASH") == 0) {
+    if (!arg) { Serial.println("ERR missing-arg"); return; }
+    int8_t idx = findDevice(arg);
+    if (idx < 0) { Serial.print("ERR unknown "); Serial.println(arg); return; }
+    if (DEVICES[idx].jumperPin == NO_PIN) {
+      // Refuse rather than fall back to SEL: on a board with no jumper relay,
+      // "flash mode" would silently mean "powered from the PPK2", which is the
+      // opposite of what the caller asked for.
+      Serial.print("ERR no-jumper "); Serial.println(arg); return;
+    }
+    flashDevice(idx);
+    Serial.print("OK FLASH ");
     Serial.println(DEVICES[idx].name);
 
   } else if (strcmp(line, "OFF") == 0) {
