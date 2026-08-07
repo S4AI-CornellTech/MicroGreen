@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-CONFIG_ESP32_DEFAULT_CPU_FREQ_MHZ=240
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_160=y
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ=160
 CONFIG_FLASHMODE_QIO=y
 CONFIG_ESPTOOLPY_FLASHFREQ_80M=y
 CONFIG_INT_WDT=
