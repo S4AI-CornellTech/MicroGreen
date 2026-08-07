@@ -113,9 +113,7 @@ void tflite_model_task(void *pvParameters)
     int64_t setup_time = current_time - program_start_time;
     printf("Setup takes: %lld microseconds\n", setup_time);
 
-    // Marker pin for per-inference energy measurement (see MARKER_PIN above).
-    // gpio_reset_pin() detaches any boot-time IO-MUX function/pulls so the pin
-    // is a clean GPIO before we drive it (required on some pins/targets).
+    // Marker pin for per-inference energy measurement
     gpio_reset_pin(MARKER_PIN);
     gpio_set_direction(MARKER_PIN, GPIO_MODE_OUTPUT);
     gpio_set_level(MARKER_PIN, 0);
@@ -132,19 +130,7 @@ void tflite_model_task(void *pvParameters)
         {
             printf("\n--- Completed %d inferences, entering sleep cycle ---\n", inference_count);
             // Reprint the model identity periodically, not just in the boot
-            // banner. On native-USB parts (esp32s3, esp32c6) the USB-Serial/JTAG
-            // is on-chip: the banner is printed ~300ms into boot, about a second
-            // before the host finishes enumerating, so it is lost -- opening the
-            // port 0.90s after power-on already finds the board mid-inference.
-            // That left the host unable to confirm WHICH firmware is running,
-            // and an ESP flash can silently fail to take effect while esptool
-            // still reports "Hash of data verified". Observed: a
-            // person_detection run measured kws_large, recording 23 inferences
-            // of 144.713 ms under the wrong workload name.
-            //
-            // Printed here, in the status block, so it stays outside the marker
-            // window and cannot affect per-inference energy.
-            // flash_device.verify_esp_model() parses this line.
+            // banner. flash_device.verify_esp_model() parses this line.
             printf("Model: %s\n", ModelConfig::GetModelName());
             printf("Average memcpy time: %.2f microseconds\n", (float)total_memcpy_time / 10);
             printf("Average inference time: %.2f microseconds\n", (float)total_inference_time / 10);

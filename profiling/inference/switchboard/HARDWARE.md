@@ -47,7 +47,7 @@ Relay contact convention: each `K_n NO` goes to exactly one DUT power input
 | pico2 | GP15 | Arduino ~9 → IN8 → `K8 NO` → pico2 3V3 | `C7` ← GP15 |
 | pico (pico W) | GP15 | Arduino 8 → IN7 → `K7 NO` → pico 3V3 | `C0` ← GP15 |
 | esp32c6 | GPIO4 | Arduino 7 → IN5 → `K5 NO` → esp32c6 3V3 | `C1` ← GPIO4 |
-| esp32s3 | GPIO4 | Arduino ~6 → IN4 → `K4 NO` → esp32s3 3V3 | `C2` ← GPIO4 (**unverified**) |
+| esp32s3 | GPIO4 | Arduino ~6 → IN4 → `K4 NO` → esp32s3 3V3 | `C2` ← GPIO4 |
 | esp32 | GPIO4 | Arduino ~5 → IN3 → `K3 NO` → esp32 3V3 | `C3` ← GPIO4 |
 | nrf52840 | **P0.03** | two relays across P22, see §1.1 | `C6` ← P0.03 |
 
@@ -177,6 +177,73 @@ port with binary samples and every reconnect dies on a UTF-8 decode error inside
 `ppk2_api._read_metadata()`. It ignores commands in that state, so the only
 recovery is a power cycle — `usbreset 1915:c00a` with this rule in place, or a
 physical replug without it.
+
+## 1.3 USB / host-side topology
+
+The relay board decides which DUT the PPK2 *measures*. The managed USB hub
+decides which DUT is *reachable and powered over USB*, and the pipeline switches
+it during every run. Both halves are wiring, but until now only the relay half
+was written down — the rest lived in `config.py`, where nothing signals that
+those values describe physical cabling.
+
+### Managed hub — CG-10PU3MGD, driven by `cusbi`
+
+Control port: `/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_BG02IUC3-if00-port0`
+(`cfg.HUB_TTY`; `cusbi` needs the bare `ttyUSBn`, hence the by-id → name
+resolution in config).
+
+| hub port | device | cut during measurement? |
+|---|---|---|
+| 1 | esp32c6 | yes — stays off (source mode) |
+| 2 | esp32s3 | yes — stays off (source mode) |
+| 3 | esp32 | yes — stays off (source mode) |
+| 4 | nrf52 | cut only across the relay switchover, then restored (ampere mode) |
+| 5 | stm32 | (board no longer on the rig) |
+| 6 | pico | no |
+| 7 | pico2 | no |
+
+**These port numbers must match the physical cabling**, and only the three ESPs
+can detect a mismatch: `assert_usb_isolated()` works by watching a
+`/dev/serial/by-id` path disappear, and only the ESPs have one. Re-cable the hub
+and a pico or the nRF52 will fail silently.
+
+### Board USB identities
+
+| device | identifier |
+|---|---|
+| Arduino selector | serial `3433031333135121F161` → `/dev/ttyACM7` |
+| pico | `E6613852835A192C` |
+| pico2 | `7FB0267DB5673E77` |
+| esp32c6 | `usb-Espressif_USB_JTAG_serial_debug_unit_9C:9E:6E:43:8A:DC-if00` |
+| esp32s3 | `usb-Espressif_USB_JTAG_serial_debug_unit_F0:F5:BD:76:F2:E0-if00` |
+| esp32 | `usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0` |
+| nrf52840 | flashed over its onboard J-Link; hub port 4 must be ON to flash |
+
+Note esp32 is behind a **CP2102 bridge** while esp32c6/esp32s3 use **on-chip
+USB-Serial/JTAG**. That distinction is not cosmetic: the bridge stays enumerated
+across a chip reset, so the esp32 emits a readable boot banner, whereas on the
+native-USB parts the banner is printed ~300ms into boot — about a second before
+the host finishes enumerating — and is lost. Measured: opening the port 0.90s
+after power-on already finds the board at "Inference 3". That is why the firmware
+reprints `Model: <name>` periodically (MicroGreen 454786c) rather than relying on
+the banner.
+
+### The PPK2 is NOT on the managed hub
+
+It sits on **root-hub port 5** (`/sys/bus/usb/devices/1-5`, `1915:c00a`, serial
+`E452997748E8`). `cusbi` cannot power-cycle it. When it wedges in streaming mode
+(§1.2) recovery is `usbreset 1915:c00a` — which is only possible because of the
+udev rule; before that it needed a physical replug.
+
+### The PPK2 logic reference depends on pico2
+
+`PPK2 Logic port VCC → pico2 3V3` (§1). That reference is what lets the logic
+port decide a marker is HIGH, and **every board's marker decoding depends on it**,
+not just pico2's. During any other board's measurement K8 is open, so pico2's 3V3
+is held up solely by its own USB — which is why pico2 is deliberately absent from
+`HUB_OFF_FOR_MEASURE`. Cut hub port 7 and markers stop decoding fleet-wide, with
+no error to explain it. If pico2 is ever removed from the rig, move the logic
+reference to a board that stays powered.
 
 ## 2. Relay board trigger polarity — CONFIRMED ACTIVE-LOW
 
