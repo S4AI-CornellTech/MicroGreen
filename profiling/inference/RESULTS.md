@@ -107,11 +107,11 @@ These table capture the energy to startup and run 10 inferences.
 | stmf411ve | 45.724        | 13.933         | 26.744          | 45.978       | 2102.327        |
 
 ## Inference Power
-We cycle for 10 infernces and capture aggregate stats
+We cycle for 10 inferences and capture aggregate stats
 
 ### KWSLarge
 
-| board     | active_time_s | avg_current_mA | peak_current_mA | avg_power_mW | total_energy_mJ | inferences_in_sample | avg_infernce_duration_s | avg_inf_energy_mJ |
+| board     | active_time_s | avg_current_mA | peak_current_mA | avg_power_mW | total_energy_mJ | inferences_in_sample | avg_inference_duration_s | avg_inf_energy_mJ |
 |-----------|---------------|----------------|-----------------|--------------|-----------------|----------------------|-------------------------|-------------------|
 | esp32     | 19.922        | 52.240         | 71.352          | 172.391      | 3434.373        | 60                   | 0.332                   | 57.240            |
 | esp32C6   | 16.000        | 31.042         | 45.413          | 102.438      | 1639.041        | 60                   | 0.267                   | 27.317            |
@@ -123,7 +123,7 @@ We cycle for 10 infernces and capture aggregate stats
 
 ### KWSSmall
 
-| board     | active_time_s | avg_current_mA | peak_current_mA | avg_power_mW | total_energy_mJ | inferences_in_sample | avg_infernce_duration_s | avg_inf_energy_mJ |
+| board     | active_time_s | avg_current_mA | peak_current_mA | avg_power_mW | total_energy_mJ | inferences_in_sample | avg_inference_duration_s | avg_inf_energy_mJ |
 |-----------|---------------|----------------|-----------------|--------------|-----------------|----------------------|-------------------------|-------------------|
 | esp32     | 5.602         | 42.209         | 66.211          | 139.289      | 780.248         | 50                   | 0.112                   | 15.605            |
 | esp32C6   | 7.840         | 22.102         | 43.709          | 72.938       | 571.868         | 70                   | 0.112                   | 8.170             |
@@ -135,7 +135,7 @@ We cycle for 10 infernces and capture aggregate stats
 
 ### PersonDetection
 
-| board     | active_time_s | avg_current_mA | peak_current_mA | avg_power_mW | total_energy_mJ | inferences_in_sample | avg_infernce_duration_s | avg_inf_energy_mJ |
+| board     | active_time_s | avg_current_mA | peak_current_mA | avg_power_mW | total_energy_mJ | inferences_in_sample | avg_inference_duration_s | avg_inf_energy_mJ |
 |-----------|---------------|----------------|-----------------|--------------|-----------------|----------------------|-------------------------|-------------------|
 | esp32     | 19.861        | 54.188         | 69.883          | 178.821      | 3551.559        | 30                   | 0.662                   | 118.385           |
 | esp32C6   | 28.920        | 39.659         | 65.332          | 130.873      | 3784.893        | 60                   | 0.482                   | 63.082            |
@@ -147,7 +147,7 @@ We cycle for 10 infernces and capture aggregate stats
 
 ### VWW
 
-| board     | active_time_s | avg_current_mA | peak_current_mA | avg_power_mW | total_energy_mJ | inferences_in_sample | avg_infernce_duration_s | avg_inf_energy_mJ |
+| board     | active_time_s | avg_current_mA | peak_current_mA | avg_power_mW | total_energy_mJ | inferences_in_sample | avg_inference_duration_s | avg_inf_energy_mJ |
 |-----------|---------------|----------------|-----------------|--------------|-----------------|----------------------|-------------------------|-------------------|
 | esp32     | 43.322        | 54.085         | 69.148          | 178.481      | 7732.153        | 60                   | 0.722                   | 128.869           |
 | esp32C6   | 36.540        | 39.361         | 63.052          | 129.892      | 4746.303        | 70                   | 0.522                   | 67.804            |
