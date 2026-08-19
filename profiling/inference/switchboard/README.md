@@ -125,7 +125,7 @@ bootloader.
 scp /tmp/ard_build/switch_controller.ino.hex s4ai@10.56.252.43:/tmp/
 ```
 
-### Step 3: flash with avrdude
+### Step 3: flash with arduino
 
 ```bash
 ssh s4ai@10.56.252.43

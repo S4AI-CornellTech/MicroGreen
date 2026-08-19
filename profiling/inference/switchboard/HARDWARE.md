@@ -1,23 +1,15 @@
-# Relay Switch Board + Mux Controller — Wiring Reference & Implementation Notes
-
-> Physical build notes for the fleet selector. The firmware in
-> [firmware/switch_controller/](firmware/switch_controller/) encodes some of these
-> facts (trigger polarity, mux width, device table) — keep the two in sync.
->
-> **The MOSFET switch board was replaced with an 8-channel relay module.** §2 and
-> the timing notes in §3 changed with it; the relay switches only the high side,
-> where the MOSFET board switched both rails.
+# Wiring Reference & Implementation Notes
 
 ## 1. Confirmed wiring
 
 ### Power / measurement chain
 | From | Pin | To | Pin |
 |---|---|---|---|
-| PPK2 | VOUT | Relay board | COM — **all** channels (the relay power bus) |
-| PPK2 | GND | Shared DUT ground bus | (not through the relay) |
+| PPK2 | VOUT | Relay board | all COM pins (achieved through daisy chain) |
+| PPK2 | GND | Shared DUT ground bus | GND |
 | PPK2 | D0 (logic port channel 0) | Analog/Digital mux | SIG (signal/common) |
-| PPK2 | Logic port VCC | pico2 | 3V3 |
-| PPK2 | Logic port GND | pico2 | GND |
+| PPK2 | Logic port VCC | Arduino | 3V3 |
+| PPK2 | Logic port GND | Arduino | GND |
 
 Relay contact convention: each `K_n NO` goes to exactly one DUT power input
 (3V3 / VSYS). **`NC` is left unconnected** on every channel.
@@ -39,9 +31,9 @@ Relay contact convention: each `K_n NO` goes to exactly one DUT power input
 | Arduino | GND | Mux | GND |
 
 > **IN6 is not wired** — no Arduino pin drives it, so relay K6 is unusable until a
-> wire is added. Don't assign a device to K6.
+> wire is added. 
 
-### Per-device (confirmed only)
+### Per-device
 | Device | Inference marker pin | Relay link | Mux channel |
 |---|---|---|---|
 | pico2 | GP15 | Arduino ~9 → IN8 → `K8 NO` → pico2 3V3 | `C7` ← GP15 |
@@ -49,21 +41,10 @@ Relay contact convention: each `K_n NO` goes to exactly one DUT power input
 | esp32c6 | GPIO4 | Arduino 7 → IN5 → `K5 NO` → esp32c6 3V3 | `C1` ← GPIO4 |
 | esp32s3 | GPIO4 | Arduino ~6 → IN4 → `K4 NO` → esp32s3 3V3 | `C2` ← GPIO4 |
 | esp32 | GPIO4 | Arduino ~5 → IN3 → `K3 NO` → esp32 3V3 | `C3` ← GPIO4 |
-| nrf52840 | **P0.03** | two relays across P22, see §1.1 | `C6` ← P0.03 |
+| nrf52840 | P0.03 | two relays across P22, see §1.1 | `C6` ← P0.03 |
 
-> Relay wiring and mux channel are independent facts — the mux only routes the
-> marker signal, so re-doing the power side never changes a mux channel (and
-> vice versa). Keep them in separate columns when transcribing.
-
-> **The marker pin is whatever the FIRMWARE drives, not what a wiring doc says.**
-> This table claimed the STM32 marker was `PB0` for a long time; the firmware
-> actually drove **PE6** (`MARKER_PIN`/`MARKER_GPIO_PORT` in `stm32/src/main.h`),
-> and `GPIOB` appeared nowhere in that project. The wire sat on PB0, the marker
-> read permanently idle, and the capture looked exactly like a board that had
-> failed to boot — it cost a full debugging cycle. The nRF52840's `P0.03` was
-> checked against `nrf52/src/main.cpp` (`MARKER_PORT`/`MARKER_BIT`) *before*
-> wiring, and read 15 clean pulses first try. Check the firmware header before
-> trusting any row in this column.
+> Relay wiring and mux channel are independent. The mux only routes the
+> marker signal. While the relay wiring is for powering the DUT.
 
 ### 1.1 nrf52840 — two relays across the P22 current header
 
