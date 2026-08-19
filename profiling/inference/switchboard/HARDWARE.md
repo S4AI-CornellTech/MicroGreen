@@ -216,15 +216,25 @@ It sits on **root-hub port 5** (`/sys/bus/usb/devices/1-5`, `1915:c00a`, serial
 (§1.2) recovery is `usbreset 1915:c00a` — which is only possible because of the
 udev rule; before that it needed a physical replug.
 
-### The PPK2 logic reference depends on pico2
+### The PPK2 logic reference comes from the Arduino
 
-`PPK2 Logic port VCC → pico2 3V3` (§1). That reference is what lets the logic
-port decide a marker is HIGH, and **every board's marker decoding depends on it**,
-not just pico2's. During any other board's measurement K8 is open, so pico2's 3V3
-is held up solely by its own USB — which is why pico2 is deliberately absent from
-`HUB_OFF_FOR_MEASURE`. Cut hub port 7 and markers stop decoding fleet-wide, with
-no error to explain it. If pico2 is ever removed from the rig, move the logic
-reference to a board that stays powered.
+`PPK2 Logic port VCC → Arduino 3V3` and `Logic port GND → Arduino GND` (§1).
+This is a level reference, not a supply, and it draws almost no current. It is
+what lets the logic port decide a marker is HIGH, so **every board's marker
+decoding depends on it**, not just one board's.
+
+The reference must not come from the board being measured. During a capture that
+board's 3V3 rail is exactly what the PPK2 is sourcing and metering, so tapping
+the reference there would fold the reference current into the measurement, and
+the reference would disappear whenever that board's relay is open. The Arduino
+avoids both problems: it is powered whenever the rig is in use, it is never a
+DUT, and it is never relay-switched. It already supplies 3.3 V to the mux, so
+the same rail is known to be present at the right level.
+
+This reference previously ran to `pico2 3V3`, which made every board's marker
+decoding depend on one DUT staying plugged in. Cutting hub port 7 stopped
+markers decoding fleet-wide with no error to explain it. Moving both leads to
+the Arduino removed that coupling.
 
 ## 2. Relay board trigger polarity — CONFIRMED ACTIVE-LOW
 
