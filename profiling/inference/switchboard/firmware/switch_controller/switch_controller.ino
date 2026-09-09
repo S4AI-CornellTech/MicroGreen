@@ -1,7 +1,7 @@
-// switch_controller.ino — Arduino Uno R3 fleet power/marker selector.
+// switch_controller.ino 
 //
-// Purpose: pick exactly one DUT at a time by (a) powering it through the relay
-// board and (b) connecting its inference-marker pin through the mux into the
+// Pick exactly one DUT at a time by powering it through the relay
+// board and connecting its inference-marker pin through the mux into the
 // PPK2 SIG line
 //
 // Serial protocol (115200 baud, newline-terminated, ASCII):
@@ -18,14 +18,7 @@
 
 #include "device_table.h"
 
-// Relay board trigger polarity: 0 = active-LOW. Confirmed from the SainSmart-style
-// board's input spec: 0V-0.5V = relay ON, 2.5V-5V = relay OFF. So LOW energizes
-// the coil (closing NO) and HIGH releases it.
-//
-// This is also the fail-safe direction: the IN lines idle HIGH through their
-// onboard pull-ups during the Arduino's reset window, which must mean "all
-// devices off". setup() drives every IN pin HIGH before anything else, and
-// selectDevice() only ever pulls one pin LOW at a time.
+// Relay board trigger polarity: 0 = active-LOW
 #define RELAY_ACTIVE_HIGH 0
 
 // Mux address width (drives only S0-S2 from the Arduino, S3 pin is tied to GND)
@@ -34,11 +27,6 @@
 // Arduino pins driving the mux: S0=12, S1=11, S2=10.
 static const uint8_t MUX_ADDR_PINS[4] = { 12, 11, 10, 0xFF };
 
-// Relay contacts are mechanical, so unlike the old MOSFET board these delays
-// cover coil travel and contact bounce, not just electrical settling:
-//   power-off: coil release (~5-10ms) + rail discharge through the DUT's caps
-//   relay-make: coil pull-in (~10ms) + contact bounce, before we ACK
-//   mux:       propagation is ~ns, only a token debounce delay is needed
 static const uint16_t POWER_OFF_SETTLE_MS = 150; // waiting for rails to discharge
 static const uint16_t RELAY_MAKE_MS       = 20; // contact close + bounce before ACK
 static const uint16_t MUX_SETTLE_MS       = 2; // token deounce delay for the mux to settle
@@ -46,7 +34,6 @@ static const uint16_t MUX_SETTLE_MS       = 2; // token deounce delay for the mu
 static int8_t g_current = -1;  // index of DEVICES, or -1 if "all off"
 static bool   g_flashMode = false;  // true if g_current is held via FLASH, not SEL
 
-// Low-level helper functions
 // Drive one relay IN line to the requested logical state
 static inline void relayWrite(uint8_t pin, bool on) {
 #if RELAY_ACTIVE_HIGH
@@ -56,8 +43,7 @@ static inline void relayWrite(uint8_t pin, bool on) {
 #endif
 }
 
-// Force every wired channel OFF — walks the wiring, not DEVICES, so relays with
-// no device assigned are released too. The fail-safe primitive; safe anytime.
+// Force every wired channel off
 static void powerOffAll() {
   for (uint8_t i = 0; i < RELAY_IN_COUNT; i++) {
     relayWrite(RELAY_IN_PINS[i], false);
@@ -86,11 +72,7 @@ static void selectDevice(int8_t idx) {
 }
 
 // Close a device's jumper relay instead of its measurement relay, so the board
-// runs on its own supply (e.g. STM32 JP2 re-made for ST-Link flashing). Routed
-// through powerOffAll() exactly like selectDevice(), which is what guarantees
-// the measurement relay is open first -- on the STM32 those two relays bridge
-// opposite sides of JP2, and closing both would tie the PPK2 output to the
-// board's own rail.
+// runs on its own supply (e.g. STM32 JP2 re-made for ST-Link flashing). 
 static void flashDevice(int8_t idx) {
   powerOffAll();
   delay(POWER_OFF_SETTLE_MS);
@@ -108,7 +90,6 @@ static int8_t findDevice(const char* name) {
 }
 
 // Serial command handling 
-
 static void handleLine(char* line) {
   // Split into command and (optional) argument on the first space.
   char* sp  = strchr(line, ' ');
@@ -167,15 +148,9 @@ static void handleLine(char* line) {
 
 // Arduino entry points
 void setup() {
-  // Drive everything to the fail-safe OFF state BEFORE anything else, so we
-  // don't energize the fleet during the pin-undefined window
   for (uint8_t i = 0; i < RELAY_IN_COUNT; i++) {
-    // Set the level BEFORE switching the pin to OUTPUT. On AVR every PORT bit
-    // is 0 at reset, so pinMode(OUTPUT) first would drive the IN line LOW —
-    // i.e. relay ON — until the next instruction pulls it HIGH. Writing HIGH
-    // while the pin is still an input enables the internal pull-up (holding
-    // the line high), and pinMode then carries that PORT bit over and drives
-    // HIGH directly, so there is no ON window at all.
+    // Set the level before switching the pin to OUTPUT. On avg every port bit
+    // is 0 at reset, so pinMode(OUTPUT) first would drive the IN line low
     relayWrite(RELAY_IN_PINS[i], false);
     pinMode(RELAY_IN_PINS[i], OUTPUT);
   }
