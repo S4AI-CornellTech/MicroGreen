@@ -103,6 +103,26 @@ The `database/` directory contains per-MCU inference latency and power measureme
 
 ---
 
+### Citation
+
+If you use this framework in your research, please cite our [MobiSys '26 paper](https://dl.acm.org/doi/10.1145/3745756.3809201):
+
+```bibtex
+@inproceedings{chen2026greener,
+  title     = {A Greener Edge: A Framework on Carbon-aware Edge ML System Design},
+  author    = {Chen, Xuesi and Mandel, Ilan and Yildiz, Eren and Hester, Josiah and Gupta, Udit},
+  booktitle = {Proceedings of the 24th Annual International Conference on Mobile Systems, Applications and Services},
+  series    = {MobiSys '26},
+  pages     = {231--246},
+  year      = {2026},
+  publisher = {ACM},
+  doi       = {10.1145/3745756.3809201},
+  url       = {https://doi.org/10.1145/3745756.3809201}
+}
+```
+
+---
+
 ### License
 
 This project is licensed under the MIT License. See the LICENSE file for full details.
